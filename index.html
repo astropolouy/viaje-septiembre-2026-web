@@ -657,7 +657,7 @@
       </div>
       <div class="guide-step">
         <strong><span class="guide-num">2</span>Elegir hoteles</strong>
-        <p class="small">El costo de hotel es por habitacion. Booking abre ficha directa; Airbnb queda como busqueda.</p>
+        <p class="small">El costo de hotel es por habitacion. Booking abre ficha directa; Airbnb queda como busqueda con fechas.</p>
       </div>
       <div class="guide-step">
         <strong><span class="guide-num">3</span>Mirar total</strong>
@@ -721,8 +721,11 @@
         <h2>Alojamientos por ciudad</h2>
         <p class="hint">
           Criterio usado: zona turistica razonable, movimiento de noche, puntaje 8+ y muchas reviews cuando fue posible.
-          Mantener como filtro final: habitacion con baño privado y aire acondicionado visible antes de reservar. Estos precios son por habitacion/estadia, no por persona.
+          Mantener como filtro final: habitacion con baño privado y aire acondicionado visible antes de reservar. Booking abre la ficha de la propiedad; Airbnb abre busqueda con fechas porque no tenemos URL directa/listing ID.
         </p>
+        <div class="warning">
+          <strong>Links de alojamiento:</strong> Booking puede limpiar las fechas al cargar la ficha, asi que revisen manualmente el rango indicado en cada ciudad. Airbnb no queda fijado a una propiedad concreta hasta que elijan un anuncio y copien su URL directa.
+        </div>
         <div id="lodging-root"></div>
       </section>
 
@@ -1028,25 +1031,25 @@
         {
           id: "budapest-airbnb-karoly",
           source: "Airbnb",
-          tier: "Airbnb 1",
-          name: "Karoly Korut 9 - Brand New Flat",
+          tier: "Busqueda Airbnb 1",
+          name: "Busqueda Airbnb: Distrito V/VII",
           price: 379,
           score: "4.92",
           reviews: "361",
           area: "Distrito V / VII",
-          note: "Muy buen precio para 5 noches. Revisar cancelacion, AC y escalera/ascensor.",
+          note: "No es ficha directa: abre una busqueda con fechas para encontrar opciones similares. Revisar cancelacion, AC y escalera/ascensor.",
           link: airbnbLink("budapest", "Karoly Korut 9 Brand New Flat")
         },
         {
           id: "budapest-airbnb-riva",
           source: "Airbnb",
-          tier: "Airbnb 2",
-          name: "Riva Studio 2",
+          tier: "Busqueda Airbnb 2",
+          name: "Busqueda Airbnb: barrio judio",
           price: 427,
           score: "4.8+",
           reviews: "Revisar",
           area: "Barrio judio / Distrito VII",
-          note: "Buena zona para comer y moverse de noche. Validar reviews actuales.",
+          note: "No es ficha directa: abre busqueda con fechas. Buena zona para comer y moverse de noche; validar reviews actuales.",
           link: airbnbLink("budapest", "Riva Studio 2")
         }
       ]
@@ -1097,25 +1100,25 @@
         {
           id: "vienna-airbnb-neubau",
           source: "Airbnb",
-          tier: "Airbnb 1",
-          name: "Nice city flat - 7th district Neubau",
+          tier: "Busqueda Airbnb 1",
+          name: "Busqueda Airbnb: Neubau",
           price: 607,
           score: "4.86",
           reviews: "434",
           area: "Neubau",
-          note: "Zona con comida, movimiento y buen acceso al centro. Confirmar AC.",
+          note: "No es ficha directa: abre busqueda con fechas. Zona con comida, movimiento y buen acceso al centro; confirmar AC.",
           link: airbnbLink("vienna", "Nice city flat 7th district Neubau")
         },
         {
           id: "vienna-airbnb-mariahilf",
           source: "Airbnb",
-          tier: "Airbnb 2",
-          name: "Apartamento Mariahilf / Neubau",
+          tier: "Busqueda Airbnb 2",
+          name: "Busqueda Airbnb: Mariahilf / Neubau",
           price: 524,
           score: "4.8+",
           reviews: "Revisar",
           area: "Mariahilf / Neubau",
-          note: "Alternativa para buscar mejor precio que hotel central. Filtrar AC y ascensor.",
+          note: "No es ficha directa: abre busqueda con fechas. Alternativa para buscar mejor precio que hotel central; filtrar AC y ascensor.",
           link: airbnbLink("vienna", "Mariahilf Neubau apartment air conditioning")
         }
       ]
@@ -1166,25 +1169,25 @@
         {
           id: "prague-airbnb-charles",
           source: "Airbnb",
-          tier: "Airbnb 1",
-          name: "Bright cosy apt near Charles Bridge",
+          tier: "Busqueda Airbnb 1",
+          name: "Busqueda Airbnb: cerca Charles Bridge",
           price: 463,
           score: "4.90",
           reviews: "472",
           area: "Cerca Charles Bridge",
-          note: "Gran zona para fotografia temprano. Revisar ruido y escaleras.",
+          note: "No es ficha directa: abre busqueda con fechas. Gran zona para fotografia temprano; revisar ruido y escaleras.",
           link: airbnbLink("prague", "Bright cosy apartment near Charles Bridge")
         },
         {
           id: "prague-airbnb-oldtown",
           source: "Airbnb",
-          tier: "Airbnb 2",
-          name: "Residence Old Town Studio",
+          tier: "Busqueda Airbnb 2",
+          name: "Busqueda Airbnb: Old Town",
           price: 468,
           score: "4.8+",
           reviews: "Revisar",
           area: "Old Town",
-          note: "Comparable al hotel medio en precio, mejor si quieren cocina/lavado.",
+          note: "No es ficha directa: abre busqueda con fechas. Comparable al hotel medio en precio si quieren cocina/lavado.",
           link: airbnbLink("prague", "Residence Old Town Studio Prague")
         }
       ]
@@ -1235,25 +1238,25 @@
         {
           id: "krakow-airbnb-rajska",
           source: "Airbnb",
-          tier: "Airbnb 1",
-          name: "Rajska studio - Old Town",
+          tier: "Busqueda Airbnb 1",
+          name: "Busqueda Airbnb: Old Town / Rajska",
           price: 154,
           score: "4.96",
           reviews: "379",
           area: "Old Town",
-          note: "Buena opcion si prefieren apartamento y ubicacion central.",
+          note: "No es ficha directa: abre busqueda con fechas. Buena zona si prefieren apartamento y ubicacion central.",
           link: airbnbLink("krakow", "Rajska studio Old Town")
         },
         {
           id: "krakow-airbnb-oldtown",
           source: "Airbnb",
-          tier: "Airbnb 2",
-          name: "Old Town apartment",
+          tier: "Busqueda Airbnb 2",
+          name: "Busqueda Airbnb: Old Town / Kazimierz",
           price: 130,
           score: "4.8+",
           reviews: "Revisar",
           area: "Old Town / Kazimierz",
-          note: "Buscar con filtro de muchas reviews. En Cracovia Airbnb suele competir bien.",
+          note: "No es ficha directa: abre busqueda con fechas. Buscar con filtro de muchas reviews; en Cracovia Airbnb suele competir bien.",
           link: airbnbLink("krakow", "Old Town apartment air conditioning")
         }
       ]
@@ -1304,25 +1307,25 @@
         {
           id: "madrid-airbnb-centro",
           source: "Airbnb",
-          tier: "Airbnb 1",
-          name: "Apartamento centro economico",
+          tier: "Busqueda Airbnb 1",
+          name: "Busqueda Airbnb: centro economico",
           price: 294,
           score: "4.8+",
           reviews: "Revisar",
           area: "Sol / Gran Via / Lavapies",
-          note: "Mejor chance de bajar Madrid. Solo tomar si tiene muchas reviews y check-in facil.",
+          note: "No es ficha directa: abre busqueda con fechas. Mejor chance de bajar Madrid; tomar solo con muchas reviews y check-in facil.",
           link: airbnbLink("madrid", "central apartment private bathroom air conditioning")
         },
         {
           id: "madrid-airbnb-goya",
           source: "Airbnb",
-          tier: "Airbnb 2",
-          name: "Goya Centro Madrid",
+          tier: "Busqueda Airbnb 2",
+          name: "Busqueda Airbnb: Salamanca / Goya",
           price: 461,
           score: "4.86",
           reviews: "35",
           area: "Salamanca / Goya",
-          note: "Zona buena para compras. Pocas reviews para su regla, usar solo si les cierra todo.",
+          note: "No es ficha directa: abre busqueda con fechas. Zona buena para compras; usar solo si el anuncio concreto tiene suficientes reviews.",
           link: airbnbLink("madrid", "Goya Centro Madrid")
         }
       ]
@@ -1608,7 +1611,7 @@
       const rows = city.options.map(option => {
         const selected = state.lodging[city.id] === option.id;
         const sourceClass = option.source === "Booking" ? "booking" : "airbnb";
-        const linkLabel = option.source === "Booking" ? "ficha Booking" : "buscar";
+        const linkLabel = option.source === "Booking" ? "ficha Booking" : "buscar Airbnb";
         const perNight = Math.round(option.price / city.nights);
         return `
           <tr class="${selected ? "selected" : ""}">
