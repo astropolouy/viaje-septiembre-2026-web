@@ -1,0 +1,1790 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Presupuesto interactivo - Viaje septiembre 2026</title>
+  <style>
+    :root {
+      --ink: #20242d;
+      --muted: #657085;
+      --line: #dce2ea;
+      --soft: #f4f6f9;
+      --soft-2: #edf5f3;
+      --accent: #0f766e;
+      --accent-dark: #0b5c55;
+      --warn: #9a3412;
+      --warn-bg: #fff5eb;
+      --good: #176b3a;
+      --good-bg: #eaf8ef;
+      --bad: #a32626;
+      --card: #ffffff;
+      --page-bg: #eef2f6;
+      --lead: #3f4757;
+      --link: #075985;
+      --button-bg: #ffffff;
+      --button-hover: #f8fafc;
+      --primary-ink: #ffffff;
+      --table-bg: #ffffff;
+      --th-ink: #3f4858;
+      --selected: #f0fdfa;
+      --danger-bg: #fff0f0;
+      --route-bg: #ffffff;
+      --pill-bg: #e0f2fe;
+      --pill-ink: #075985;
+      --pill-booking-bg: #e8f0ff;
+      --pill-booking-ink: #1d4ed8;
+      --pill-airbnb-bg: #fff1f2;
+      --pill-airbnb-ink: #be123c;
+      --pill-warn-bg: #ffedd5;
+      --pill-gray-bg: #eef1f5;
+      --pill-gray-ink: #536070;
+      --section-summary: #0f766e;
+      --section-route: #2563eb;
+      --section-transport: #7c3aed;
+      --section-lodging: #b45309;
+      --section-activities: #be123c;
+      --section-notes: #475569;
+      --shadow: 0 14px 32px rgba(25, 35, 52, .08);
+    }
+
+    body[data-theme="soft-dark"] {
+      color-scheme: dark;
+      --ink: #edf2f8;
+      --muted: #aeb9c8;
+      --line: #3c4858;
+      --soft: #2d3745;
+      --soft-2: #233b39;
+      --accent: #39b2a8;
+      --accent-dark: #80d8d0;
+      --warn: #f1a66f;
+      --warn-bg: #3b2d24;
+      --good: #91dba5;
+      --good-bg: #263d2d;
+      --bad: #f08a8a;
+      --card: #232b36;
+      --page-bg: #18202b;
+      --lead: #d3dbe7;
+      --link: #8fc9ff;
+      --button-bg: #2d3746;
+      --button-hover: #364455;
+      --primary-ink: #112129;
+      --table-bg: #202834;
+      --th-ink: #c2ccda;
+      --selected: #1f403d;
+      --danger-bg: #3a2529;
+      --route-bg: #242d39;
+      --pill-bg: #183449;
+      --pill-ink: #9ed6ff;
+      --pill-booking-bg: #223b65;
+      --pill-booking-ink: #adc9ff;
+      --pill-airbnb-bg: #4b2631;
+      --pill-airbnb-ink: #ffb4c4;
+      --pill-warn-bg: #4a3324;
+      --pill-gray-bg: #323d4a;
+      --pill-gray-ink: #c7d0dd;
+      --section-summary: #39b2a8;
+      --section-route: #8bbcff;
+      --section-transport: #b99cff;
+      --section-lodging: #f2b169;
+      --section-activities: #ff9db2;
+      --section-notes: #aeb9c8;
+      --shadow: 0 14px 32px rgba(3, 8, 16, .28);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--page-bg);
+      line-height: 1.45;
+      overflow-x: hidden;
+    }
+
+    main {
+      width: min(1280px, calc(100% - 28px));
+      margin: 24px auto 54px;
+    }
+
+    h1, h2, h3 { margin: 0; line-height: 1.15; }
+    h1 { font-size: clamp(27px, 4vw, 42px); letter-spacing: 0; }
+    h2 {
+      font-size: 23px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    section h2::before {
+      content: "";
+      width: 9px;
+      height: 30px;
+      border-radius: 999px;
+      background: var(--section-color, var(--accent));
+      flex: 0 0 auto;
+    }
+    h3 { font-size: 17px; margin-bottom: 7px; }
+    p { margin: 8px 0; }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    header, section, .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      min-width: 0;
+    }
+
+    header {
+      padding: 26px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      height: 7px;
+      background: linear-gradient(90deg, #0f766e, #2563eb, #b45309);
+    }
+
+    section {
+      padding: 22px;
+      margin-top: 18px;
+      scroll-margin-top: 16px;
+    }
+
+    section[data-section="summary"] { --section-color: var(--section-summary); }
+    section[data-section="route"] { --section-color: var(--section-route); }
+    section[data-section="transport"] { --section-color: var(--section-transport); }
+    section[data-section="lodging"] { --section-color: var(--section-lodging); }
+    section[data-section="activities"] { --section-color: var(--section-activities); }
+    section[data-section="notes"] { --section-color: var(--section-notes); }
+
+    .meta, .small, .hint {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .lead {
+      color: var(--lead);
+      max-width: 980px;
+      font-size: 16px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .grid > *, .split > *, .route-step {
+      min-width: 0;
+    }
+
+    .panel {
+      padding: 17px;
+      box-shadow: none;
+      min-width: 0;
+    }
+
+    .summary-card {
+      min-height: 116px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-left: 4px solid var(--section-color, var(--accent));
+    }
+
+    .summary-label {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      font-weight: 750;
+    }
+
+    .summary-value {
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1;
+      font-weight: 850;
+      margin-top: 8px;
+    }
+
+    .summary-note {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 9px;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+      align-items: center;
+    }
+
+    .quick-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .quick-nav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--button-bg);
+      color: var(--ink);
+      padding: 8px 11px;
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .quick-nav a:hover {
+      background: var(--button-hover);
+      text-decoration: none;
+    }
+
+    button {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: var(--button-bg);
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:hover { border-color: #9ca8ba; background: var(--button-hover); }
+    button.primary,
+    button.is-active,
+    button[aria-pressed="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--primary-ink);
+    }
+    button.primary:hover,
+    button.is-active:hover,
+    button[aria-pressed="true"]:hover {
+      background: var(--accent-dark);
+    }
+
+    .notice {
+      border-left: 4px solid var(--accent);
+      background: var(--soft-2);
+      padding: 13px 14px;
+      border-radius: 8px;
+      margin-top: 12px;
+    }
+
+    .warning {
+      border-left: 4px solid var(--warn);
+      background: var(--warn-bg);
+      padding: 13px 14px;
+      border-radius: 8px;
+      margin-top: 12px;
+    }
+
+    .danger {
+      border-left: 4px solid var(--bad);
+      background: var(--danger-bg);
+      padding: 13px 14px;
+      border-radius: 8px;
+      margin-top: 12px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      margin-top: 12px;
+      max-width: 100%;
+      width: 100%;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      background: var(--table-bg);
+    }
+
+    th, td {
+      padding: 11px 10px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      background: var(--soft);
+      color: var(--th-ink);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      white-space: nowrap;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+    tr.selected { background: var(--selected); }
+    tr.selected td:first-child { box-shadow: inset 4px 0 0 var(--accent); }
+    .money { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .money.primary-price strong { font-size: 17px; }
+    .center { text-align: center; }
+    .nowrap { white-space: nowrap; }
+
+    input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 12px;
+      font-weight: 800;
+      background: var(--pill-bg);
+      color: var(--pill-ink);
+      white-space: nowrap;
+      margin-right: 5px;
+      margin-bottom: 4px;
+    }
+
+    .pill.booking { background: var(--pill-booking-bg); color: var(--pill-booking-ink); }
+    .pill.airbnb { background: var(--pill-airbnb-bg); color: var(--pill-airbnb-ink); }
+    .pill.good { background: var(--good-bg); color: var(--good); }
+    .pill.warn { background: var(--pill-warn-bg); color: var(--warn); }
+    .pill.gray { background: var(--pill-gray-bg); color: var(--pill-gray-ink); }
+
+    .city-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .city-head:first-child {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .city-total {
+      text-align: right;
+      min-width: 150px;
+    }
+
+    .city-total strong {
+      display: block;
+      font-size: 22px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .route {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .route-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--route-bg);
+      padding: 12px;
+      min-height: 92px;
+    }
+
+    .route-step .date {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .route-step .place {
+      font-weight: 850;
+      margin-top: 5px;
+    }
+
+    .route-step .sub {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .guide-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px;
+      background: var(--route-bg);
+    }
+
+    .guide-step strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .guide-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: var(--section-color, var(--accent));
+      color: var(--primary-ink);
+      font-weight: 850;
+      margin-right: 7px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(300px, .7fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    .sticky {
+      position: sticky;
+      top: 14px;
+    }
+
+    .calc-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .calc-row:last-child { border-bottom: 0; }
+    .calc-row strong { font-variant-numeric: tabular-nums; }
+
+    .total-final {
+      font-size: 29px;
+      font-weight: 900;
+      color: var(--accent-dark);
+      line-height: 1.05;
+    }
+
+    .tagline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .checklist {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 18px;
+      margin-top: 10px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .checklist li {
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .checklist li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .64em;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    @media (max-width: 980px) {
+      .grid.two, .grid.three, .grid.four, .split { grid-template-columns: 1fr; }
+      .guide-grid { grid-template-columns: 1fr; }
+      .route { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .sticky { position: static; }
+    }
+
+    @media (max-width: 640px) {
+      main { width: min(100% - 18px, 1280px); margin-top: 12px; }
+      header, section { padding: 16px; border-radius: 10px; }
+      h1 { font-size: 29px; }
+      h2 { font-size: 20px; }
+      .toolbar button {
+        flex: 1 1 calc(50% - 6px);
+        min-height: 42px;
+      }
+      .quick-nav a {
+        flex: 1 1 calc(50% - 6px);
+        justify-content: center;
+      }
+      .summary-card { min-height: auto; }
+      th, td { padding: 9px 8px; }
+      .table-wrap table { min-width: 820px; }
+      .route { grid-template-columns: 1fr; }
+      .checklist { grid-template-columns: 1fr; }
+      .city-head { display: block; }
+      .city-total { text-align: left; margin-top: 10px; }
+    }
+
+    @media print {
+      body { background: #ffffff; }
+      main { width: 100%; margin: 0; }
+      header, section, .panel { box-shadow: none; break-inside: avoid; }
+      button, .toolbar { display: none; }
+      .sticky { position: static; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Presupuesto interactivo - Viaje septiembre 2026</h1>
+    <p class="lead">
+      Ruta base: Montevideo -> Madrid -> Budapest -> Viena -> Praga -> Cracovia -> Madrid -> Montevideo.
+      Los importes son para 2 personas y sirven para decidir. Hay links para revalidar cada reserva antes de comprar.
+    </p>
+    <p class="meta">
+      Base actualizada el 13/06/2026 con referencias de Booking, Airbnb, KAYAK y paginas de aerolineas. Moneda: USD.
+      Las tarifas reales pueden cambiar al entrar a cada web, especialmente equipaje, taxes y conversiones.
+    </p>
+
+    <div class="tagline">
+      <span class="pill good">18 dias calendario</span>
+      <span class="pill">15 noches en destino</span>
+      <span class="pill">Carry-on posible</span>
+      <span class="pill warn">Confirmar AC + baño privado</span>
+    </div>
+
+    <div class="toolbar">
+      <button class="preset-button is-active" id="preset-balanced" type="button" data-preset="balanced" aria-pressed="true">Preset equilibrado</button>
+      <button class="preset-button" id="preset-cheap" type="button" data-preset="cheap" aria-pressed="false">Preset economico</button>
+      <button class="preset-button" id="preset-comfy" type="button" data-preset="comfy" aria-pressed="false">Preset comodo</button>
+      <button id="reset" type="button">Restaurar seleccion</button>
+      <button id="print" type="button">Imprimir / PDF</button>
+      <button id="price-mode-toggle" type="button" aria-pressed="false">Vuelos: precio pp</button>
+      <button id="theme-toggle" type="button" aria-pressed="false">Modo oscuro suave</button>
+    </div>
+
+    <nav class="quick-nav" aria-label="Navegacion de la planilla">
+      <a href="#resumen">Resumen</a>
+      <a href="#ruta">Ruta</a>
+      <a href="#vuelos">Vuelos y trenes</a>
+      <a href="#hoteles">Hoteles</a>
+      <a href="#paseos">Paseos</a>
+      <a href="#publicar">Publicar</a>
+    </nav>
+  </header>
+
+  <section id="resumen" data-section="summary">
+    <h2>Totales segun seleccion</h2>
+    <div class="grid four">
+      <div class="panel summary-card">
+        <div>
+          <div class="summary-label">Total pareja con paseos</div>
+          <div class="summary-value" id="grand-total">USD 0</div>
+        </div>
+        <div class="summary-note">Incluye vuelos, trenes, traslados, alojamientos y presupuesto de actividades.</div>
+      </div>
+      <div class="panel summary-card">
+        <div>
+          <div class="summary-label">Por persona</div>
+          <div class="summary-value" id="per-person">USD 0</div>
+        </div>
+        <div class="summary-note">Promedio del total pareja dividido entre 2. Los hoteles se cargan como una habitacion.</div>
+      </div>
+      <div class="panel summary-card">
+        <div>
+          <div class="summary-label">Base sin paseos</div>
+          <div class="summary-value" id="base-total">USD 0</div>
+        </div>
+        <div class="summary-note">La agencia normalmente cotiza vuelos + hoteles + traslados, no gastos diarios completos.</div>
+      </div>
+      <div class="panel summary-card">
+        <div>
+          <div class="summary-label">Diferencia vs agencia</div>
+          <div class="summary-value" id="agency-diff">USD 0</div>
+        </div>
+        <div class="summary-note" id="agency-note">Comparado contra USD 6.800 pareja.</div>
+      </div>
+    </div>
+
+    <div class="notice">
+      <strong>Lectura rapida:</strong> si la diferencia contra la agencia queda chica, la agencia puede tener sentido por soporte y emision.
+      Si por cuenta propia baja varios cientos de dolares y mejora horarios/hoteles, conviene armarlo ustedes.
+    </div>
+
+    <div class="guide-grid">
+      <div class="guide-step">
+        <strong><span class="guide-num">1</span>Elegir vuelos</strong>
+        <p class="small">Comparen precio por persona, comodidad, cantidad de escalas y margen en Madrid.</p>
+      </div>
+      <div class="guide-step">
+        <strong><span class="guide-num">2</span>Elegir hoteles</strong>
+        <p class="small">El costo de hotel es por habitacion. Booking abre ficha directa; Airbnb queda como busqueda.</p>
+      </div>
+      <div class="guide-step">
+        <strong><span class="guide-num">3</span>Mirar total</strong>
+        <p class="small">El panel lateral suma vuelos para dos, una habitacion por ciudad, trenes y paseos.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="ruta" data-section="route">
+    <h2>Ruta y noches</h2>
+    <div class="route" aria-label="Resumen de ruta">
+      <div class="route-step">
+        <div class="date">02/09</div>
+        <div class="place">Montevideo</div>
+        <div class="sub">Iberia 21:35, se puede trabajar ese miercoles.</div>
+      </div>
+      <div class="route-step">
+        <div class="date">03/09 al 08/09</div>
+        <div class="place">Budapest</div>
+        <div class="sub">5 noches. Mejor encaje desde Madrid por horario.</div>
+      </div>
+      <div class="route-step">
+        <div class="date">08/09 al 12/09</div>
+        <div class="place">Viena</div>
+        <div class="sub">4 noches. Tren corto desde Budapest.</div>
+      </div>
+      <div class="route-step">
+        <div class="date">12/09 al 16/09</div>
+        <div class="place">Praga</div>
+        <div class="sub">4 noches. Ciudad fuerte para caminar y fotografia.</div>
+      </div>
+      <div class="route-step">
+        <div class="date">16/09 al 18/09</div>
+        <div class="place">Cracovia</div>
+        <div class="sub">2 noches. Base para Auschwitz.</div>
+      </div>
+      <div class="route-step">
+        <div class="date">18/09 al 20/09</div>
+        <div class="place">Madrid</div>
+        <div class="sub">2 noches. Compras y margen para futbol.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="split">
+    <div>
+      <section id="vuelos" data-section="transport">
+        <h2>Vuelos y trenes seleccionables</h2>
+        <p class="hint">
+          Para low-cost, el precio presupuestado ya intenta incluir carry-on real. En vuelos se muestra precio por persona para comparar, y total pareja para el calculo.
+        </p>
+        <div id="transport-root"></div>
+
+        <div class="warning">
+          <strong>Conexion en Madrid:</strong> si compran vuelos separados despues del MVD -> MAD, usaria como regla minima 3 horas reales y preferiria 4-5 horas.
+          Si Iberia emite todo en una misma reserva, se puede aceptar menos porque el equipaje y la proteccion de conexion cambian.
+        </div>
+      </section>
+
+      <section id="hoteles" data-section="lodging">
+        <h2>Alojamientos por ciudad</h2>
+        <p class="hint">
+          Criterio usado: zona turistica razonable, movimiento de noche, puntaje 8+ y muchas reviews cuando fue posible.
+          Mantener como filtro final: habitacion con baño privado y aire acondicionado visible antes de reservar. Estos precios son por habitacion/estadia, no por persona.
+        </p>
+        <div id="lodging-root"></div>
+      </section>
+
+      <section id="paseos" data-section="activities">
+        <h2>Paseos y gastos de viaje</h2>
+        <p class="hint">Esto es lo mas variable: free tours, entradas puntuales, Auschwitz, baños termales, museos, compras y futbol.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Elegir</th>
+                <th>Modo</th>
+                <th>Que incluye</th>
+                <th class="money">Total pareja</th>
+              </tr>
+            </thead>
+            <tbody id="activity-root"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="equipaje" data-section="notes">
+        <h2>Carry-on en septiembre</h2>
+        <p>
+          Para este itinerario, <strong>si son ordenados, alcanza con carry-on y mochila personal</strong>. No es invierno: esperaria dias caminables, noches mas frescas y algun dia de lluvia.
+          El problema no es el abrigo pesado, sino lavar/repetir ropa en un viaje de 18 dias.
+        </p>
+        <ul class="checklist">
+          <li>1 campera liviana impermeable o rompeviento.</li>
+          <li>1 buzo/sweater y capas finas para noches frescas.</li>
+          <li>Calzado comodo ya probado para empedrado y trenes.</li>
+          <li>Ropa para 7-8 dias y una lavanderia en Viena o Praga.</li>
+          <li>Adaptador, power bank chico y espacio para compras en Madrid.</li>
+          <li>Si compran low-cost, pagar carry-on grande desde el inicio.</li>
+        </ul>
+      </section>
+    </div>
+
+    <aside class="panel sticky">
+      <h2>Detalle del calculo</h2>
+      <div id="calc-breakdown"></div>
+      <div class="warning">
+        <strong>Madrid:</strong> puse opciones mas baratas porque llegan tarde el 18/09 y el 19/09 seria compras/margen.
+        No tiene sentido pagar hotel caro ahi salvo que aparezca una ganga muy bien ubicada.
+      </div>
+      <div class="notice">
+        <strong>Mi default:</strong> usar buen alojamiento donde pasan mas noches y ahorrar en Madrid/Cracovia.
+      </div>
+    </aside>
+  </div>
+
+  <section id="notas" data-section="notes">
+    <h2>Notas de decision</h2>
+    <div class="grid two">
+      <div class="panel">
+        <h3>Por que empezar en Budapest</h3>
+        <p>
+          Llegando a Madrid a las 14:35, Budapest tiene vuelos directos mas tarde y permite dormir ya en la primera ciudad del circuito.
+          Para Praga, las opciones utiles salen antes o quedan demasiado justas si son tickets separados.
+        </p>
+      </div>
+      <div class="panel">
+        <h3>Ryanair / Wizz</h3>
+        <p>
+          No las descartaria automaticamente, pero solo si el horario es claramente mejor y compran el equipaje correcto.
+          Para Cracovia -> Madrid, Ryanair es la opcion directa y comoda por tiempo; LOT evita low-cost pero llega muy tarde y con escala.
+        </p>
+      </div>
+      <div class="panel">
+        <h3>Agencia</h3>
+        <p>
+          USD 3.400 por persona no parece una locura si incluye valija y soporte. La pregunta es si sus hoteles/horarios son mejores que la version armada por ustedes.
+          Con esta planilla pueden comparar manzanas con manzanas.
+        </p>
+      </div>
+      <div class="panel">
+        <h3>Reserva final</h3>
+        <p>
+          Antes de pagar: abrir cada link, validar tarifa final con impuestos, equipaje, politica de cancelacion, aire acondicionado, baño privado y horario real.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="publicar" data-section="notes">
+    <h2>Publicar gratis</h2>
+    <div class="grid two">
+      <div class="panel">
+        <h3>Opcion recomendada: GitHub Pages</h3>
+        <p>Deje preparada una copia publicable como <strong>docs/index.html</strong>. Si suben esta carpeta a GitHub, pueden activar Pages desde Settings -> Pages -> Deploy from branch -> carpeta <strong>/docs</strong>.</p>
+      </div>
+      <div class="panel">
+        <h3>Opcion rapida: Netlify Drop</h3>
+        <p>Tambien pueden subir el archivo <strong>docs/index.html</strong> a Netlify Drop y obtener una URL gratis. Es ideal si quieren compartirlo hoy sin configurar un repo.</p>
+      </div>
+    </div>
+    <div class="notice">
+      <strong>Importante:</strong> esta pagina es estatica. Funciona perfecto en un hosting gratis, pero las elecciones guardadas con botones quedan en el navegador de cada persona, no sincronizadas entre celulares.
+    </div>
+  </section>
+
+  <section id="links" data-section="notes">
+    <h2>Links base</h2>
+    <p class="small">
+      Vuelos: <a href="https://www.iberia.com/us/cheap-flights/Montevideo-Madrid/">Iberia MVD-MAD</a>,
+      <a href="https://www.wizzair.com/en-gb/cheap-flights-from-madrid-to-budapest">Wizz Air MAD-BUD</a>,
+      <a href="https://www.ryanair.com/">Ryanair</a>,
+      <a href="https://www.lot.com/">LOT</a>.
+      Trenes: <a href="https://www.oebb.at/en/">OBB</a>,
+      <a href="https://regiojet.com/">RegioJet</a>.
+      Auschwitz: <a href="https://www.auschwitz.org/en/visiting/">reserva oficial</a>.
+    </p>
+  </section>
+</main>
+
+<script>
+  const agencyTotal = 6800;
+  const money = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0
+  });
+
+  const dateRanges = {
+    budapest: { checkin: "2026-09-03", checkout: "2026-09-08", city: "Budapest, Hungary" },
+    vienna: { checkin: "2026-09-08", checkout: "2026-09-12", city: "Vienna, Austria" },
+    prague: { checkin: "2026-09-12", checkout: "2026-09-16", city: "Prague, Czech Republic" },
+    krakow: { checkin: "2026-09-16", checkout: "2026-09-18", city: "Krakow, Poland" },
+    madrid: { checkin: "2026-09-18", checkout: "2026-09-20", city: "Madrid, Spain" }
+  };
+
+  function bookingHotelLink(cityId, path) {
+    const d = dateRanges[cityId];
+    const params = new URLSearchParams({
+      checkin: d.checkin,
+      checkout: d.checkout,
+      group_adults: "2",
+      no_rooms: "1",
+      group_children: "0",
+      selected_currency: "USD"
+    });
+    return `https://www.booking.com${path}?${params.toString()}#availability`;
+  }
+
+  function airbnbLink(cityId, query) {
+    const d = dateRanges[cityId];
+    const params = new URLSearchParams({
+      query: query + ", " + d.city,
+      checkin: d.checkin,
+      checkout: d.checkout,
+      adults: "2"
+    });
+    return "https://www.airbnb.com/s/" + encodeURIComponent(d.city) + "/homes?" + params.toString();
+  }
+
+  const transportGroups = [
+    {
+      id: "longhaul",
+      title: "Vuelo largo Uruguay - Europa",
+      description: "El ancla del viaje. El directo de Iberia es el mas comodo por horario y evita entrar cansados con otra escala.",
+      options: [
+        {
+          id: "iberia-direct",
+          label: "Iberia directo MVD-MAD-MVD",
+          detail: "02/09 21:35 MVD -> 03/09 14:35 MAD. Regreso 20/09 11:50 MAD -> 19:35 MVD. Tarifa vista aprox. USD 1.370 pp.",
+          price: 2740,
+          link: "https://www.iberia.com/us/cheap-flights/Montevideo-Madrid/",
+          tag: "Recomendado"
+        },
+        {
+          id: "latam-gru",
+          label: "LATAM via San Pablo",
+          detail: "Puede bajar algo el precio, pero agrega escala y suele salir antes. Solo vale si ahorra al menos USD 300 pareja.",
+          price: 2608,
+          link: "https://www.latamairlines.com/",
+          tag: "Solo si hay promo"
+        },
+        {
+          id: "agency-longhaul",
+          label: "Agencia / ticket combinado a Praga",
+          detail: "Referencia del armado de agencia: MVD -> MAD -> PRG con 1h25 en Madrid. Aceptable solo si todo esta en una misma reserva.",
+          price: 2830,
+          link: "https://www.iberia.com/",
+          tag: "Verificar PNR"
+        }
+      ]
+    },
+    {
+      id: "arrival",
+      title: "Entrada al circuito: Madrid -> Budapest",
+      description: "Budapest es la mejor primera ciudad porque hay vuelos despues de la llegada desde Montevideo.",
+      options: [
+        {
+          id: "mad-bud-wizz",
+          label: "Wizz Air directo 20:10 -> 23:10",
+          detail: "Mas espera en Barajas, pero margen sano si el vuelo desde MVD llega 14:35. Presupuesto con Wizz Priority/carry-on.",
+          price: 200,
+          link: "https://www.wizzair.com/en-gb/cheap-flights-from-madrid-to-budapest",
+          tag: "Mejor margen"
+        },
+        {
+          id: "mad-bud-iberia",
+          label: "Iberia / partner directo tarde",
+          detail: "Si aparece cerca de 17:00 y se puede emitir conectado con Iberia, seria muy limpio. Separado, 2h30 puede quedar justo.",
+          price: 288,
+          link: "https://www.iberia.com/",
+          tag: "Revisar horario"
+        },
+        {
+          id: "mad-bud-ryanair",
+          label: "Ryanair directo 17:45 -> 20:50",
+          detail: "Llega mas temprano a Budapest, pero tiene menos margen y requiere comprar carry-on correcto.",
+          price: 180,
+          link: "https://www.ryanair.com/",
+          tag: "Mas justo"
+        }
+      ]
+    },
+    {
+      id: "returnMadrid",
+      title: "Salida del circuito: Cracovia -> Madrid",
+      description: "Aca la tension es clara: Ryanair es directo y rapido; LOT es mas aerolinea tradicional, pero con escala y llegada tarde.",
+      options: [
+        {
+          id: "krk-mad-ryanair",
+          label: "Ryanair directo 17:35 -> 21:05",
+          detail: "Mejor horario total y sin escala. Hay que pagar carry-on de cabina desde el inicio.",
+          price: 280,
+          link: "https://www.ryanair.com/",
+          tag: "Mas practico"
+        },
+        {
+          id: "krk-mad-lot",
+          label: "LOT via Varsovia 14:55 -> 23:35",
+          detail: "Evita low-cost y puede incluir mejor equipaje segun tarifa, pero consume mas horas y llega tarde a Madrid.",
+          price: 340,
+          link: "https://www.lot.com/",
+          tag: "Sin low-cost"
+        },
+        {
+          id: "krk-mad-legacy",
+          label: "Lufthansa/Austrian/otra legacy",
+          detail: "Plan B si Ryanair no convence y LOT sube. Normalmente con escala y mas caro.",
+          price: 500,
+          link: "https://www.google.com/travel/flights",
+          tag: "Plan B"
+        }
+      ]
+    }
+  ];
+
+  const fixedTransport = [
+    { label: "Tren Budapest -> Viena", detail: "OBB/RegioJet, aprox. 2h20-2h40", price: 50, ticketPerPerson: true },
+    { label: "Tren Viena -> Praga", detail: "OBB/RegioJet/CD, aprox. 4h", price: 60, ticketPerPerson: true },
+    { label: "Tren Praga -> Cracovia", detail: "CD/PKP, aprox. 6h; conviene comprar anticipado", price: 100, ticketPerPerson: true },
+    { label: "Traslados locales", detail: "Aeropuertos, metro/tranvia, algun taxi puntual", price: 260, ticketPerPerson: false }
+  ];
+
+  const cities = [
+    {
+      id: "budapest",
+      name: "Budapest",
+      nights: 5,
+      dates: "03/09 al 08/09",
+      zone: "Prioridad: Distrito V, VII cerca del barrio judio, Deak Ferenc, Astoria o Kalvin ter.",
+      options: [
+        {
+          id: "budapest-amber-garden",
+          source: "Booking",
+          tier: "Barato bueno",
+          name: "Amber Gardenview Studios Downtown",
+          price: 462,
+          score: "9.0",
+          reviews: "2.296",
+          area: "Belvaros / Kalvin ter",
+          note: "Muy buen balance precio-ubicacion. Apart/estudio; confirmar AC en la unidad. Link directo a ficha Booking.",
+          link: bookingHotelLink("budapest", "/hotel/hu/anoli-apartments.html")
+        },
+        {
+          id: "budapest-exe",
+          source: "Booking",
+          tier: "Medio",
+          name: "Exe Budapest Center",
+          price: 678,
+          score: "8.5",
+          reviews: "5.863",
+          area: "Centro / Astoria",
+          note: "Hotel mas clasico, ubicacion muy caminable para primer viaje a Budapest. Link directo a ficha Booking.",
+          link: bookingHotelLink("budapest", "/hotel/hu/eurostars-budapest-center.html")
+        },
+        {
+          id: "budapest-d8",
+          source: "Booking",
+          tier: "Comodo",
+          name: "D8 Hotel",
+          price: 843,
+          score: "9.0",
+          reviews: "5.659",
+          area: "Distrito V / Danubio",
+          note: "Ubicacion top cerca del rio y Chain Bridge. Es caro para Budapest, pero muy comodo. Link directo a ficha Booking.",
+          link: bookingHotelLink("budapest", "/hotel/hu/d8.html")
+        },
+        {
+          id: "budapest-airbnb-karoly",
+          source: "Airbnb",
+          tier: "Airbnb 1",
+          name: "Karoly Korut 9 - Brand New Flat",
+          price: 379,
+          score: "4.92",
+          reviews: "361",
+          area: "Distrito V / VII",
+          note: "Muy buen precio para 5 noches. Revisar cancelacion, AC y escalera/ascensor.",
+          link: airbnbLink("budapest", "Karoly Korut 9 Brand New Flat")
+        },
+        {
+          id: "budapest-airbnb-riva",
+          source: "Airbnb",
+          tier: "Airbnb 2",
+          name: "Riva Studio 2",
+          price: 427,
+          score: "4.8+",
+          reviews: "Revisar",
+          area: "Barrio judio / Distrito VII",
+          note: "Buena zona para comer y moverse de noche. Validar reviews actuales.",
+          link: airbnbLink("budapest", "Riva Studio 2")
+        }
+      ]
+    },
+    {
+      id: "vienna",
+      name: "Viena",
+      nights: 4,
+      dates: "08/09 al 12/09",
+      zone: "Prioridad: Innere Stadt si entra en precio; si no, Neubau, Mariahilf, Naschmarkt o Westbahnhof con metro.",
+      options: [
+        {
+          id: "vienna-flemings",
+          source: "Booking",
+          tier: "Barato bueno",
+          name: "Flemings Hotel Wien-Stadthalle",
+          price: 354,
+          score: "8.5",
+          reviews: "5.422",
+          area: "Westbahnhof / Stadthalle",
+          note: "Muy buen precio para Viena; no es casco historico, pero tiene transporte fuerte. Link directo a ficha Booking.",
+          link: bookingHotelLink("vienna", "/hotel/at/fleming-s-wien-westbahnhof.html")
+        },
+        {
+          id: "vienna-motel-west",
+          source: "Booking",
+          tier: "Medio",
+          name: "Motel One Wien-Westbahnhof",
+          price: 516,
+          score: "8.6",
+          reviews: "14.424",
+          area: "Westbahnhof / Mariahilfer",
+          note: "Cadena confiable, zona practica, buena para tren y compras. Link directo a ficha Booking.",
+          link: bookingHotelLink("vienna", "/hotel/at/motel-one-wien-westbahnhof.html")
+        },
+        {
+          id: "vienna-cloud-state",
+          source: "Booking",
+          tier: "Comodo",
+          name: "The Cloud One Wien-Staatsoper",
+          price: 765,
+          score: "8.4",
+          reviews: "7.689",
+          area: "Opera / Innere Stadt",
+          note: "Ubicacion excelente. Se pasa del tope ideal por noche, pero ahorra traslados y tiempo. Link directo a ficha Booking.",
+          link: bookingHotelLink("vienna", "/hotel/at/motel-one-wien-staatsoper.html")
+        },
+        {
+          id: "vienna-airbnb-neubau",
+          source: "Airbnb",
+          tier: "Airbnb 1",
+          name: "Nice city flat - 7th district Neubau",
+          price: 607,
+          score: "4.86",
+          reviews: "434",
+          area: "Neubau",
+          note: "Zona con comida, movimiento y buen acceso al centro. Confirmar AC.",
+          link: airbnbLink("vienna", "Nice city flat 7th district Neubau")
+        },
+        {
+          id: "vienna-airbnb-mariahilf",
+          source: "Airbnb",
+          tier: "Airbnb 2",
+          name: "Apartamento Mariahilf / Neubau",
+          price: 524,
+          score: "4.8+",
+          reviews: "Revisar",
+          area: "Mariahilf / Neubau",
+          note: "Alternativa para buscar mejor precio que hotel central. Filtrar AC y ascensor.",
+          link: airbnbLink("vienna", "Mariahilf Neubau apartment air conditioning")
+        }
+      ]
+    },
+    {
+      id: "prague",
+      name: "Praga",
+      nights: 4,
+      dates: "12/09 al 16/09",
+      zone: "Prioridad: Old Town, New Town cerca de metro, Mala Strana o zona Republic Square.",
+      options: [
+        {
+          id: "prague-legie",
+          source: "Booking",
+          tier: "Barato bueno",
+          name: "Hotel Legie",
+          price: 291,
+          score: "8.1",
+          reviews: "984",
+          area: "Nove Mesto / I.P. Pavlova",
+          note: "Muy buen precio y ubicacion practica. Mas simple; confirmar AC antes de cerrar. Link directo a ficha Booking.",
+          link: bookingHotelLink("prague", "/hotel/cz/legie.html")
+        },
+        {
+          id: "prague-cloud",
+          source: "Booking",
+          tier: "Medio",
+          name: "The Cloud One Prague",
+          price: 494,
+          score: "8.7",
+          reviews: "6.100",
+          area: "Nove Mesto / Republic Square",
+          note: "Equilibrio fuerte: buena zona, muchas reviews, hotel moderno. Link directo a ficha Booking.",
+          link: bookingHotelLink("prague", "/hotel/cz/the-cloud-one-prague.html")
+        },
+        {
+          id: "prague-old",
+          source: "Booking",
+          tier: "Comodo",
+          name: "Old Prague Hotel",
+          price: 631,
+          score: "8.9",
+          reviews: "5.765",
+          area: "Old Town",
+          note: "Muy central y dentro del techo alto aproximado. Ideal para caminar temprano. Link directo a ficha Booking.",
+          link: bookingHotelLink("prague", "/hotel/cz/old-prague.html")
+        },
+        {
+          id: "prague-airbnb-charles",
+          source: "Airbnb",
+          tier: "Airbnb 1",
+          name: "Bright cosy apt near Charles Bridge",
+          price: 463,
+          score: "4.90",
+          reviews: "472",
+          area: "Cerca Charles Bridge",
+          note: "Gran zona para fotografia temprano. Revisar ruido y escaleras.",
+          link: airbnbLink("prague", "Bright cosy apartment near Charles Bridge")
+        },
+        {
+          id: "prague-airbnb-oldtown",
+          source: "Airbnb",
+          tier: "Airbnb 2",
+          name: "Residence Old Town Studio",
+          price: 468,
+          score: "4.8+",
+          reviews: "Revisar",
+          area: "Old Town",
+          note: "Comparable al hotel medio en precio, mejor si quieren cocina/lavado.",
+          link: airbnbLink("prague", "Residence Old Town Studio Prague")
+        }
+      ]
+    },
+    {
+      id: "krakow",
+      name: "Cracovia",
+      nights: 2,
+      dates: "16/09 al 18/09",
+      zone: "Prioridad: Stare Miasto, Kazimierz o cerca de la estacion si el tren llega tarde.",
+      options: [
+        {
+          id: "krakow-silvio",
+          source: "Booking",
+          tier: "Barato bueno",
+          name: "Home in Krakow Silvio's Apartments",
+          price: 109,
+          score: "8.9",
+          reviews: "1.075",
+          area: "Stare Miasto / estacion",
+          note: "Muy barato y suficiente para 2 noches. Confirmar AC y horario de check-in. Link directo a ficha Booking.",
+          link: bookingHotelLink("krakow", "/hotel/pl/appartamentisilvio.html")
+        },
+        {
+          id: "krakow-central",
+          source: "Booking",
+          tier: "Medio",
+          name: "Cracow Central Aparthotel",
+          price: 129,
+          score: "8.5",
+          reviews: "10.031",
+          area: "Stare Miasto / estacion",
+          note: "Muchisimas reviews, practico para tren y Auschwitz. Muy buena opcion default. Link directo a ficha Booking.",
+          link: bookingHotelLink("krakow", "/hotel/pl/cracow-central-guest-rooms.html")
+        },
+        {
+          id: "krakow-mr67",
+          source: "Booking",
+          tier: "Comodo",
+          name: "MR67 Mayera Rapaporta",
+          price: 326,
+          score: "8.8",
+          reviews: "2.332",
+          area: "Kazimierz",
+          note: "Mejor zona para cenar y caminar de noche, pero caro para solo 2 noches. Link directo a ficha Booking.",
+          link: bookingHotelLink("krakow", "/hotel/pl/mr67-mayera-rapaporta.html")
+        },
+        {
+          id: "krakow-airbnb-rajska",
+          source: "Airbnb",
+          tier: "Airbnb 1",
+          name: "Rajska studio - Old Town",
+          price: 154,
+          score: "4.96",
+          reviews: "379",
+          area: "Old Town",
+          note: "Buena opcion si prefieren apartamento y ubicacion central.",
+          link: airbnbLink("krakow", "Rajska studio Old Town")
+        },
+        {
+          id: "krakow-airbnb-oldtown",
+          source: "Airbnb",
+          tier: "Airbnb 2",
+          name: "Old Town apartment",
+          price: 130,
+          score: "4.8+",
+          reviews: "Revisar",
+          area: "Old Town / Kazimierz",
+          note: "Buscar con filtro de muchas reviews. En Cracovia Airbnb suele competir bien.",
+          link: airbnbLink("krakow", "Old Town apartment air conditioning")
+        }
+      ]
+    },
+    {
+      id: "madrid",
+      name: "Madrid",
+      nights: 2,
+      dates: "18/09 al 20/09",
+      zone: "Prioridad: Gran Via, Sol, Chueca, Malasana, Salamanca o Atocha bien conectado.",
+      options: [
+        {
+          id: "madrid-room-ventura",
+          source: "Booking",
+          tier: "Barato usable",
+          name: "Room Ventura",
+          price: 366,
+          score: "8.3",
+          reviews: "5.808",
+          area: "Sol / centro",
+          note: "Central y mucho mas razonable para dormir. Confirmar baño privado y AC del cuarto. Link directo a ficha Booking.",
+          link: bookingHotelLink("madrid", "/hotel/es/room007-ventura-hostel.html")
+        },
+        {
+          id: "madrid-perla",
+          source: "Booking",
+          tier: "Medio",
+          name: "Hostal La Perla Asturiana",
+          price: 440,
+          score: "8.4",
+          reviews: "3.317",
+          area: "Centro / Plaza Mayor",
+          note: "Sencillo y bien ubicado. Buena opcion si el barato no confirma baño/AC. Link directo a ficha Booking.",
+          link: bookingHotelLink("madrid", "/hotel/es/la-perla-asturiana.html")
+        },
+        {
+          id: "madrid-letoh",
+          source: "Booking",
+          tier: "Comodo",
+          name: "Letoh Letoh Gran Via",
+          price: 573,
+          score: "8.8",
+          reviews: "7.281",
+          area: "Gran Via",
+          note: "Hotel moderno y fuerte, pero probablemente demasiado para una llegada tarde. Link directo a ficha Booking.",
+          link: bookingHotelLink("madrid", "/hotel/es/room007-premium-gran-via.html")
+        },
+        {
+          id: "madrid-airbnb-centro",
+          source: "Airbnb",
+          tier: "Airbnb 1",
+          name: "Apartamento centro economico",
+          price: 294,
+          score: "4.8+",
+          reviews: "Revisar",
+          area: "Sol / Gran Via / Lavapies",
+          note: "Mejor chance de bajar Madrid. Solo tomar si tiene muchas reviews y check-in facil.",
+          link: airbnbLink("madrid", "central apartment private bathroom air conditioning")
+        },
+        {
+          id: "madrid-airbnb-goya",
+          source: "Airbnb",
+          tier: "Airbnb 2",
+          name: "Goya Centro Madrid",
+          price: 461,
+          score: "4.86",
+          reviews: "35",
+          area: "Salamanca / Goya",
+          note: "Zona buena para compras. Pocas reviews para su regla, usar solo si les cierra todo.",
+          link: airbnbLink("madrid", "Goya Centro Madrid")
+        }
+      ]
+    }
+  ];
+
+  const activities = [
+    {
+      id: "light",
+      label: "Basico cuidado",
+      includes: "Free tours con propinas, Auschwitz, 1-2 entradas fuertes y transporte urbano normal.",
+      price: 500
+    },
+    {
+      id: "normal",
+      label: "Normal recomendado",
+      includes: "Free tours, Auschwitz, baños termales, varios museos/palacios y algun taxi puntual.",
+      price: 800
+    },
+    {
+      id: "football",
+      label: "Con futbol / margen extra",
+      includes: "Lo normal + partido si aparece calendario conveniente o tour de estadio y mas margen.",
+      price: 1200
+    }
+  ];
+
+  const defaults = {
+    transport: {
+      longhaul: "iberia-direct",
+      arrival: "mad-bud-wizz",
+      returnMadrid: "krk-mad-lot"
+    },
+    lodging: {
+      budapest: "budapest-amber-garden",
+      vienna: "vienna-motel-west",
+      prague: "prague-cloud",
+      krakow: "krakow-central",
+      madrid: "madrid-room-ventura"
+    },
+    activity: "normal"
+  };
+
+  const presets = {
+    cheap: {
+      transport: { longhaul: "iberia-direct", arrival: "mad-bud-wizz", returnMadrid: "krk-mad-ryanair" },
+      lodging: {
+        budapest: "budapest-airbnb-karoly",
+        vienna: "vienna-flemings",
+        prague: "prague-legie",
+        krakow: "krakow-silvio",
+        madrid: "madrid-airbnb-centro"
+      },
+      activity: "light"
+    },
+    balanced: defaults,
+    comfy: {
+      transport: { longhaul: "iberia-direct", arrival: "mad-bud-iberia", returnMadrid: "krk-mad-lot" },
+      lodging: {
+        budapest: "budapest-exe",
+        vienna: "vienna-cloud-state",
+        prague: "prague-old",
+        krakow: "krakow-central",
+        madrid: "madrid-perla"
+      },
+      activity: "normal"
+    }
+  };
+
+  let state = loadState();
+  const themeStorageKey = "viaje-septiembre-2026-theme";
+  const priceModeStorageKey = "viaje-septiembre-2026-price-mode";
+  let currentTheme = loadTheme();
+  let currentPriceMode = loadPriceMode();
+
+  function loadState() {
+    try {
+      const raw = localStorage.getItem("viaje-septiembre-2026-budget");
+      if (!raw) return structuredClone(defaults);
+      const parsed = JSON.parse(raw);
+      return {
+        transport: { ...defaults.transport, ...(parsed.transport || {}) },
+        lodging: { ...defaults.lodging, ...(parsed.lodging || {}) },
+        activity: parsed.activity || defaults.activity
+      };
+    } catch (error) {
+      return structuredClone(defaults);
+    }
+  }
+
+  function saveState() {
+    localStorage.setItem("viaje-septiembre-2026-budget", JSON.stringify(state));
+  }
+
+  function loadPriceMode() {
+    try {
+      return localStorage.getItem(priceModeStorageKey) || "person";
+    } catch (error) {
+      return "person";
+    }
+  }
+
+  function applyPriceMode(mode) {
+    currentPriceMode = mode === "couple" ? "couple" : "person";
+
+    const button = document.getElementById("price-mode-toggle");
+    if (!button) return;
+
+    const isCouple = currentPriceMode === "couple";
+    button.textContent = isCouple ? "Vuelos: total pareja" : "Vuelos: precio pp";
+    button.setAttribute("aria-pressed", String(isCouple));
+
+    try {
+      localStorage.setItem(priceModeStorageKey, currentPriceMode);
+    } catch (error) {
+      // The display mode still applies even if localStorage is unavailable.
+    }
+  }
+
+  function loadTheme() {
+    try {
+      return localStorage.getItem(themeStorageKey) || "light";
+    } catch (error) {
+      return "light";
+    }
+  }
+
+  function applyTheme(theme) {
+    currentTheme = theme === "soft-dark" ? "soft-dark" : "light";
+    document.body.dataset.theme = currentTheme;
+
+    const button = document.getElementById("theme-toggle");
+    if (!button) return;
+
+    const isDark = currentTheme === "soft-dark";
+    button.textContent = isDark ? "Modo claro" : "Modo oscuro suave";
+    button.setAttribute("aria-pressed", String(isDark));
+
+    try {
+      localStorage.setItem(themeStorageKey, currentTheme);
+    } catch (error) {
+      // The theme still applies even if localStorage is unavailable.
+    }
+  }
+
+  function fmt(value) {
+    return money.format(value).replace("$", "USD ");
+  }
+
+  function perPersonPrice(totalForCouple) {
+    return Math.round(totalForCouple / 2);
+  }
+
+  function optionById(options, id) {
+    return options.find(option => option.id === id) || options[0];
+  }
+
+  function getSelectedTransport() {
+    return transportGroups.map(group => ({
+      group,
+      option: optionById(group.options, state.transport[group.id])
+    }));
+  }
+
+  function getSelectedLodging() {
+    return cities.map(city => ({
+      city,
+      option: optionById(city.options, state.lodging[city.id])
+    }));
+  }
+
+  function getSelectedActivity() {
+    return optionById(activities, state.activity);
+  }
+
+  function mapsMatch(left, right) {
+    const leftKeys = Object.keys(left);
+    const rightKeys = Object.keys(right);
+    return leftKeys.length === rightKeys.length && leftKeys.every(key => left[key] === right[key]);
+  }
+
+  function presetMatches(preset) {
+    return mapsMatch(state.transport, preset.transport)
+      && mapsMatch(state.lodging, preset.lodging)
+      && state.activity === preset.activity;
+  }
+
+  function activePresetName() {
+    return Object.keys(presets).find(name => presetMatches(presets[name])) || "";
+  }
+
+  function updatePresetButtons() {
+    const activeName = activePresetName();
+    document.querySelectorAll(".preset-button").forEach(button => {
+      const isActive = button.dataset.preset === activeName;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-pressed", String(isActive));
+    });
+  }
+
+  function totals() {
+    const lodging = getSelectedLodging().reduce((sum, item) => sum + item.option.price, 0);
+    const variableTransport = getSelectedTransport().reduce((sum, item) => sum + item.option.price, 0);
+    const ground = fixedTransport.reduce((sum, item) => sum + item.price, 0);
+    const transport = variableTransport + ground;
+    const activity = getSelectedActivity().price;
+    const base = lodging + transport;
+    const grand = base + activity;
+    return { lodging, variableTransport, ground, transport, activity, base, grand };
+  }
+
+  function renderTransport() {
+    const root = document.getElementById("transport-root");
+    root.innerHTML = transportGroups.map(group => {
+      const rows = group.options.map(option => {
+        const selected = state.transport[group.id] === option.id;
+        const personPrice = perPersonPrice(option.price);
+        const personClass = currentPriceMode === "person" ? "primary-price" : "";
+        const coupleClass = currentPriceMode === "couple" ? "primary-price" : "";
+        return `
+          <tr class="${selected ? "selected" : ""}">
+            <td class="center">
+              <input type="radio" name="transport-${group.id}" value="${option.id}" ${selected ? "checked" : ""} aria-label="${option.label}">
+            </td>
+            <td>
+              <span class="pill ${option.tag === "Recomendado" ? "good" : option.tag.includes("Revisar") || option.tag.includes("justo") ? "warn" : "gray"}">${option.tag}</span>
+              <strong>${option.label}</strong>
+              <div class="small">${option.detail}</div>
+            </td>
+            <td class="money ${personClass}"><strong>${fmt(personPrice)}</strong><div class="small">por persona</div></td>
+            <td class="money ${coupleClass}"><strong>${fmt(option.price)}</strong><div class="small">pareja</div></td>
+            <td><a href="${option.link}" target="_blank" rel="noopener">verificar</a></td>
+          </tr>
+        `;
+      }).join("");
+
+      return `
+        <h3>${group.title}</h3>
+        <p class="small">${group.description}</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Elegir</th>
+                <th>Opcion</th>
+                <th class="money">Precio pp</th>
+                <th class="money">Total pareja</th>
+                <th>Link</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      `;
+    }).join("");
+
+    const fixedRows = fixedTransport.map(item => {
+      const personText = item.ticketPerPerson ? fmt(perPersonPrice(item.price)) : "Compartido";
+      return `
+        <tr>
+          <td><strong>${item.label}</strong><div class="small">${item.detail}</div></td>
+          <td class="money"><strong>${personText}</strong><div class="small">${item.ticketPerPerson ? "por persona" : "no aplica"}</div></td>
+          <td class="money"><strong>${fmt(item.price)}</strong><div class="small">pareja</div></td>
+        </tr>
+      `;
+    }).join("");
+
+    root.insertAdjacentHTML("beforeend", `
+      <h3 style="margin-top:18px">Trenes y traslados fijos</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Concepto</th><th class="money">Precio pp</th><th class="money">Total pareja</th></tr></thead>
+          <tbody>${fixedRows}</tbody>
+        </table>
+      </div>
+    `);
+  }
+
+  function renderLodging() {
+    const root = document.getElementById("lodging-root");
+    root.innerHTML = cities.map(city => {
+      const selectedOption = optionById(city.options, state.lodging[city.id]);
+      const rows = city.options.map(option => {
+        const selected = state.lodging[city.id] === option.id;
+        const sourceClass = option.source === "Booking" ? "booking" : "airbnb";
+        const linkLabel = option.source === "Booking" ? "ficha Booking" : "buscar";
+        const perNight = Math.round(option.price / city.nights);
+        return `
+          <tr class="${selected ? "selected" : ""}">
+            <td class="center">
+              <input type="radio" name="lodging-${city.id}" value="${option.id}" ${selected ? "checked" : ""} aria-label="${option.name}">
+            </td>
+            <td>
+              <span class="pill ${sourceClass}">${option.source}</span>
+              <span class="pill gray">${option.tier}</span>
+            </td>
+            <td>
+              <strong>${option.name}</strong>
+              <div class="small">${option.note}</div>
+            </td>
+            <td>${option.area}</td>
+            <td class="nowrap">${option.score} / ${option.reviews}</td>
+            <td class="money"><strong>${fmt(option.price)}</strong><div class="small">${fmt(perNight)}/habitacion/noche</div></td>
+            <td><a href="${option.link}" target="_blank" rel="noopener">${linkLabel}</a></td>
+          </tr>
+        `;
+      }).join("");
+
+      return `
+        <div class="city-head">
+          <div>
+            <h3>${city.name} - ${city.nights} noches</h3>
+            <p class="small">${city.dates}. ${city.zone}</p>
+          </div>
+          <div class="city-total">
+            <strong>${fmt(selectedOption.price)}</strong>
+            <span class="small">habitacion completa: ${selectedOption.name}</span>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Elegir</th>
+                <th>Fuente / tier</th>
+                <th>Alojamiento</th>
+                <th>Zona</th>
+                <th>Score / reviews</th>
+                <th class="money">Total habitacion</th>
+                <th>Link</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      `;
+    }).join("");
+  }
+
+  function renderActivities() {
+    const root = document.getElementById("activity-root");
+    root.innerHTML = activities.map(option => {
+      const selected = state.activity === option.id;
+      return `
+        <tr class="${selected ? "selected" : ""}">
+          <td class="center">
+            <input type="radio" name="activity" value="${option.id}" ${selected ? "checked" : ""} aria-label="${option.label}">
+          </td>
+          <td><strong>${option.label}</strong></td>
+          <td>${option.includes}</td>
+          <td class="money"><strong>${fmt(option.price)}</strong></td>
+        </tr>
+      `;
+    }).join("");
+  }
+
+  function renderTotals() {
+    const t = totals();
+    document.getElementById("grand-total").textContent = fmt(t.grand);
+    document.getElementById("per-person").textContent = fmt(Math.round(t.grand / 2));
+    document.getElementById("base-total").textContent = fmt(t.base);
+
+    const diff = agencyTotal - t.base;
+    const diffText = diff >= 0 ? `${fmt(diff)} menos` : `${fmt(Math.abs(diff))} mas`;
+    document.getElementById("agency-diff").textContent = diffText;
+    document.getElementById("agency-note").textContent =
+      `Comparado contra agencia sin paseos: ${fmt(agencyTotal)} pareja.`;
+
+    const selectedTransport = getSelectedTransport().map(item => `
+      <div class="calc-row">
+        <span>${item.group.title}<br><span class="small">${fmt(perPersonPrice(item.option.price))} por persona</span></span>
+        <strong>${fmt(item.option.price)}</strong>
+      </div>
+    `).join("");
+
+    const fixedRows = fixedTransport.map(item => `
+      <div class="calc-row">
+        <span>${item.label}${item.ticketPerPerson ? `<br><span class="small">${fmt(perPersonPrice(item.price))} por persona</span>` : `<br><span class="small">presupuesto compartido</span>`}</span>
+        <strong>${fmt(item.price)}</strong>
+      </div>
+    `).join("");
+
+    const lodgingRows = getSelectedLodging().map(item => `
+      <div class="calc-row">
+        <span>${item.city.name} (${item.city.nights} noches)<br><span class="small">una habitacion</span></span>
+        <strong>${fmt(item.option.price)}</strong>
+      </div>
+    `).join("");
+
+    const activity = getSelectedActivity();
+    document.getElementById("calc-breakdown").innerHTML = `
+      <div class="calc-row"><span><strong>Vuelos seleccionados</strong><br><span class="small">total para 2 personas</span></span><strong>${fmt(t.variableTransport)}</strong></div>
+      ${selectedTransport}
+      <div class="calc-row"><span><strong>Trenes y traslados</strong></span><strong>${fmt(t.ground)}</strong></div>
+      ${fixedRows}
+      <div class="calc-row"><span><strong>Alojamientos</strong><br><span class="small">una habitacion por ciudad</span></span><strong>${fmt(t.lodging)}</strong></div>
+      ${lodgingRows}
+      <div class="calc-row"><span><strong>Base sin paseos</strong></span><strong>${fmt(t.base)}</strong></div>
+      <div class="calc-row"><span>Actividades: ${activity.label}</span><strong>${fmt(activity.price)}</strong></div>
+      <div style="padding-top:12px">
+        <div class="summary-label">Total final pareja</div>
+        <div class="total-final">${fmt(t.grand)}</div>
+        <div class="small">${fmt(Math.round(t.grand / 2))} por persona con actividades.</div>
+      </div>
+    `;
+  }
+
+  function bindEvents() {
+    document.addEventListener("change", event => {
+      const input = event.target;
+      if (!(input instanceof HTMLInputElement) || input.type !== "radio") return;
+
+      if (input.name.startsWith("transport-")) {
+        const groupId = input.name.replace("transport-", "");
+        state.transport[groupId] = input.value;
+      }
+
+      if (input.name.startsWith("lodging-")) {
+        const cityId = input.name.replace("lodging-", "");
+        state.lodging[cityId] = input.value;
+      }
+
+      if (input.name === "activity") {
+        state.activity = input.value;
+      }
+
+      saveState();
+      renderAll();
+    });
+
+    document.getElementById("preset-cheap").addEventListener("click", () => applyPreset("cheap"));
+    document.getElementById("preset-balanced").addEventListener("click", () => applyPreset("balanced"));
+    document.getElementById("preset-comfy").addEventListener("click", () => applyPreset("comfy"));
+    document.getElementById("reset").addEventListener("click", () => applyPreset("balanced"));
+    document.getElementById("print").addEventListener("click", () => window.print());
+    document.getElementById("price-mode-toggle").addEventListener("click", () => {
+      applyPriceMode(currentPriceMode === "person" ? "couple" : "person");
+      renderTransport();
+    });
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+      applyTheme(currentTheme === "soft-dark" ? "light" : "soft-dark");
+    });
+  }
+
+  function applyPreset(name) {
+    state = structuredClone(presets[name]);
+    saveState();
+    renderAll();
+  }
+
+  function renderAll() {
+    renderTransport();
+    renderLodging();
+    renderActivities();
+    renderTotals();
+    updatePresetButtons();
+  }
+
+  applyPriceMode(currentPriceMode);
+  applyTheme(currentTheme);
+  bindEvents();
+  renderAll();
+</script>
+</body>
+</html>
