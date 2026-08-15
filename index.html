@@ -363,6 +363,43 @@
       cursor: pointer;
     }
 
+    .select-choice {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-width: 92px;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--panel);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    tr.selected .select-choice {
+      border-color: var(--accent);
+      background: var(--selected);
+      color: var(--accent);
+    }
+
+    .lodging-link {
+      font-weight: 800;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    a.pill {
+      text-decoration: none;
+    }
+
+    a.pill:hover,
+    .lodging-link:hover {
+      filter: brightness(.9);
+    }
+
     .pill {
       display: inline-flex;
       align-items: center;
@@ -805,6 +842,7 @@
         </div>
         <div class="warning">
           <strong>Links de alojamiento:</strong> Booking puede limpiar las fechas al cargar la ficha, asi que revisen manualmente el rango indicado en cada ciudad antes de pagar.
+          En Booking, el nombre y la etiqueta abren la ficha directa. En Airbnb, abren una busqueda con barrio, fechas y dos huespedes; el precio cargado es orientativo y debe reemplazarse mentalmente por la tarifa final del anuncio elegido.
         </div>
         <div id="lodging-root"></div>
       </section>
@@ -1117,6 +1155,20 @@
           checkOut: "hasta 12:00 aprox.",
           note: "Hotel mas completo y central. La recepcion figura 24 horas, pero conviene escribir y dejar asentada la llegada posterior a medianoche.",
           link: bookingHotelLink("budapest", "/hotel/hu/nexto-dormero-hotel-budapest.html")
+        },
+        {
+          id: "budapest-airbnb-central",
+          source: "Airbnb",
+          tier: "Busqueda comparable",
+          name: "Airbnb en Distrito V/VII",
+          price: 420,
+          score: "Filtrar 4.8+",
+          reviews: "50+",
+          area: "Belvaros / barrio judio",
+          checkIn: "segun anfitrion; exigir self check-in",
+          checkOut: "confirmar en el anuncio",
+          note: "Estimacion para comparar. Por la llegada posterior a medianoche, usar solo un anuncio con self check-in confirmado, AC, baño privado y muchas reseñas recientes.",
+          link: airbnbLink("budapest", "Distrito V VII apartment air conditioning private bathroom self check-in")
         }
       ]
     },
@@ -1154,6 +1206,20 @@
           checkOut: "hasta 11:00 aprox.",
           note: "Mejor ubicacion para caminar al Ring, Rathaus y cafes. Cuesta USD 221 mas que Prize en toda la estadia; ese es el precio real de priorizar centro.",
           link: bookingHotelLink("vienna", "/hotel/at/urban-rooms-rathaus.html")
+        },
+        {
+          id: "vienna-airbnb-wieden",
+          source: "Airbnb",
+          tier: "Busqueda comparable",
+          name: "Airbnb en Wieden / Hauptbahnhof",
+          price: 560,
+          score: "Filtrar 4.8+",
+          reviews: "50+",
+          area: "Wieden / Belvedere / Wien Hbf",
+          checkIn: "segun anfitrion",
+          checkOut: "confirmar antes del tren",
+          note: "Estimacion para comparar. Zona practica para los trenes y con acceso rapido al centro; exigir AC, baño privado y guardado de equipaje o salida compatible.",
+          link: airbnbLink("vienna", "Wieden Hauptbahnhof apartment air conditioning private bathroom")
         }
       ]
     },
@@ -1191,6 +1257,20 @@
           checkOut: "hasta 11:00 aprox.",
           note: "Mas hotel y mas centralidad del lado de Old Town. Buen score, muchas reviews y metro cerca; upgrade razonable si aparece una tarifa flexible.",
           link: bookingHotelLink("prague", "/hotel/cz/perla.html")
+        },
+        {
+          id: "prague-airbnb-prague1",
+          source: "Airbnb",
+          tier: "Busqueda comparable",
+          name: "Airbnb en Mala Strana / Prague 1",
+          price: 480,
+          score: "Filtrar 4.8+",
+          reviews: "50+",
+          area: "Mala Strana / Old Town",
+          checkIn: "segun anfitrion",
+          checkOut: "confirmar salida temprana",
+          note: "Estimacion para comparar. Priorizar acceso sin muchas escaleras, poco ruido, AC, baño privado y posibilidad de salir temprano hacia Praha hl.n.",
+          link: airbnbLink("prague", "Mala Strana Prague 1 apartment air conditioning private bathroom")
         }
       ]
     },
@@ -1228,6 +1308,20 @@
           checkOut: "hasta 12:00 aprox.",
           note: "Mejor experiencia de hotel y zona muy agradable para cenar. Solo USD 27 mas por la estadia, aunque menos practico para salir desde MDA a Auschwitz.",
           link: bookingHotelLink("krakow", "/hotel/pl/perfect.html")
+        },
+        {
+          id: "krakow-airbnb-stare",
+          source: "Airbnb",
+          tier: "Busqueda comparable",
+          name: "Airbnb en Stare Miasto / Krakow Glowny",
+          price: 170,
+          score: "Filtrar 4.8+",
+          reviews: "50+",
+          area: "Stare Miasto / estacion central",
+          checkIn: "segun anfitrion",
+          checkOut: "confirmar guardado de equipaje",
+          note: "Estimacion para comparar. La cercania a Krakow Glowny/MDA es mas importante que ganar unos dolares, por el bus a Auschwitz y el vuelo del dia siguiente.",
+          link: airbnbLink("krakow", "Stare Miasto Krakow Glowny apartment air conditioning private bathroom")
         }
       ]
     },
@@ -1265,6 +1359,20 @@
           checkOut: "hasta 11:00 aprox.",
           note: "A 300 m de Gran Via y 500 m de Sol. Por USD 31 extra por noche frente a Maria Ronda, la ubicacion se justifica para dos dias de compras y salida al aeropuerto.",
           link: bookingHotelLink("madrid", "/hotel/es/hostal-conchita-madrid2.html")
+        },
+        {
+          id: "madrid-airbnb-centro",
+          source: "Airbnb",
+          tier: "Busqueda comparable",
+          name: "Airbnb en Callao / Sol / Gran Via",
+          price: 450,
+          score: "Filtrar 4.8+",
+          reviews: "50+",
+          area: "Centro / zona de compras",
+          checkIn: "segun anfitrion; llegada 21:00 aprox.",
+          checkOut: "confirmar salida 08:00",
+          note: "Estimacion para comparar. Elegir solo con llegada autonoma o anfitrion confirmado, AC, baño privado y salida sencilla hacia Barajas el domingo.",
+          link: airbnbLink("madrid", "Callao Sol Gran Via apartment air conditioning private bathroom")
         }
       ]
     }
@@ -1834,26 +1942,29 @@
       const rows = city.options.map(option => {
         const selected = state.lodging[city.id] === option.id;
         const sourceClass = option.source === "Booking" ? "booking" : "airbnb";
-        const linkLabel = option.source === "Booking" ? "ficha Booking" : "ver link";
+        const linkLabel = option.source === "Booking" ? "Abrir ficha" : "Ver opciones";
         const perNight = Math.round(option.price / city.nights);
         return `
           <tr class="${selected ? "selected" : ""}">
             <td class="center">
-              <input type="radio" name="lodging-${city.id}" value="${option.id}" ${selected ? "checked" : ""} aria-label="${option.name}">
+              <label class="select-choice">
+                <input type="radio" name="lodging-${city.id}" value="${option.id}" ${selected ? "checked" : ""} aria-label="${option.name}">
+                <span>${selected ? "Elegido" : "Elegir"}</span>
+              </label>
             </td>
             <td>
-              <span class="pill ${sourceClass}">${option.source}</span>
+              <a class="pill ${sourceClass}" href="${option.link}" target="_blank" rel="noopener" aria-label="Abrir ${option.source}: ${option.name}">${option.source}</a>
               <span class="pill gray">${option.tier}</span>
             </td>
             <td>
-              <strong>${option.name}</strong>
+              <a class="lodging-link" href="${option.link}" target="_blank" rel="noopener">${option.name}</a>
               <div class="small">${option.note}</div>
             </td>
             <td>${option.area}</td>
             <td class="nowrap">${option.score} / ${option.reviews}</td>
             <td><strong>${option.checkIn || "Confirmar"}</strong><div class="small">Salida: ${option.checkOut || "confirmar"}</div></td>
             <td class="money"><strong>${fmt(option.price)}</strong><div class="small">${fmt(perNight)}/habitacion/noche</div></td>
-            <td><a href="${option.link}" target="_blank" rel="noopener">${linkLabel}</a></td>
+            <td><a class="lodging-link" href="${option.link}" target="_blank" rel="noopener">${linkLabel}</a></td>
           </tr>
         `;
       }).join("");
