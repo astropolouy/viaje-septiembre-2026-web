@@ -1095,7 +1095,7 @@
         <strong>Madrid:</strong> aunque ya conocen la ciudad, dormir cerca de Preciados/Gran Via ahorra traslados y simplifica compras, equipaje y la salida final.
       </div>
       <div class="notice">
-        <strong>Mi default:</strong> ahorrar cerca de estaciones en Budapest, Viena y Cracovia; pagar ubicacion caminable en Praga y Madrid.
+        <strong>Mi default:</strong> pagar Distrito V y acceso tardio garantizado en Budapest; ahorrar cerca de estaciones en Viena y Cracovia; pagar ubicacion caminable en Praga y Madrid.
       </div>
     </aside>
   </div>
@@ -1317,26 +1317,25 @@
       name: "Budapest",
       nights: 4,
       dates: "08/10 al 12/10",
-      zone: "Pest central y conexion simple con Keleti. Como llegan al hotel pasada la medianoche, el acceso tardio pesa mas que ahorrar USD 10 por noche.",
+      zone: "Solo Distrito V (Belvaros-Lipotvaros) o su borde inmediato junto a Deak. Es la base mas caminable para una primera visita corta: Basilica, Parlamento, Danubio, restaurantes y transporte quedan cerca. Como llegan al alojamiento pasada la medianoche, el acceso tardio debe estar garantizado.",
       neighborhoods: [
-        { name: "Distritos VI-VII", detail: "La mejor mezcla de centro, restaurantes, barrio judio y transporte." },
-        { name: "Distrito V", detail: "Mas monumental y caminable; suele costar un poco mas." },
-        { name: "Blaha / Distrito VIII", detail: "Mas economico, activo y bien conectado con Keleti." }
+        { name: "Basilica / Deak", detail: "La mejor base integral: restaurantes, metro, bus del aeropuerto, paseos nocturnos y muchos tours a pocos minutos." },
+        { name: "Belvaros / Ferenciek / Vaci", detail: "Centro peatonal, Danubio y mucha actividad. Muy turistico, pero practico para cuatro noches." },
+        { name: "Lipotvaros / Parlamento", detail: "Elegante, seguro y fotogenico; algo mas tranquilo de noche, aunque sigue siendo plenamente central." }
       ],
       tiers: [
-        { id: "budget", label: "Ahorro local", range: "aprox. USD 60-85/noche", detail: "Buenas conexiones; revisar muy bien el late check-in." },
-        { id: "value", label: "Mejor equilibrio", range: "aprox. USD 85-110/noche", detail: "Mas centralidad o apartamento completo sin ir a hotel caro." },
-        { id: "comfort", label: "Mas comodidad", range: "aprox. USD 130-140/noche", detail: "Recepcion y experiencia de hotel mas predecible." },
-        { id: "airbnb", label: "Airbnb", range: "referencia variable", detail: "Solo anuncios con self check-in confirmado." }
+        { id: "budget", label: "Oportunidad en Distrito V", range: "aprox. USD 75-100/noche", detail: "El precio mas bajo solo sirve con confirmacion escrita de acceso posterior a medianoche." },
+        { id: "value", label: "Mejor equilibrio en Distrito V", range: "aprox. USD 100-125/noche", detail: "Estudio o apartamento central con baño privado, climatizacion y acceso tardio resoluble." },
+        { id: "comfort", label: "Hotel con recepcion", range: "aprox. USD 140-150/noche", detail: "Pagar un poco mas por recepcion 24 horas y una llegada sin incertidumbre." },
+        { id: "airbnb", label: "Airbnb en Distrito V", range: "referencia variable", detail: "Solo anuncios con self check-in confirmado y tarifa final comparable." }
       ],
       options: [
-        { id: "budapest-deniz", source: "Booking", tierKey: "budget", name: "Deniz Guesthouse", price: 241, score: "8.1", reviews: "564", area: "Distrito VII / barrio judio", checkIn: "confirmar llegada 00:15-00:45", checkOut: "confirmar", note: "La mas barata del grupo. La habitacion revisada muestra baño privado y aire; solo sirve si aceptan por escrito la llegada tardia.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("budapest", "/hotel/hu/deniz-pension-budapest123456.html") },
-        { id: "budapest-authentic", source: "Booking", tierKey: "budget", name: "Authentic Akacfa Apartment", price: 306, score: "9.2", reviews: "343", area: "Akacfa / Distrito VII", checkIn: "coordinar acceso autonomo", checkOut: "confirmar", note: "Apartamento completo en una zona muy buena para cenar. Tiene baño y aire; pedir instrucciones de acceso antes de reservar.", requirements: ["Apartamento entero", "Aire acondicionado"], link: bookingHotelLink("budapest", "/hotel/hu/authentic-akacfa-apartment.html") },
-        { id: "budapest-centerpoint", source: "Booking", tierKey: "budget", name: "Centerpoint Panzio - Digital Pansion Heritage Collection", price: 333, score: "8.5", reviews: "1.315", area: "Blaha Lujza ter / Distrito VIII", checkIn: "digital 24/7", checkOut: "hasta 10:00 aprox.", note: "Sigue siendo el default por la llegada de madrugada: acceso automatizado, metro y conexion facil con Keleti.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("budapest", "/hotel/hu/centerpoint-panzio.html") },
-        { id: "budapest-adagio", source: "Booking", tierKey: "value", name: "Adagio Downtown Rooms", price: 349, score: "8.8", reviews: "1.913", area: "Distrito VI / centro", checkIn: "confirmar late check-in", checkOut: "confirmar", note: "Muy centrico y con gran puntaje. Conviene si resuelven por escrito el acceso posterior a medianoche.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("budapest", "/hotel/hu/adagio-downtown-minihotel-budapest.html") },
-        { id: "budapest-amber", source: "Booking", tierKey: "value", name: "Amber Gardenview Studios Downtown", price: 408, score: "9.1", reviews: "2.306", area: "Belvaros / Distrito V", checkIn: "confirmar acceso tardio", checkOut: "confirmar", note: "Estudio completo y ubicacion mas caminable. Buen salto de calidad sin llegar al precio del NEXTO.", requirements: ["Estudio con baño", "Aire acondicionado"], link: bookingHotelLink("budapest", "/hotel/hu/anoli-apartments.html") },
-        { id: "budapest-nexto", source: "Booking", tierKey: "comfort", name: "NEXTO DORMERO Hotel Budapest", price: 537, score: "8.8", reviews: "3.226", area: "Distrito VI / centro", checkIn: "recepcion; avisar llegada tardia", checkOut: "hasta 12:00 aprox.", note: "La opcion de hotel mas completa. Es mas cara, pero reduce incertidumbre la primera noche.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("budapest", "/hotel/hu/nexto-dormero-hotel-budapest.html") },
-        { id: "budapest-airbnb-central", source: "Airbnb", tierKey: "airbnb", name: "Airbnb en Distrito V/VII", price: 420, score: "Filtrar 4.8+", reviews: "50+", area: "Belvaros / barrio judio", checkIn: "exigir self check-in", checkOut: "confirmar", note: "Estimacion para comparar; descartar cualquier anuncio que no garantice por mensaje la llegada posterior a medianoche.", requirements: ["Baño privado", "Aire acondicionado"], link: airbnbLink("budapest", "Distrito V VII apartment air conditioning private bathroom self check-in") }
+        { id: "budapest-cosy-parliament", source: "Booking", tierKey: "budget", name: "Cosy apartment just next to Parliament", price: 301, score: "8.5", reviews: "157", area: "Lipotvaros / Parlamento, Distrito V", checkIn: "exigir confirmacion escrita para 00:15-00:45", checkOut: "confirmar", note: "La oportunidad de precio dentro del barrio elegido. No reservar hasta que el anfitrion garantice por escrito el acceso posterior a medianoche.", requirements: ["Apartamento con baño privado", "Calefaccion; confirmar aire"], link: bookingHotelLink("budapest", "/hotel/hu/lucky-13.html") },
+        { id: "budapest-amber", source: "Booking", tierKey: "value", name: "Amber Gardenview Studios Downtown", price: 408, score: "9.1", reviews: "2.306", area: "Belvaros / Ferenciek, Distrito V", checkIn: "self check-in por keybox; completar registro antes", checkOut: "hasta 10:00 aprox.", note: "Recomendado general: ubicacion caminable, estudio completo y procedimiento oficial para llegar despues de las 19:00.", requirements: ["Estudio con baño privado", "Calefaccion", "Aire acondicionado"], link: bookingHotelLink("budapest", "/hotel/hu/anoli-apartments.html") },
+        { id: "budapest-amber-terrace", source: "Booking", tierKey: "value", name: "Amber Terrace Studios Downtown", price: 409, score: "9.0", reviews: "2.107", area: "Belvaros / Ferenciek, Distrito V", checkIn: "self check-in por keybox; completar registro antes", checkOut: "hasta 10:00 aprox.", note: "Alternativa casi equivalente a Gardenview. Verificar el deposito reembolsable de EUR 200 y sus condiciones antes de pagar.", requirements: ["Estudio con baño privado", "Calefaccion", "Aire acondicionado"], link: bookingHotelLink("budapest", "/hotel/hu/amber-terrace-apartments.html") },
+        { id: "budapest-harmony", source: "Booking", tierKey: "value", name: "Budapest Holidays Harmony", price: 444, score: "8.4", reviews: "5.587", area: "Ferenciek / Kossuth Lajos, Distrito V", checkIn: "hasta 23:00; acordar late check-in y posible cargo", checkOut: "hasta 10:00 aprox.", note: "Muy centrico y con enorme volumen de reseñas. Solo reservar si confirman por mensaje el horario real de llegada y el costo adicional.", requirements: ["Estudio con baño privado", "Calefaccion", "Aire acondicionado"], link: bookingHotelLink("budapest", "/hotel/hu/budapest-holidays-harmony.html") },
+        { id: "budapest-marmara", source: "Booking", tierKey: "comfort", name: "Marmara Hotel Budapest", price: 577, score: "8.0", reviews: "2.984", area: "Lipotvaros / borde Nyugati, Distrito V", checkIn: "recepcion 24 horas", checkOut: "hasta 11:00 aprox.", note: "La opcion tradicional mas segura para la primera noche. Queda en el extremo norte del Distrito V, mas tranquila que Basilica/Deak.", requirements: ["Baño privado", "Calefaccion", "Aire acondicionado"], link: bookingHotelLink("budapest", "/hotel/hu/marmara-budapest.html") },
+        { id: "budapest-airbnb-central", source: "Airbnb", tierKey: "airbnb", name: "Airbnb en Basilica / Deak / Distrito V", price: 440, score: "Filtrar 4.8+", reviews: "25+", area: "Basilica, Deak o Belvaros", checkIn: "exigir self check-in posterior a medianoche", checkOut: "confirmar", note: "Busqueda fechada para comparar apartamentos. Verificar la ubicacion exacta, el total con tasas y el acceso autonomo antes de elegir.", requirements: ["Baño privado", "Calefaccion", "Self check-in"], link: airbnbLink("budapest", "District V Basilica Deak apartment heating private bathroom self check-in") }
       ]
     },
     {
@@ -1691,7 +1690,7 @@
       returnMadrid: "krk-mad-lot"
     },
     lodging: {
-      budapest: "budapest-centerpoint",
+      budapest: "budapest-amber",
       vienna: "vienna-prize",
       prague: "prague-ukrize",
       krakow: "krakow-habitat",
@@ -1704,7 +1703,7 @@
     cheap: {
       transport: { longhaul: "iberia-direct", arrival: "mad-bud-wizz", returnMadrid: "krk-mad-lot" },
       lodging: {
-        budapest: "budapest-centerpoint",
+        budapest: "budapest-amber",
         vienna: "vienna-bb-stadthalle",
         prague: "prague-brezina",
         krakow: "krakow-old-time",
@@ -1716,7 +1715,7 @@
     comfy: {
       transport: { longhaul: "iberia-direct", arrival: "mad-bud-wizz", returnMadrid: "krk-mad-lot" },
       lodging: {
-        budapest: "budapest-nexto",
+        budapest: "budapest-marmara",
         vienna: "vienna-urban",
         prague: "prague-perla",
         krakow: "krakow-perfect",
