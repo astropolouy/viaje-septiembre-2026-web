@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Presupuesto interactivo - Viaje septiembre 2026</title>
+  <title>Presupuesto interactivo - Viaje octubre 2026</title>
   <style>
     :root {
       --ink: #20242d;
@@ -41,6 +41,7 @@
       --pill-gray-ink: #536070;
       --section-summary: #0f766e;
       --section-route: #2563eb;
+      --section-daily: #0891b2;
       --section-transport: #7c3aed;
       --section-lodging: #b45309;
       --section-activities: #be123c;
@@ -85,6 +86,7 @@
       --pill-gray-ink: #c7d0dd;
       --section-summary: #39b2a8;
       --section-route: #8bbcff;
+      --section-daily: #76d4e2;
       --section-transport: #b99cff;
       --section-lodging: #f2b169;
       --section-activities: #ff9db2;
@@ -162,6 +164,7 @@
 
     section[data-section="summary"] { --section-color: var(--section-summary); }
     section[data-section="route"] { --section-color: var(--section-route); }
+    section[data-section="daily"] { --section-color: var(--section-daily); }
     section[data-section="transport"] { --section-color: var(--section-transport); }
     section[data-section="lodging"] { --section-color: var(--section-lodging); }
     section[data-section="activities"] { --section-color: var(--section-activities); }
@@ -440,6 +443,64 @@
       margin-top: 4px;
     }
 
+    .day-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .day-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--route-bg);
+      padding: 14px;
+      min-width: 0;
+    }
+
+    .day-card.transfer {
+      border-left: 4px solid var(--section-daily);
+    }
+
+    .day-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .day-title {
+      font-size: 16px;
+      font-weight: 850;
+    }
+
+    .day-date {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+
+    .day-row {
+      display: grid;
+      grid-template-columns: 86px minmax(0, 1fr);
+      gap: 10px;
+      padding: 8px 0;
+      border-top: 1px solid var(--line);
+      font-size: 14px;
+    }
+
+    .day-row:first-of-type { border-top: 0; }
+
+    .day-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
     .guide-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -537,6 +598,7 @@
     @media (max-width: 980px) {
       .grid.two, .grid.three, .grid.four, .split { grid-template-columns: 1fr; }
       .guide-grid { grid-template-columns: 1fr; }
+      .day-grid { grid-template-columns: 1fr; }
       .route { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sticky { position: static; }
     }
@@ -556,8 +618,9 @@
       }
       .summary-card { min-height: auto; }
       th, td { padding: 9px 8px; }
-      .table-wrap table { min-width: 820px; }
+      .table-wrap table { min-width: 940px; }
       .route { grid-template-columns: 1fr; }
+      .day-row { grid-template-columns: 1fr; gap: 2px; }
       .checklist { grid-template-columns: 1fr; }
       .city-head { display: block; }
       .city-total { text-align: left; margin-top: 10px; }
@@ -575,21 +638,21 @@
 <body>
 <main>
   <header>
-    <h1>Presupuesto interactivo - Viaje septiembre 2026</h1>
+    <h1>Presupuesto interactivo - Viaje octubre 2026</h1>
     <p class="lead">
       Ruta base: Montevideo -> Madrid -> Budapest -> Viena -> Praga -> Cracovia -> Madrid -> Montevideo.
-      Los importes son para 2 personas y sirven para decidir. Hay links para revalidar cada reserva antes de comprar.
+      Los importes son para 2 personas y sirven para decidir. El plan ya distingue reservas compradas, horarios objetivo y gastos todavia estimados.
     </p>
     <p class="meta">
-      Base actualizada el 13/06/2026 con referencias de Booking, Airbnb, KAYAK y paginas de aerolineas. Moneda: USD.
+      Base actualizada el 12/08/2026 con vuelos comprados, Auschwitz confirmado, referencias de Booking y trenes oficiales. Moneda: USD.
       Las tarifas reales pueden cambiar al entrar a cada web, especialmente equipaje, taxes y conversiones.
     </p>
 
     <div class="tagline">
-      <span class="pill good">18 dias calendario</span>
-      <span class="pill">15 noches en destino</span>
-      <span class="pill">Carry-on posible</span>
-      <span class="pill warn">Confirmar AC + baño privado</span>
+      <span class="pill good">19 dias calendario</span>
+      <span class="pill">17 noches en destino</span>
+      <span class="pill">Carry-on confirmado</span>
+      <span class="pill warn">Requisito: AC + baño privado</span>
     </div>
 
     <div class="toolbar">
@@ -605,6 +668,7 @@
     <nav class="quick-nav" aria-label="Navegacion de la planilla">
       <a href="#resumen">Resumen</a>
       <a href="#ruta">Ruta</a>
+      <a href="#agenda-diaria">Plan diario</a>
       <a href="#vuelos">Vuelos y trenes</a>
       <a href="#hoteles">Hoteles</a>
       <a href="#paseos">Paseos</a>
@@ -620,7 +684,7 @@
           <div class="summary-label">Total pareja con paseos</div>
           <div class="summary-value" id="grand-total">USD 0</div>
         </div>
-        <div class="summary-note">Incluye vuelos, trenes, traslados, alojamientos y presupuesto de actividades.</div>
+        <div class="summary-note">Incluye vuelos, trenes, traslados, alojamientos, comidas, entradas y un margen de viaje.</div>
       </div>
       <div class="panel summary-card">
         <div>
@@ -631,10 +695,10 @@
       </div>
       <div class="panel summary-card">
         <div>
-          <div class="summary-label">Base sin paseos</div>
+          <div class="summary-label">Base reservable</div>
           <div class="summary-value" id="base-total">USD 0</div>
         </div>
-        <div class="summary-note">La agencia normalmente cotiza vuelos + hoteles + traslados, no gastos diarios completos.</div>
+        <div class="summary-note">Vuelos, hoteles, trenes y traslados. No incluye comidas ni actividades del preset elegido.</div>
       </div>
       <div class="panel summary-card">
         <div>
@@ -657,7 +721,7 @@
       </div>
       <div class="guide-step">
         <strong><span class="guide-num">2</span>Elegir hoteles</strong>
-        <p class="small">El costo de hotel es por habitacion. Booking abre ficha directa; Airbnb queda como busqueda con fechas.</p>
+        <p class="small">El costo de hotel es por habitacion. Los links de Booking abren ficha directa con fechas cargadas.</p>
       </div>
       <div class="guide-step">
         <strong><span class="guide-num">3</span>Mirar total</strong>
@@ -670,35 +734,48 @@
     <h2>Ruta y noches</h2>
     <div class="route" aria-label="Resumen de ruta">
       <div class="route-step">
-        <div class="date">02/09</div>
+        <div class="date">07/10</div>
         <div class="place">Montevideo</div>
-        <div class="sub">Iberia 21:35, se puede trabajar ese miercoles.</div>
+        <div class="sub">Iberia 21:35. Dia laboral aprovechable antes de salir.</div>
       </div>
       <div class="route-step">
-        <div class="date">03/09 al 08/09</div>
+        <div class="date">08/10 al 12/10</div>
         <div class="place">Budapest</div>
-        <div class="sub">5 noches. Mejor encaje desde Madrid por horario.</div>
+        <div class="sub">4 noches. Entrada mas logica por vuelo tarde desde Madrid.</div>
       </div>
       <div class="route-step">
-        <div class="date">08/09 al 12/09</div>
+        <div class="date">12/10 al 16/10</div>
         <div class="place">Viena</div>
         <div class="sub">4 noches. Tren corto desde Budapest.</div>
       </div>
       <div class="route-step">
-        <div class="date">12/09 al 16/09</div>
+        <div class="date">16/10 al 20/10</div>
         <div class="place">Praga</div>
         <div class="sub">4 noches. Ciudad fuerte para caminar y fotografia.</div>
       </div>
       <div class="route-step">
-        <div class="date">16/09 al 18/09</div>
+        <div class="date">20/10 al 22/10</div>
         <div class="place">Cracovia</div>
         <div class="sub">2 noches. Base para Auschwitz.</div>
       </div>
       <div class="route-step">
-        <div class="date">18/09 al 20/09</div>
+        <div class="date">22/10 al 25/10</div>
         <div class="place">Madrid</div>
-        <div class="sub">2 noches. Compras y margen para futbol.</div>
+        <div class="sub">3 noches. Compras, descanso y margen para futbol.</div>
       </div>
+    </div>
+  </section>
+
+  <section id="agenda-diaria" data-section="daily">
+    <h2>Plan diario operativo</h2>
+    <p class="hint">
+      Esta agenda mezcla lo fijo con lo recomendable: vuelos comprados exactos, traslados internos como ventanas sugeridas y excursiones con margen para descansar.
+      En dias de cambio de ciudad, el check-in aparece segun el alojamiento seleccionado cuando esta cargado en la planilla.
+    </p>
+    <div id="daily-root"></div>
+    <div class="notice">
+      <strong>Regla practica:</strong> Budapest-Viena y Viena-Praga pueden salir por la manana. Praga-Cracovia es la excepcion: conviene el directo temprano,
+      porque llegar al mediodia les regala la unica tarde completa disponible en Cracovia.
     </div>
   </section>
 
@@ -707,31 +784,34 @@
       <section id="vuelos" data-section="transport">
         <h2>Vuelos y trenes seleccionables</h2>
         <p class="hint">
-          Para low-cost, el precio presupuestado ya intenta incluir carry-on real. En vuelos se muestra precio por persona para comparar, y total pareja para el calculo.
+          Los vuelos elegidos ya estan comprados. En vuelos se muestra precio por persona para comparar, y total pareja para el calculo; los trenes siguen como presupuesto objetivo.
         </p>
         <div id="transport-root"></div>
 
         <div class="warning">
-          <strong>Conexion en Madrid:</strong> si compran vuelos separados despues del MVD -> MAD, usaria como regla minima 3 horas reales y preferiria 4-5 horas.
-          Si Iberia emite todo en una misma reserva, se puede aceptar menos porque el equipaje y la proteccion de conexion cambian.
+          <strong>Conexion comprada:</strong> Iberia llega a T4S a las 14:35 y Wizz sale de T1 a las 20:10. Son billetes separados, pero el margen de 5h35 y viajar solo con cabina dejan una conexion razonable.
         </div>
       </section>
 
       <section id="hoteles" data-section="lodging">
         <h2>Alojamientos por ciudad</h2>
         <p class="hint">
-          Criterio usado: zona turistica razonable, movimiento de noche, puntaje 8+ y muchas reviews cuando fue posible.
-          Mantener como filtro final: habitacion con baño privado y aire acondicionado visible antes de reservar. Booking abre la ficha de la propiedad; Airbnb abre busqueda con fechas porque no tenemos URL directa/listing ID.
+          Criterio usado: zona turistica o muy bien conectada, movimiento de noche, puntaje 8+ y mas de 100 reviews.
+          Los links de Booking abren la ficha de la propiedad con las fechas de octubre cargadas.
         </p>
+        <div class="notice">
+          <strong>Requisitos del alojamiento:</strong> elegir habitacion con <strong>baño privado</strong> y <strong>aire acondicionado</strong> incluidos y visibles en la tarifa exacta antes de pagar.
+          Si una opcion no cumple ambos requisitos, queda descartada salvo que Mauricio y Magela acepten expresamente la excepcion.
+        </div>
         <div class="warning">
-          <strong>Links de alojamiento:</strong> Booking puede limpiar las fechas al cargar la ficha, asi que revisen manualmente el rango indicado en cada ciudad. Airbnb no queda fijado a una propiedad concreta hasta que elijan un anuncio y copien su URL directa.
+          <strong>Links de alojamiento:</strong> Booking puede limpiar las fechas al cargar la ficha, asi que revisen manualmente el rango indicado en cada ciudad antes de pagar.
         </div>
         <div id="lodging-root"></div>
       </section>
 
       <section id="paseos" data-section="activities">
-        <h2>Paseos y gastos de viaje</h2>
-        <p class="hint">Esto es lo mas variable: free tours, entradas puntuales, Auschwitz, baños termales, museos, compras y futbol.</p>
+        <h2>Comidas, paseos y margen</h2>
+        <p class="hint">El preset elegido completa el presupuesto: comida diaria, entradas, propinas de free tours y un pequeno margen. Compras y partido de futbol quedan fuera salvo que elijan el preset correspondiente.</p>
         <div class="table-wrap">
           <table>
             <thead>
@@ -745,13 +825,29 @@
             <tbody id="activity-root"></tbody>
           </table>
         </div>
+        <h3 style="margin-top:18px">Referencia del modo recomendado</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Concepto</th><th>Estado / criterio</th><th class="money">Pareja</th></tr></thead>
+            <tbody>
+              <tr><td>Comidas y agua</td><td>USD 80 por dia de destino para dos; mezcla supermercado, comida rapida y algunas comidas locales.</td><td class="money"><strong>USD 1.360</strong></td></tr>
+              <tr><td><a href="https://visit.auschwitz.org/" target="_blank" rel="noopener">Auschwitz-Birkenau</a></td><td>Comprado: guia oficial en español, ambos campos y shuttle interno.</td><td class="money"><strong>USD 83</strong></td></tr>
+              <tr><td>Budapest</td><td>Parlamento, Szechenyi y crucero basico por el Danubio.</td><td class="money"><strong>USD 185</strong></td></tr>
+              <tr><td>Viena + Bratislava</td><td>Schonbrunn, un museo y excursion regional a Bratislava.</td><td class="money"><strong>USD 205</strong></td></tr>
+              <tr><td>Praga</td><td>Castillo, Jewish Museum y una actividad/concierto opcional.</td><td class="money"><strong>USD 125</strong></td></tr>
+              <tr><td>Free tours</td><td>Propinas para 3-4 recorridos.</td><td class="money"><strong>USD 110</strong></td></tr>
+              <tr><td>Margen</td><td>Cafes, variacion de cambio, una entrada extra o un taxi no previsto.</td><td class="money"><strong>USD 232</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small">Total de referencia: USD 2.300 la pareja. No incluye compras, seguro de viaje ni entradas para un partido.</p>
       </section>
 
       <section id="equipaje" data-section="notes">
-        <h2>Carry-on en septiembre</h2>
+        <h2>Carry-on en octubre</h2>
         <p>
-          Para este itinerario, <strong>si son ordenados, alcanza con carry-on y mochila personal</strong>. No es invierno: esperaria dias caminables, noches mas frescas y algun dia de lluvia.
-          El problema no es el abrigo pesado, sino lavar/repetir ropa en un viaje de 18 dias.
+          Para este itinerario, <strong>si son ordenados, alcanza con carry-on y mochila personal</strong>. No es invierno, pero octubre ya pide capas: dias caminables, noches frescas y algun dia de lluvia.
+          El problema no es el abrigo pesado, sino lavar/repetir ropa en un viaje de 19 dias calendario.
         </p>
         <ul class="checklist">
           <li>1 campera liviana impermeable o rompeviento.</li>
@@ -768,11 +864,10 @@
       <h2>Detalle del calculo</h2>
       <div id="calc-breakdown"></div>
       <div class="warning">
-        <strong>Madrid:</strong> puse opciones mas baratas porque llegan tarde el 18/09 y el 19/09 seria compras/margen.
-        No tiene sentido pagar hotel caro ahi salvo que aparezca una ganga muy bien ubicada.
+        <strong>Madrid:</strong> aunque ya conocen la ciudad, dormir cerca de Preciados/Gran Via ahorra traslados y simplifica compras, equipaje y la salida final.
       </div>
       <div class="notice">
-        <strong>Mi default:</strong> usar buen alojamiento donde pasan mas noches y ahorrar en Madrid/Cracovia.
+        <strong>Mi default:</strong> ahorrar cerca de estaciones en Budapest, Viena y Cracovia; pagar ubicacion caminable en Praga y Madrid.
       </div>
     </aside>
   </div>
@@ -788,23 +883,23 @@
         </p>
       </div>
       <div class="panel">
-        <h3>Ryanair / Wizz</h3>
+        <h3>Vuelos internos cerrados</h3>
         <p>
-          No las descartaria automaticamente, pero solo si el horario es claramente mejor y compran el equipaje correcto.
-          Para Cracovia -> Madrid, Ryanair es la opcion directa y comoda por tiempo; LOT evita low-cost pero llega muy tarde y con escala.
+          Wizz MAD-BUD esta comprado con Priority, carry-on 55x40x23 y mochila por persona. LOT KRK-MAD tambien esta comprado en Economy Saver,
+          con carry-on de 8 kg y articulo personal. Las compras grandes quedan para Madrid al final.
         </p>
       </div>
       <div class="panel">
         <h3>Agencia</h3>
         <p>
-          USD 3.400 por persona no parece una locura si incluye valija y soporte. La pregunta es si sus hoteles/horarios son mejores que la version armada por ustedes.
-          Con esta planilla pueden comparar manzanas con manzanas.
+          La cotizacion de USD 3.400 por persona quedo como referencia historica. Ahora que el vuelo largo ya esta comprado, conviene comparar solo hoteles,
+          vuelos internos, trenes y soporte real que aporte una agencia.
         </p>
       </div>
       <div class="panel">
         <h3>Reserva final</h3>
         <p>
-          Antes de pagar: abrir cada link, validar tarifa final con impuestos, equipaje, politica de cancelacion, aire acondicionado, baño privado y horario real.
+          Antes de pagar: abrir cada link, validar tarifa final con impuestos, equipaje, politica de cancelacion, <strong>aire acondicionado incluido</strong>, <strong>baño privado</strong>, horario real y posibilidad de dejar equipaje.
         </p>
       </div>
     </div>
@@ -835,8 +930,11 @@
       <a href="https://www.ryanair.com/">Ryanair</a>,
       <a href="https://www.lot.com/">LOT</a>.
       Trenes: <a href="https://www.oebb.at/en/">OBB</a>,
-      <a href="https://regiojet.com/">RegioJet</a>.
-      Auschwitz: <a href="https://www.auschwitz.org/en/visiting/">reserva oficial</a>.
+      <a href="https://regiojet.com/">RegioJet</a>,
+      <a href="https://www.oebb.at/en/regionale-angebote/ueberregionale-angebote/bratislava-ticket">Bratislava Ticket</a>.
+      Excursiones: <a href="https://www.auschwitz.org/en/visiting/">Auschwitz oficial</a>,
+      <a href="https://www.szechenyibath.hu/opening-hours">Szechenyi Baths</a>,
+      <a href="https://www.schoenbrunn.at/en/">Schonbrunn</a>.
     </p>
   </section>
 </main>
@@ -850,11 +948,11 @@
   });
 
   const dateRanges = {
-    budapest: { checkin: "2026-09-03", checkout: "2026-09-08", city: "Budapest, Hungary" },
-    vienna: { checkin: "2026-09-08", checkout: "2026-09-12", city: "Vienna, Austria" },
-    prague: { checkin: "2026-09-12", checkout: "2026-09-16", city: "Prague, Czech Republic" },
-    krakow: { checkin: "2026-09-16", checkout: "2026-09-18", city: "Krakow, Poland" },
-    madrid: { checkin: "2026-09-18", checkout: "2026-09-20", city: "Madrid, Spain" }
+    budapest: { checkin: "2026-10-08", checkout: "2026-10-12", city: "Budapest, Hungary" },
+    vienna: { checkin: "2026-10-12", checkout: "2026-10-16", city: "Vienna, Austria" },
+    prague: { checkin: "2026-10-16", checkout: "2026-10-20", city: "Prague, Czech Republic" },
+    krakow: { checkin: "2026-10-20", checkout: "2026-10-22", city: "Krakow, Poland" },
+    madrid: { checkin: "2026-10-22", checkout: "2026-10-25", city: "Madrid, Spain" }
   };
 
   function bookingHotelLink(cityId, path) {
@@ -889,27 +987,27 @@
       options: [
         {
           id: "iberia-direct",
-          label: "Iberia directo MVD-MAD-MVD",
-          detail: "02/09 21:35 MVD -> 03/09 14:35 MAD. Regreso 20/09 11:50 MAD -> 19:35 MVD. Tarifa vista aprox. USD 1.370 pp.",
-          price: 2740,
+          label: "Iberia comprado MVD-MAD-MVD",
+          detail: "07/10 21:35 MVD -> 08/10 14:35 MAD. Regreso 25/10 11:55 MAD -> 20:10 MVD. Presupuesto cargado como USD 1.400 pp.",
+          price: 2800,
           link: "https://www.iberia.com/us/cheap-flights/Montevideo-Madrid/",
-          tag: "Recomendado"
+          tag: "Comprado"
         },
         {
           id: "latam-gru",
           label: "LATAM via San Pablo",
-          detail: "Puede bajar algo el precio, pero agrega escala y suele salir antes. Solo vale si ahorra al menos USD 300 pareja.",
+          detail: "Queda solo como referencia de comparacion: agrega escala y no mejora el viaje si el directo ya esta comprado.",
           price: 2608,
           link: "https://www.latamairlines.com/",
-          tag: "Solo si hay promo"
+          tag: "Referencia"
         },
         {
           id: "agency-longhaul",
-          label: "Agencia / ticket combinado a Praga",
-          detail: "Referencia del armado de agencia: MVD -> MAD -> PRG con 1h25 en Madrid. Aceptable solo si todo esta en una misma reserva.",
+          label: "Agencia / referencia anterior",
+          detail: "No usar como plan actual. Sirve solo para recordar contra que se comparaba la agencia antes de comprar Iberia.",
           price: 2830,
           link: "https://www.iberia.com/",
-          tag: "Verificar PNR"
+          tag: "Historico"
         }
       ]
     },
@@ -921,15 +1019,15 @@
         {
           id: "mad-bud-wizz",
           label: "Wizz Air directo 20:10 -> 23:10",
-          detail: "Mas espera en Barajas, pero margen sano si el vuelo desde MVD llega 14:35. Presupuesto con Wizz Priority/carry-on.",
+          detail: "Comprado para el 08/10. Sale de MAD T1, llega a BUD T2B y da 5h35 de margen desde el arribo de Iberia. Incluye Priority, carry-on y mochila por persona.",
           price: 200,
           link: "https://www.wizzair.com/en-gb/cheap-flights-from-madrid-to-budapest",
-          tag: "Mejor margen"
+          tag: "Comprado"
         },
         {
           id: "mad-bud-iberia",
           label: "Iberia / partner directo tarde",
-          detail: "Si aparece cerca de 17:00 y se puede emitir conectado con Iberia, seria muy limpio. Separado, 2h30 puede quedar justo.",
+          detail: "Plan B si aparece en Iberia/partner con horario tarde. Solo sirve si el precio no se dispara.",
           price: 288,
           link: "https://www.iberia.com/",
           tag: "Revisar horario"
@@ -937,7 +1035,7 @@
         {
           id: "mad-bud-ryanair",
           label: "Ryanair directo 17:45 -> 20:50",
-          detail: "Llega mas temprano a Budapest, pero tiene menos margen y requiere comprar carry-on correcto.",
+          detail: "Llega mas temprano a Budapest, pero queda ajustado para ticket separado despues del vuelo largo.",
           price: 180,
           link: "https://www.ryanair.com/",
           tag: "Mas justo"
@@ -947,28 +1045,28 @@
     {
       id: "returnMadrid",
       title: "Salida del circuito: Cracovia -> Madrid",
-      description: "Aca la tension es clara: Ryanair es directo y rapido; LOT es mas aerolinea tradicional, pero con escala y llegada tarde.",
+      description: "Para el 22/10 conviene llegar a Madrid de noche razonable y dejar viernes/sabado completos.",
       options: [
         {
           id: "krk-mad-ryanair",
-          label: "Ryanair directo 17:35 -> 21:05",
-          detail: "Mejor horario total y sin escala. Hay que pagar carry-on de cabina desde el inicio.",
-          price: 280,
+          label: "Ryanair directo 09:35 -> 13:05",
+          detail: "Barato y directo, pero obliga a salir temprano y practicamente elimina la manana de Cracovia.",
+          price: 180,
           link: "https://www.ryanair.com/",
-          tag: "Mas practico"
+          tag: "Mas barato"
         },
         {
           id: "krk-mad-lot",
-          label: "LOT via Varsovia 14:55 -> 23:35",
-          detail: "Evita low-cost y puede incluir mejor equipaje segun tarifa, pero consume mas horas y llega tarde a Madrid.",
-          price: 340,
+          label: "LOT directo 16:10 -> 19:35",
+          detail: "Comprado para el 22/10, vuelo LO2161. Economy Saver con carry-on de 8 kg y articulo personal; usa la manana en Cracovia y llega a Madrid a buena hora.",
+          price: 273,
           link: "https://www.lot.com/",
-          tag: "Sin low-cost"
+          tag: "Comprado"
         },
         {
           id: "krk-mad-legacy",
           label: "Lufthansa/Austrian/otra legacy",
-          detail: "Plan B si Ryanair no convence y LOT sube. Normalmente con escala y mas caro.",
+          detail: "Plan B si LOT sube mucho o no queda disponible. Normalmente con escala y mas caro.",
           price: 500,
           link: "https://www.google.com/travel/flights",
           tag: "Plan B"
@@ -978,79 +1076,47 @@
   ];
 
   const fixedTransport = [
-    { label: "Tren Budapest -> Viena", detail: "OBB/RegioJet, aprox. 2h20-2h40", price: 50, ticketPerPerson: true },
-    { label: "Tren Viena -> Praga", detail: "OBB/RegioJet/CD, aprox. 4h", price: 60, ticketPerPerson: true },
-    { label: "Tren Praga -> Cracovia", detail: "CD/PKP, aprox. 6h; conviene comprar anticipado", price: 100, ticketPerPerson: true },
-    { label: "Traslados locales", detail: "Aeropuertos, metro/tranvia, algun taxi puntual", price: 260, ticketPerPerson: false }
+    { label: "Tren Budapest -> Viena", detail: "12/10. Objetivo: RJX directo Budapest-Keleti 09:40 -> Wien Hbf 12:20 (aprox. 2h40).", price: 60, ticketPerPerson: true, link: "https://jegy.mav.hu/?lang=en" },
+    { label: "Tren Viena -> Praga", detail: "16/10. Objetivo: Railjet/ComfortJet directo Wien Hbf 09:10 -> Praha hl.n. 13:23 (aprox. 4h13).", price: 70, ticketPerPerson: true, link: "https://www.oebb.at/en/" },
+    { label: "Tren Praga -> Cracovia", detail: "20/10. Preferido: EC 113 directo Praha hl.n. 06:08 -> Krakow Glowny 12:20 (aprox. 6h12). Reservar asiento.", price: 100, ticketPerPerson: true, link: "https://www.cd.cz/en/" },
+    { label: "Traslados locales", detail: "Aeropuertos, metro/tranvia, bus a Auschwitz y algun taxi puntual. Bratislava queda dentro del preset de gastos diarios.", price: 300, ticketPerPerson: false, link: "" }
   ];
 
   const cities = [
     {
       id: "budapest",
       name: "Budapest",
-      nights: 5,
-      dates: "03/09 al 08/09",
-      zone: "Prioridad: Distrito V, VII cerca del barrio judio, Deak Ferenc, Astoria o Kalvin ter.",
+      nights: 4,
+      dates: "08/10 al 12/10",
+      zone: "Prioridad: Pest central y conexion simple con Keleti. La llegada sera despues de medianoche, por lo que el late check-in es decisivo.",
       options: [
         {
-          id: "budapest-amber-garden",
+          id: "budapest-centerpoint",
           source: "Booking",
-          tier: "Barato bueno",
-          name: "Amber Gardenview Studios Downtown",
-          price: 462,
-          score: "9.0",
-          reviews: "2.296",
-          area: "Belvaros / Kalvin ter",
-          note: "Muy buen balance precio-ubicacion. Apart/estudio; confirmar AC en la unidad. Link directo a ficha Booking.",
-          link: bookingHotelLink("budapest", "/hotel/hu/anoli-apartments.html")
-        },
-        {
-          id: "budapest-exe",
-          source: "Booking",
-          tier: "Medio",
-          name: "Exe Budapest Center",
-          price: 678,
+          tier: "Valor recomendado",
+          name: "Centerpoint Panzio - Digital Pansion Heritage Collection",
+          price: 297,
           score: "8.5",
-          reviews: "5.863",
-          area: "Centro / Astoria",
-          note: "Hotel mas clasico, ubicacion muy caminable para primer viaje a Budapest. Link directo a ficha Booking.",
-          link: bookingHotelLink("budapest", "/hotel/hu/eurostars-budapest-center.html")
+          reviews: "1.321",
+          area: "Blaha Lujza ter / Distrito VIII",
+          checkIn: "digital 24/7",
+          checkOut: "hasta 10:00 aprox.",
+          note: "La opcion mas practica para llegar de madrugada: self check-in automatizado, zona activa, metro y acceso facil a Keleti. Confirmar AC y baño privado en la tarifa elegida.",
+          link: bookingHotelLink("budapest", "/hotel/hu/centerpoint-panzio.html")
         },
         {
-          id: "budapest-d8",
+          id: "budapest-nexto",
           source: "Booking",
           tier: "Comodo",
-          name: "D8 Hotel",
-          price: 843,
-          score: "9.0",
-          reviews: "5.659",
-          area: "Distrito V / Danubio",
-          note: "Ubicacion top cerca del rio y Chain Bridge. Es caro para Budapest, pero muy comodo. Link directo a ficha Booking.",
-          link: bookingHotelLink("budapest", "/hotel/hu/d8.html")
-        },
-        {
-          id: "budapest-airbnb-karoly",
-          source: "Airbnb",
-          tier: "Busqueda Airbnb 1",
-          name: "Busqueda Airbnb: Distrito V/VII",
-          price: 379,
-          score: "4.92",
-          reviews: "361",
-          area: "Distrito V / VII",
-          note: "No es ficha directa: abre una busqueda con fechas para encontrar opciones similares. Revisar cancelacion, AC y escalera/ascensor.",
-          link: airbnbLink("budapest", "Karoly Korut 9 Brand New Flat")
-        },
-        {
-          id: "budapest-airbnb-riva",
-          source: "Airbnb",
-          tier: "Busqueda Airbnb 2",
-          name: "Busqueda Airbnb: barrio judio",
-          price: 427,
-          score: "4.8+",
-          reviews: "Revisar",
-          area: "Barrio judio / Distrito VII",
-          note: "No es ficha directa: abre busqueda con fechas. Buena zona para comer y moverse de noche; validar reviews actuales.",
-          link: airbnbLink("budapest", "Riva Studio 2")
+          name: "NEXTO DORMERO Hotel Budapest",
+          price: 536,
+          score: "8.7",
+          reviews: "3.174",
+          area: "Distrito VI / centro",
+          checkIn: "desde 15:00; avisar llegada tardia",
+          checkOut: "hasta 12:00 aprox.",
+          note: "Hotel mas completo y central. La recepcion figura 24 horas, pero conviene escribir y dejar asentada la llegada posterior a medianoche.",
+          link: bookingHotelLink("budapest", "/hotel/hu/nexto-dormero-hotel-budapest.html")
         }
       ]
     },
@@ -1058,68 +1124,36 @@
       id: "vienna",
       name: "Viena",
       nights: 4,
-      dates: "08/09 al 12/09",
-      zone: "Prioridad: Innere Stadt si entra en precio; si no, Neubau, Mariahilf, Naschmarkt o Westbahnhof con metro.",
+      dates: "12/10 al 16/10",
+      zone: "Prioridad: Wien Hbf para simplificar ambos trenes, o Innere Stadt si quieren pagar mas por caminar al centro.",
       options: [
         {
-          id: "vienna-flemings",
+          id: "vienna-prize",
           source: "Booking",
-          tier: "Barato bueno",
-          name: "Flemings Hotel Wien-Stadthalle",
-          price: 354,
-          score: "8.5",
-          reviews: "5.422",
-          area: "Westbahnhof / Stadthalle",
-          note: "Muy buen precio para Viena; no es casco historico, pero tiene transporte fuerte. Link directo a ficha Booking.",
-          link: bookingHotelLink("vienna", "/hotel/at/fleming-s-wien-westbahnhof.html")
+          tier: "Valor recomendado",
+          name: "Prize by Radisson Vienna City",
+          price: 378,
+          score: "8.3",
+          reviews: "21.548",
+          area: "Wien Hbf / Favoriten",
+          checkIn: "desde 15:00 aprox.",
+          checkOut: "hasta 12:00 aprox.",
+          note: "Gran relacion costo-logistica: cerca de la estacion central, muchisimas reviews y conexion rapida al centro. Ideal para llegar de Budapest y salir a Praga.",
+          link: bookingHotelLink("vienna", "/hotel/at/prizeotel-vienna-city.html")
         },
         {
-          id: "vienna-motel-west",
-          source: "Booking",
-          tier: "Medio",
-          name: "Motel One Wien-Westbahnhof",
-          price: 516,
-          score: "8.6",
-          reviews: "14.424",
-          area: "Westbahnhof / Mariahilfer",
-          note: "Cadena confiable, zona practica, buena para tren y compras. Link directo a ficha Booking.",
-          link: bookingHotelLink("vienna", "/hotel/at/motel-one-wien-westbahnhof.html")
-        },
-        {
-          id: "vienna-cloud-state",
+          id: "vienna-urban",
           source: "Booking",
           tier: "Comodo",
-          name: "The Cloud One Wien-Staatsoper",
-          price: 765,
-          score: "8.4",
-          reviews: "7.689",
-          area: "Opera / Innere Stadt",
-          note: "Ubicacion excelente. Se pasa del tope ideal por noche, pero ahorra traslados y tiempo. Link directo a ficha Booking.",
-          link: bookingHotelLink("vienna", "/hotel/at/motel-one-wien-staatsoper.html")
-        },
-        {
-          id: "vienna-airbnb-neubau",
-          source: "Airbnb",
-          tier: "Busqueda Airbnb 1",
-          name: "Busqueda Airbnb: Neubau",
-          price: 607,
-          score: "4.86",
-          reviews: "434",
-          area: "Neubau",
-          note: "No es ficha directa: abre busqueda con fechas. Zona con comida, movimiento y buen acceso al centro; confirmar AC.",
-          link: airbnbLink("vienna", "Nice city flat 7th district Neubau")
-        },
-        {
-          id: "vienna-airbnb-mariahilf",
-          source: "Airbnb",
-          tier: "Busqueda Airbnb 2",
-          name: "Busqueda Airbnb: Mariahilf / Neubau",
-          price: 524,
-          score: "4.8+",
-          reviews: "Revisar",
-          area: "Mariahilf / Neubau",
-          note: "No es ficha directa: abre busqueda con fechas. Alternativa para buscar mejor precio que hotel central; filtrar AC y ascensor.",
-          link: airbnbLink("vienna", "Mariahilf Neubau apartment air conditioning")
+          name: "Urban Rooms Rathaus",
+          price: 599,
+          score: "8.8",
+          reviews: "2.360",
+          area: "Rathaus / Innere Stadt",
+          checkIn: "self check-in; confirmar instrucciones",
+          checkOut: "hasta 11:00 aprox.",
+          note: "Mejor ubicacion para caminar al Ring, Rathaus y cafes. Cuesta USD 221 mas que Prize en toda la estadia; ese es el precio real de priorizar centro.",
+          link: bookingHotelLink("vienna", "/hotel/at/urban-rooms-rathaus.html")
         }
       ]
     },
@@ -1127,68 +1161,36 @@
       id: "prague",
       name: "Praga",
       nights: 4,
-      dates: "12/09 al 16/09",
-      zone: "Prioridad: Old Town, New Town cerca de metro, Mala Strana o zona Republic Square.",
+      dates: "16/10 al 20/10",
+      zone: "Prioridad: Prague 1, Mala Strana u Old Town. Aca la ubicacion ayuda mucho para fotografia al amanecer.",
       options: [
         {
-          id: "prague-legie",
+          id: "prague-ukrize",
           source: "Booking",
-          tier: "Barato bueno",
-          name: "Hotel Legie",
-          price: 291,
-          score: "8.1",
-          reviews: "984",
-          area: "Nove Mesto / I.P. Pavlova",
-          note: "Muy buen precio y ubicacion practica. Mas simple; confirmar AC antes de cerrar. Link directo a ficha Booking.",
-          link: bookingHotelLink("prague", "/hotel/cz/legie.html")
+          tier: "Valor recomendado",
+          name: "Hotel U Krize",
+          price: 420,
+          score: "8.4",
+          reviews: "1.876",
+          area: "Mala Strana / Prague 1",
+          checkIn: "desde 14:00 aprox.",
+          checkOut: "hasta 11:00 aprox.",
+          note: "Ubicacion excelente entre Kampa, Petrin y Charles Bridge; desayuno incluido en la referencia revisada. Muy buena base para salir con la camara temprano.",
+          link: bookingHotelLink("prague", "/hotel/cz/u-krize-praha.html")
         },
         {
-          id: "prague-cloud",
-          source: "Booking",
-          tier: "Medio",
-          name: "The Cloud One Prague",
-          price: 494,
-          score: "8.7",
-          reviews: "6.100",
-          area: "Nove Mesto / Republic Square",
-          note: "Equilibrio fuerte: buena zona, muchas reviews, hotel moderno. Link directo a ficha Booking.",
-          link: bookingHotelLink("prague", "/hotel/cz/the-cloud-one-prague.html")
-        },
-        {
-          id: "prague-old",
+          id: "prague-perla",
           source: "Booking",
           tier: "Comodo",
-          name: "Old Prague Hotel",
-          price: 631,
-          score: "8.9",
-          reviews: "5.765",
-          area: "Old Town",
-          note: "Muy central y dentro del techo alto aproximado. Ideal para caminar temprano. Link directo a ficha Booking.",
-          link: bookingHotelLink("prague", "/hotel/cz/old-prague.html")
-        },
-        {
-          id: "prague-airbnb-charles",
-          source: "Airbnb",
-          tier: "Busqueda Airbnb 1",
-          name: "Busqueda Airbnb: cerca Charles Bridge",
-          price: 463,
-          score: "4.90",
-          reviews: "472",
-          area: "Cerca Charles Bridge",
-          note: "No es ficha directa: abre busqueda con fechas. Gran zona para fotografia temprano; revisar ruido y escaleras.",
-          link: airbnbLink("prague", "Bright cosy apartment near Charles Bridge")
-        },
-        {
-          id: "prague-airbnb-oldtown",
-          source: "Airbnb",
-          tier: "Busqueda Airbnb 2",
-          name: "Busqueda Airbnb: Old Town",
-          price: 468,
-          score: "4.8+",
-          reviews: "Revisar",
-          area: "Old Town",
-          note: "No es ficha directa: abre busqueda con fechas. Comparable al hotel medio en precio si quieren cocina/lavado.",
-          link: airbnbLink("prague", "Residence Old Town Studio Prague")
+          name: "Perla Hotel",
+          price: 582,
+          score: "8.8",
+          reviews: "5.766",
+          area: "Old Town / Mustek",
+          checkIn: "desde 14:00 aprox.",
+          checkOut: "hasta 11:00 aprox.",
+          note: "Mas hotel y mas centralidad del lado de Old Town. Buen score, muchas reviews y metro cerca; upgrade razonable si aparece una tarifa flexible.",
+          link: bookingHotelLink("prague", "/hotel/cz/perla.html")
         }
       ]
     },
@@ -1196,160 +1198,303 @@
       id: "krakow",
       name: "Cracovia",
       nights: 2,
-      dates: "16/09 al 18/09",
-      zone: "Prioridad: Stare Miasto, Kazimierz o cerca de la estacion si el tren llega tarde.",
+      dates: "20/10 al 22/10",
+      zone: "Prioridad: Krakow Glowny/MDA o Stare Miasto. La cercania a la estacion ayuda con el tren, el bus a Auschwitz y el vuelo del dia siguiente.",
       options: [
         {
           id: "krakow-silvio",
           source: "Booking",
-          tier: "Barato bueno",
+          tier: "Valor recomendado",
           name: "Home in Krakow Silvio's Apartments",
-          price: 109,
-          score: "8.9",
-          reviews: "1.075",
-          area: "Stare Miasto / estacion",
-          note: "Muy barato y suficiente para 2 noches. Confirmar AC y horario de check-in. Link directo a ficha Booking.",
+          price: 161,
+          score: "9.0",
+          reviews: "1.054",
+          area: "Radziwillowska / Stare Miasto",
+          checkIn: "15:00 a 23:30; coordinar llaves",
+          checkOut: "hasta 11:00 aprox.",
+          note: "A unos 400 m de Krakow Glowny/MDA. Es la base mas eficiente para estas dos noches; no tiene recepcion tradicional, asi que hay que coordinar llegada y guardado de equipaje.",
           link: bookingHotelLink("krakow", "/hotel/pl/appartamentisilvio.html")
         },
         {
-          id: "krakow-central",
-          source: "Booking",
-          tier: "Medio",
-          name: "Cracow Central Aparthotel",
-          price: 129,
-          score: "8.5",
-          reviews: "10.031",
-          area: "Stare Miasto / estacion",
-          note: "Muchisimas reviews, practico para tren y Auschwitz. Muy buena opcion default. Link directo a ficha Booking.",
-          link: bookingHotelLink("krakow", "/hotel/pl/cracow-central-guest-rooms.html")
-        },
-        {
-          id: "krakow-mr67",
+          id: "krakow-perfect",
           source: "Booking",
           tier: "Comodo",
-          name: "MR67 Mayera Rapaporta",
-          price: 326,
-          score: "8.8",
-          reviews: "2.332",
+          name: "Hotel Perfect",
+          price: 188,
+          score: "9.1",
+          reviews: "2.252",
           area: "Kazimierz",
-          note: "Mejor zona para cenar y caminar de noche, pero caro para solo 2 noches. Link directo a ficha Booking.",
-          link: bookingHotelLink("krakow", "/hotel/pl/mr67-mayera-rapaporta.html")
-        },
-        {
-          id: "krakow-airbnb-rajska",
-          source: "Airbnb",
-          tier: "Busqueda Airbnb 1",
-          name: "Busqueda Airbnb: Old Town / Rajska",
-          price: 154,
-          score: "4.96",
-          reviews: "379",
-          area: "Old Town",
-          note: "No es ficha directa: abre busqueda con fechas. Buena zona si prefieren apartamento y ubicacion central.",
-          link: airbnbLink("krakow", "Rajska studio Old Town")
-        },
-        {
-          id: "krakow-airbnb-oldtown",
-          source: "Airbnb",
-          tier: "Busqueda Airbnb 2",
-          name: "Busqueda Airbnb: Old Town / Kazimierz",
-          price: 130,
-          score: "4.8+",
-          reviews: "Revisar",
-          area: "Old Town / Kazimierz",
-          note: "No es ficha directa: abre busqueda con fechas. Buscar con filtro de muchas reviews; en Cracovia Airbnb suele competir bien.",
-          link: airbnbLink("krakow", "Old Town apartment air conditioning")
+          checkIn: "desde 15:00 aprox.",
+          checkOut: "hasta 12:00 aprox.",
+          note: "Mejor experiencia de hotel y zona muy agradable para cenar. Solo USD 27 mas por la estadia, aunque menos practico para salir desde MDA a Auschwitz.",
+          link: bookingHotelLink("krakow", "/hotel/pl/perfect.html")
         }
       ]
     },
     {
       id: "madrid",
       name: "Madrid",
-      nights: 2,
-      dates: "18/09 al 20/09",
-      zone: "Prioridad: Gran Via, Sol, Chueca, Malasana, Salamanca o Atocha bien conectado.",
+      nights: 3,
+      dates: "22/10 al 25/10",
+      zone: "Prioridad: Preciados, Gran Via o Sol para compras y regreso sencillo. Se compara una opcion barata conectada con otra realmente central.",
       options: [
         {
-          id: "madrid-room-ventura",
+          id: "madrid-ronda",
           source: "Booking",
-          tier: "Barato usable",
-          name: "Room Ventura",
-          price: 366,
-          score: "8.3",
-          reviews: "5.808",
-          area: "Sol / centro",
-          note: "Central y mucho mas razonable para dormir. Confirmar baño privado y AC del cuarto. Link directo a ficha Booking.",
-          link: bookingHotelLink("madrid", "/hotel/es/room007-ventura-hostel.html")
+          tier: "Economico",
+          name: "Hostal Maria Ronda",
+          price: 438,
+          score: "8.9",
+          reviews: "1.330",
+          area: "Carabanchel / metro",
+          checkIn: "desde 14:00-15:00 aprox.",
+          checkOut: "hasta 11:00 aprox.",
+          note: "Buen puntaje y precio, pero no esta en el centro turistico. Solo lo elegiria si quieren ahorrar esos USD 92 totales y aceptan usar metro para cada compra/paseo.",
+          link: bookingHotelLink("madrid", "/hotel/es/hostal-maria-ronda.html")
         },
         {
-          id: "madrid-perla",
+          id: "madrid-conchita",
           source: "Booking",
-          tier: "Medio",
-          name: "Hostal La Perla Asturiana",
-          price: 440,
+          tier: "Central recomendado",
+          name: "Hostal Conchita",
+          price: 530,
           score: "8.4",
-          reviews: "3.317",
-          area: "Centro / Plaza Mayor",
-          note: "Sencillo y bien ubicado. Buena opcion si el barato no confirma baño/AC. Link directo a ficha Booking.",
-          link: bookingHotelLink("madrid", "/hotel/es/la-perla-asturiana.html")
-        },
-        {
-          id: "madrid-letoh",
-          source: "Booking",
-          tier: "Comodo",
-          name: "Letoh Letoh Gran Via",
-          price: 573,
-          score: "8.8",
-          reviews: "7.281",
-          area: "Gran Via",
-          note: "Hotel moderno y fuerte, pero probablemente demasiado para una llegada tarde. Link directo a ficha Booking.",
-          link: bookingHotelLink("madrid", "/hotel/es/room007-premium-gran-via.html")
-        },
-        {
-          id: "madrid-airbnb-centro",
-          source: "Airbnb",
-          tier: "Busqueda Airbnb 1",
-          name: "Busqueda Airbnb: centro economico",
-          price: 294,
-          score: "4.8+",
-          reviews: "Revisar",
-          area: "Sol / Gran Via / Lavapies",
-          note: "No es ficha directa: abre busqueda con fechas. Mejor chance de bajar Madrid; tomar solo con muchas reviews y check-in facil.",
-          link: airbnbLink("madrid", "central apartment private bathroom air conditioning")
-        },
-        {
-          id: "madrid-airbnb-goya",
-          source: "Airbnb",
-          tier: "Busqueda Airbnb 2",
-          name: "Busqueda Airbnb: Salamanca / Goya",
-          price: 461,
-          score: "4.86",
-          reviews: "35",
-          area: "Salamanca / Goya",
-          note: "No es ficha directa: abre busqueda con fechas. Zona buena para compras; usar solo si el anuncio concreto tiene suficientes reviews.",
-          link: airbnbLink("madrid", "Goya Centro Madrid")
+          reviews: "172",
+          area: "Calle Preciados / Callao",
+          checkIn: "desde 14:00-15:00 aprox.",
+          checkOut: "hasta 11:00 aprox.",
+          note: "A 300 m de Gran Via y 500 m de Sol. Por USD 31 extra por noche frente a Maria Ronda, la ubicacion se justifica para dos dias de compras y salida al aeropuerto.",
+          link: bookingHotelLink("madrid", "/hotel/es/hostal-conchita-madrid2.html")
         }
       ]
+    }
+  ];
+
+  const dailyPlan = [
+    {
+      day: 1,
+      date: "Mie 07/10",
+      title: "Montevideo -> vuelo nocturno",
+      overnight: "Vuelo",
+      transfer: "Iberia IB170 comprado: MVD 21:35 -> MAD 14:35 (+1). Llegar a Carrasco sobre 18:30-19:00.",
+      morning: "Trabajar normal y dejar equipaje cerrado desde la noche anterior.",
+      afternoon: "Comida liviana, documentos, tarjetas, eSIM/roaming y check-in online. Controlar que ambos carry-on cumplan el limite mas estricto de LOT: 8 kg.",
+      evening: "Vuelo nocturno. Intentar dormir para llegar con energia a Madrid.",
+      note: "Llevar en la mochila una muda, medicacion y cargadores; todo el tramo hasta Budapest esta en reservas separadas."
+    },
+    {
+      day: 2,
+      date: "Jue 08/10",
+      title: "Madrid -> Budapest",
+      overnight: "Budapest",
+      checkInCity: "budapest",
+      transfer: "Llegada Iberia a MAD T4S 14:35. Wizz W6 2372 comprado: T1 20:10 -> BUD T2B 23:10. Margen total: 5h35.",
+      morning: "Vuelo largo.",
+      afternoon: "Migraciones, retiro a zona publica y bus gratuito entre terminales T4-T1. Estar en T1 antes de las 17:30-18:00 y usar el boarding pass de Wizz ya emitido.",
+      evening: "Llegada 23:10. Entre desembarque y traslado, calcular hotel 00:15-00:45; preferir taxi oficial/Bolt y llevar algo para comer.",
+      note: "Reservar alojamiento con self check-in 24/7 o confirmacion escrita de llegada posterior a medianoche."
+    },
+    {
+      day: 3,
+      date: "Vie 09/10",
+      title: "Budapest: Pest y Parlamento",
+      overnight: "Budapest",
+      morning: "Dormir un poco mas. Desayuno 09:30 y free tour por Pest hacia las 10:30: Basilica, Deak Ferenc y centro historico.",
+      afternoon: "Parlamento con entrada horaria si consiguen cupo oficial, luego Zapatos del Danubio y ribera. Presupuesto pareja: 21.000 HUF usando pasaporte italiano/EEA para Mauricio y uruguayo para Magela.",
+      evening: "Atardecer y fotos del Parlamento desde el Danubio. Cena en barrio judio o zona Basilica.",
+      note: "Comprar Parlamento en el sitio oficial; llevar el mismo pasaporte usado para cada tarifa."
+    },
+    {
+      day: 4,
+      date: "Sab 10/10",
+      title: "Buda Castle y miradores",
+      overnight: "Budapest",
+      morning: "Fisherman's Bastion temprano (ideal 08:00), Matthias Church y calles de Castle District antes de los grupos.",
+      afternoon: "Buda Castle, Varkert Bazar y regreso por Chain Bridge. Almuerzo simple en Buda o al volver a Pest.",
+      evening: "Crucero basico por el Danubio o fotos nocturnas del Parlamento desde Batthyany ter.",
+      note: "Dia fuerte para fotografia."
+    },
+    {
+      day: 5,
+      date: "Dom 11/10",
+      title: "Budapest: barrio judio y termas",
+      overnight: "Budapest",
+      morning: "Gran Sinagoga y paseo por el barrio judio; reservar entrada solo si realmente quieren el interior.",
+      afternoon: "Heroes' Square y Szechenyi Baths desde 15:00 aprox. Presupuesto de fin de semana: 29.600 HUF la pareja con locker.",
+      evening: "Cena cerca del hotel, Szimpla Kert solo para conocerlo y preparar equipaje para el tren.",
+      note: "No haria Danube Bend en este viaje: con tres dias reales, Budapest merece quedarse con este dia."
+    },
+    {
+      day: 6,
+      date: "Lun 12/10",
+      title: "Budapest -> Viena",
+      overnight: "Viena",
+      checkInCity: "vienna",
+      transfer: "Horario objetivo: RJX directo Budapest-Keleti 09:40 -> Wien Hbf 12:20 (aprox. 2h40). Revalidar y comprar en MAV/OBB.",
+      morning: "Check-out 08:15, metro/taxi a Keleti y estar en anden 20-25 minutos antes. Comprar asiento reservado.",
+      afternoon: "Llegada a Wien Hbf, dejar equipaje o check-in desde 15:00. Stephansplatz, Graben y primera vuelta por el Ring.",
+      evening: "Cena cerca del hotel o Naschmarkt/Mariahilf si duermen por esa zona.",
+      note: "Aunque el tren pueda continuar a otra ciudad, el vagon y asiento son formales; Wien Hbf aparece claramente en pantallas y anuncios."
+    },
+    {
+      day: 7,
+      date: "Mar 13/10",
+      title: "Viena imperial",
+      overnight: "Viena",
+      morning: "Hofburg y Biblioteca Nacional; sumar Sisi Museum solo si les interesa mucho la historia imperial.",
+      afternoon: "Kunsthistorisches Museum o Belvedere. Elegir uno para mantener un ritmo agradable y dejar tiempo para cafe.",
+      evening: "Cafe clasico y paseo nocturno por Opera/Ringstrasse.",
+      note: "Buen dia para museo si llueve."
+    },
+    {
+      day: 8,
+      date: "Mie 14/10",
+      title: "Schonbrunn y Viena tranquila",
+      overnight: "Viena",
+      morning: "Schonbrunn a primera hora. Palace Ticket de 75 minutos + jardines/Gloriette; reservar franja cercana a 09:00. Presupuesto pareja: EUR 76.",
+      afternoon: "Naschmarkt, Mariahilfer Strasse o descanso/lavanderia para resolver la segunda mitad del viaje.",
+      evening: "Prater o cena sin plan rigido.",
+      note: "Schonbrunn abre todos los dias; revisar horario exacto del ticket elegido."
+    },
+    {
+      day: 9,
+      date: "Jue 15/10",
+      title: "Bratislava por el dia o mas Viena",
+      overnight: "Viena",
+      transfer: "Opcional Bratislava Ticket de OBB: regional desde Wien Hbf, aprox. 1h por tramo e incluye transporte urbano de Bratislava el primer dia de validez.",
+      morning: "Salir 08:15-09:15 hacia Bratislava-Petrzalka/Hlavna stanica. Old Town, Puerta de San Miguel y paseo compacto.",
+      afternoon: "Castillo de Bratislava, miradores del Danubio y regreso sobre 17:00-18:00.",
+      evening: "Ultima noche en Viena. Si no hacen Bratislava, usar el dia para Belvedere/cafes.",
+      note: "Vale la pena como check de Eslovaquia: no cambia hoteles y suma solo unas 2 horas totales de tren. Si llueve fuerte, quedarse en Viena."
+    },
+    {
+      day: 10,
+      date: "Vie 16/10",
+      title: "Viena -> Praga",
+      overnight: "Praga",
+      checkInCity: "prague",
+      transfer: "Horario objetivo: Railjet/ComfortJet directo Wien Hbf 09:10 -> Praha hl.n. 13:23 (aprox. 4h13). Comprar en OBB o CD.",
+      morning: "Check-out 07:45-08:00, llegar a Wien Hbf con margen y subir con asiento reservado.",
+      afternoon: "Llegada 13:23, guardar equipaje/check-in desde 14:00. Old Town Square, Reloj Astronomico y Stare Mesto.",
+      evening: "Charles Bridge al atardecer/noche.",
+      note: "Evitar plan pago fuerte el dia del traslado."
+    },
+    {
+      day: 11,
+      date: "Sab 17/10",
+      title: "Praga fotografica",
+      overnight: "Praga",
+      morning: "Charles Bridge al amanecer, Mala Strana y Castillo de Praga al abrir. Circuito principal estimado: 450 CZK por adulto.",
+      afternoon: "Catedral de San Vito, Golden Lane, Strahov y bajada por Nerudova/Kampa segun energia.",
+      evening: "Letna Park o ribera para hora azul.",
+      note: "Dia clave para camara."
+    },
+    {
+      day: 12,
+      date: "Dom 18/10",
+      title: "Praga historia y ciudad vieja",
+      overnight: "Praga",
+      morning: "Barrio judio con ticket del Jewish Museum: sinagogas y cementerio. Referencia: 600 CZK por adulto y validez de tres dias de apertura.",
+      afternoon: "New Town, Wenceslas Square, cafes y paseo sin apuro.",
+      evening: "Cerveza/cena checa o concierto corto si aparece algo lindo.",
+      note: "Reservar el barrio judio si quieren entrar a varios sitios."
+    },
+    {
+      day: 13,
+      date: "Lun 19/10",
+      title: "Praga flexible y fotografia",
+      overnight: "Praga",
+      morning: "Petrin, Strahov, Kampa o Vysehrad: elegir una zona y caminar sin apuro. Kutna Hora queda como excursion opcional si amanecen con energia.",
+      afternoon: "Fotos pendientes, cafes y descanso. Comprar comida para el tren largo y retirar efectivo minimo si hace falta.",
+      evening: "Cena temprana y equipaje cerrado; el tren preferido a Cracovia sale alrededor de las 06:08.",
+      note: "No recomiendo Terezin esta vez: Auschwitz es al dia siguiente y conviene evitar dos jornadas memoriales tan seguidas."
+    },
+    {
+      day: 14,
+      date: "Mar 20/10",
+      title: "Praga -> Cracovia",
+      overnight: "Cracovia",
+      checkInCity: "krakow",
+      transfer: "Preferido: EC 113 directo Praha hl.n. 06:08 -> Krakow Glowny 12:20 (aprox. 6h12). Alternativa tardia 14:08 -> 20:14, pero sacrifica Cracovia.",
+      morning: "Check-out cerca de 05:15 y taxi/tranvia a Praha hl.n.; desayuno y comida preparados. El tren largo es mas comodo que sumar aeropuerto y equipaje.",
+      afternoon: "Llegada 12:20. Dejar equipaje hasta el check-in de 15:00; Rynek Glowny, St. Mary's Basilica y Wawel por fuera.",
+      evening: "Kazimierz para cenar y caminar con movimiento; volver temprano.",
+      note: "Reservar asiento. Elegir hotel cerca de Krakow Glowny/MDA facilita tambien el bus del dia siguiente."
+    },
+    {
+      day: 15,
+      date: "Mie 21/10",
+      title: "Auschwitz-Birkenau",
+      overnight: "Cracovia",
+      transfer: "Entrada oficial comprada: visita guiada en español 10:45, duracion 3h45, Auschwitz I + Birkenau y shuttle interno. Falta comprar bus Cracovia-Oswiecim ida/vuelta.",
+      morning: "Objetivo: bus desde MDA/Krakow Glowny sobre 08:25, llegada hacia 09:50 y presentarse 30 minutos antes. Llevar solo bolso menor a 35x25x15 cm.",
+      afternoon: "Tour 10:45-14:30 aprox., incluido traslado interno a Birkenau. Buscar regreso 16:00-16:30 para estar en Cracovia 17:30-18:00.",
+      evening: "Cena tranquila. Dejar margen emocional y fisico.",
+      note: "Pagado: 300 PLN / USD 83,10 la pareja. Revalidar horarios de bus cuando el operador abra oficialmente la fecha."
+    },
+    {
+      day: 16,
+      date: "Jue 22/10",
+      title: "Cracovia -> Madrid",
+      overnight: "Madrid",
+      checkInCity: "madrid",
+      transfer: "LOT LO2161 comprado: KRK 16:10 -> MAD 19:35, directo. Economy Saver; carry-on 8 kg + articulo personal por persona.",
+      morning: "Desayuno, Wawel/Rynek desde 08:30 y check-out a las 11:00. Dejar equipaje en el hotel.",
+      afternoon: "Retirar equipaje 12:15-12:30, tren/taxi a KRK y estar en el aeropuerto alrededor de 13:30-13:45.",
+      evening: "Llegada MAD 19:35, metro/taxi al centro y check-in cerca de 21:00. Cena simple.",
+      note: "Pagado: USD 273 la pareja. No agregar una actividad con entrada esta manana."
+    },
+    {
+      day: 17,
+      date: "Vie 23/10",
+      title: "Madrid compras y margen",
+      overnight: "Madrid",
+      morning: "Compras en Preciados, Gran Via y Sol; primero recorrer y comparar antes de comprar valija adicional.",
+      afternoon: "Bernabeu o museo si quieren una actividad; despues organizar Tax Free y dejar las compras grandes cerca del hotel.",
+      evening: "Revisar calendario de Real Madrid/Atletico y precios oficiales. Cena sin traslado largo.",
+      note: "No sobrecargar: Madrid cumple funcion de cierre y logistica."
+    },
+    {
+      day: 18,
+      date: "Sab 24/10",
+      title: "Madrid libre",
+      overnight: "Madrid",
+      morning: "Dia flexible para partido, compras pendientes, Retiro/Prado por fuera o paseo tranquilo.",
+      afternoon: "Comprar valija grande solo si las compras lo exigen; ordenar equipaje, pesos y documentacion de Tax Free.",
+      evening: "Cena final. Dormir razonablemente temprano por vuelo de regreso.",
+      note: "Si compran valija extra, este es el dia para resolverlo sin correr."
+    },
+    {
+      day: 19,
+      date: "Dom 25/10",
+      title: "Madrid -> Montevideo",
+      overnight: "Vuelo / Montevideo",
+      transfer: "Iberia comprado: MAD 11:55 -> MVD 20:10. Salir del hotel 08:00-08:15 para T4/T4S.",
+      morning: "Check-out temprano, traslado a Barajas y estar cerca de las 08:45-09:00. Hacer Tax Free antes de despachar cualquier valija con compras.",
+      afternoon: "Vuelo de regreso.",
+      evening: "Llegada a Montevideo 20:10.",
+      note: "No planear compras esta manana salvo algo minimo en aeropuerto."
     }
   ];
 
   const activities = [
     {
       id: "light",
-      label: "Basico cuidado",
-      includes: "Free tours con propinas, Auschwitz, 1-2 entradas fuertes y transporte urbano normal.",
-      price: 500
+      label: "Economico completo",
+      includes: "Comida sencilla (aprox. USD 65/dia la pareja), Auschwitz ya pagado, free tours con propina y 3-4 entradas prioritarias. Sin Bratislava, crucero ni futbol.",
+      price: 1750
     },
     {
       id: "normal",
       label: "Normal recomendado",
-      includes: "Free tours, Auschwitz, baños termales, varios museos/palacios y algun taxi puntual.",
-      price: 800
+      includes: "Comida flexible (aprox. USD 80/dia la pareja), Auschwitz, Parlamento, Szechenyi, Schonbrunn, Castillo y barrio judio de Praga, un museo, free tours, Bratislava y USD 200 de margen.",
+      price: 2300
     },
     {
       id: "football",
       label: "Con futbol / margen extra",
-      includes: "Lo normal + partido si aparece calendario conveniente o tour de estadio y mas margen.",
-      price: 1200
+      includes: "Todo el modo recomendado + hasta USD 550 para partido/tour de estadio, mejores comidas o entradas adicionales. Las compras personales siguen fuera.",
+      price: 2850
     }
   ];
 
@@ -1360,64 +1505,61 @@
       returnMadrid: "krk-mad-lot"
     },
     lodging: {
-      budapest: "budapest-amber-garden",
-      vienna: "vienna-motel-west",
-      prague: "prague-cloud",
-      krakow: "krakow-central",
-      madrid: "madrid-room-ventura"
+      budapest: "budapest-centerpoint",
+      vienna: "vienna-prize",
+      prague: "prague-ukrize",
+      krakow: "krakow-silvio",
+      madrid: "madrid-conchita"
     },
     activity: "normal"
   };
 
   const presets = {
     cheap: {
-      transport: { longhaul: "iberia-direct", arrival: "mad-bud-wizz", returnMadrid: "krk-mad-ryanair" },
+      transport: { longhaul: "iberia-direct", arrival: "mad-bud-wizz", returnMadrid: "krk-mad-lot" },
       lodging: {
-        budapest: "budapest-airbnb-karoly",
-        vienna: "vienna-flemings",
-        prague: "prague-legie",
+        budapest: "budapest-centerpoint",
+        vienna: "vienna-prize",
+        prague: "prague-ukrize",
         krakow: "krakow-silvio",
-        madrid: "madrid-airbnb-centro"
+        madrid: "madrid-ronda"
       },
       activity: "light"
     },
     balanced: defaults,
     comfy: {
-      transport: { longhaul: "iberia-direct", arrival: "mad-bud-iberia", returnMadrid: "krk-mad-lot" },
+      transport: { longhaul: "iberia-direct", arrival: "mad-bud-wizz", returnMadrid: "krk-mad-lot" },
       lodging: {
-        budapest: "budapest-exe",
-        vienna: "vienna-cloud-state",
-        prague: "prague-old",
-        krakow: "krakow-central",
-        madrid: "madrid-perla"
+        budapest: "budapest-nexto",
+        vienna: "vienna-urban",
+        prague: "prague-perla",
+        krakow: "krakow-perfect",
+        madrid: "madrid-conchita"
       },
       activity: "normal"
     }
   };
 
+  const budgetStorageKey = "viaje-octubre-2026-budget";
+  const themeStorageKey = "viaje-octubre-2026-theme";
+  const priceModeStorageKey = "viaje-octubre-2026-price-mode";
   let state = loadState();
-  const themeStorageKey = "viaje-septiembre-2026-theme";
-  const priceModeStorageKey = "viaje-septiembre-2026-price-mode";
   let currentTheme = loadTheme();
   let currentPriceMode = loadPriceMode();
 
   function loadState() {
     try {
-      const raw = localStorage.getItem("viaje-septiembre-2026-budget");
+      const raw = localStorage.getItem(budgetStorageKey);
       if (!raw) return structuredClone(defaults);
       const parsed = JSON.parse(raw);
-      return {
-        transport: { ...defaults.transport, ...(parsed.transport || {}) },
-        lodging: { ...defaults.lodging, ...(parsed.lodging || {}) },
-        activity: parsed.activity || defaults.activity
-      };
+      return normalizeState(parsed);
     } catch (error) {
       return structuredClone(defaults);
     }
   }
 
   function saveState() {
-    localStorage.setItem("viaje-septiembre-2026-budget", JSON.stringify(state));
+    localStorage.setItem(budgetStorageKey, JSON.stringify(state));
   }
 
   function loadPriceMode() {
@@ -1501,6 +1643,48 @@
     return optionById(activities, state.activity);
   }
 
+  function getCity(cityId) {
+    return cities.find(city => city.id === cityId);
+  }
+
+  function getSelectedHotel(cityId) {
+    const city = getCity(cityId);
+    if (!city) return null;
+    return optionById(city.options, state.lodging[city.id]);
+  }
+
+  function hotelCheckInText(cityId) {
+    const hotel = getSelectedHotel(cityId);
+    if (!hotel) return "";
+    return `Hotel seleccionado: ${hotel.name}. Check-in: ${hotel.checkIn || "confirmar en reserva"}. Check-out: ${hotel.checkOut || "confirmar en reserva"}.`;
+  }
+
+  function normalizeState(next) {
+    const normalized = {
+      transport: { ...defaults.transport, ...(next.transport || {}) },
+      lodging: { ...defaults.lodging, ...(next.lodging || {}) },
+      activity: next.activity || defaults.activity
+    };
+
+    transportGroups.forEach(group => {
+      if (!group.options.some(option => option.id === normalized.transport[group.id])) {
+        normalized.transport[group.id] = defaults.transport[group.id];
+      }
+    });
+
+    cities.forEach(city => {
+      if (!city.options.some(option => option.id === normalized.lodging[city.id])) {
+        normalized.lodging[city.id] = defaults.lodging[city.id];
+      }
+    });
+
+    if (!activities.some(option => option.id === normalized.activity)) {
+      normalized.activity = defaults.activity;
+    }
+
+    return normalized;
+  }
+
   function mapsMatch(left, right) {
     const leftKeys = Object.keys(left);
     const rightKeys = Object.keys(right);
@@ -1537,6 +1721,44 @@
     return { lodging, variableTransport, ground, transport, activity, base, grand };
   }
 
+  function renderDailyPlan() {
+    const root = document.getElementById("daily-root");
+    root.innerHTML = `
+      <div class="day-grid">
+        ${dailyPlan.map(day => {
+          const checkInText = day.checkInCity ? hotelCheckInText(day.checkInCity) : "";
+          const rows = [
+            day.transfer ? ["Traslado", day.transfer] : null,
+            checkInText ? ["Hotel", checkInText] : null,
+            ["Manana", day.morning],
+            ["Tarde", day.afternoon],
+            ["Noche", day.evening],
+            ["Dormir", day.overnight],
+            day.note ? ["Nota", day.note] : null
+          ].filter(Boolean).map(([label, text]) => `
+            <div class="day-row">
+              <div class="day-label">${label}</div>
+              <div>${text}</div>
+            </div>
+          `).join("");
+
+          return `
+            <article class="day-card ${day.transfer ? "transfer" : ""}">
+              <div class="day-top">
+                <div>
+                  <div class="day-title">Dia ${day.day}: ${day.title}</div>
+                  <div class="small">${day.overnight}</div>
+                </div>
+                <div class="day-date">${day.date}</div>
+              </div>
+              ${rows}
+            </article>
+          `;
+        }).join("")}
+      </div>
+    `;
+  }
+
   function renderTransport() {
     const root = document.getElementById("transport-root");
     root.innerHTML = transportGroups.map(group => {
@@ -1551,7 +1773,7 @@
               <input type="radio" name="transport-${group.id}" value="${option.id}" ${selected ? "checked" : ""} aria-label="${option.label}">
             </td>
             <td>
-              <span class="pill ${option.tag === "Recomendado" ? "good" : option.tag.includes("Revisar") || option.tag.includes("justo") ? "warn" : "gray"}">${option.tag}</span>
+              <span class="pill ${["Recomendado", "Comprado"].includes(option.tag) ? "good" : option.tag.includes("Revisar") || option.tag.includes("justo") ? "warn" : "gray"}">${option.tag}</span>
               <strong>${option.label}</strong>
               <div class="small">${option.detail}</div>
             </td>
@@ -1589,6 +1811,7 @@
           <td><strong>${item.label}</strong><div class="small">${item.detail}</div></td>
           <td class="money"><strong>${personText}</strong><div class="small">${item.ticketPerPerson ? "por persona" : "no aplica"}</div></td>
           <td class="money"><strong>${fmt(item.price)}</strong><div class="small">pareja</div></td>
+          <td>${item.link ? `<a href="${item.link}" target="_blank" rel="noopener">oficial</a>` : "-"}</td>
         </tr>
       `;
     }).join("");
@@ -1597,7 +1820,7 @@
       <h3 style="margin-top:18px">Trenes y traslados fijos</h3>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Concepto</th><th class="money">Precio pp</th><th class="money">Total pareja</th></tr></thead>
+          <thead><tr><th>Concepto</th><th class="money">Precio pp</th><th class="money">Total pareja</th><th>Comprar</th></tr></thead>
           <tbody>${fixedRows}</tbody>
         </table>
       </div>
@@ -1611,7 +1834,7 @@
       const rows = city.options.map(option => {
         const selected = state.lodging[city.id] === option.id;
         const sourceClass = option.source === "Booking" ? "booking" : "airbnb";
-        const linkLabel = option.source === "Booking" ? "ficha Booking" : "buscar Airbnb";
+        const linkLabel = option.source === "Booking" ? "ficha Booking" : "ver link";
         const perNight = Math.round(option.price / city.nights);
         return `
           <tr class="${selected ? "selected" : ""}">
@@ -1628,6 +1851,7 @@
             </td>
             <td>${option.area}</td>
             <td class="nowrap">${option.score} / ${option.reviews}</td>
+            <td><strong>${option.checkIn || "Confirmar"}</strong><div class="small">Salida: ${option.checkOut || "confirmar"}</div></td>
             <td class="money"><strong>${fmt(option.price)}</strong><div class="small">${fmt(perNight)}/habitacion/noche</div></td>
             <td><a href="${option.link}" target="_blank" rel="noopener">${linkLabel}</a></td>
           </tr>
@@ -1654,6 +1878,7 @@
                 <th>Alojamiento</th>
                 <th>Zona</th>
                 <th>Score / reviews</th>
+                <th>Check-in</th>
                 <th class="money">Total habitacion</th>
                 <th>Link</th>
               </tr>
@@ -1723,12 +1948,12 @@
       ${fixedRows}
       <div class="calc-row"><span><strong>Alojamientos</strong><br><span class="small">una habitacion por ciudad</span></span><strong>${fmt(t.lodging)}</strong></div>
       ${lodgingRows}
-      <div class="calc-row"><span><strong>Base sin paseos</strong></span><strong>${fmt(t.base)}</strong></div>
-      <div class="calc-row"><span>Actividades: ${activity.label}</span><strong>${fmt(activity.price)}</strong></div>
+      <div class="calc-row"><span><strong>Base reservable</strong></span><strong>${fmt(t.base)}</strong></div>
+      <div class="calc-row"><span>Comidas y paseos: ${activity.label}</span><strong>${fmt(activity.price)}</strong></div>
       <div style="padding-top:12px">
         <div class="summary-label">Total final pareja</div>
         <div class="total-final">${fmt(t.grand)}</div>
-        <div class="small">${fmt(Math.round(t.grand / 2))} por persona con actividades.</div>
+        <div class="small">${fmt(Math.round(t.grand / 2))} por persona con comidas y actividades. Compras y seguro no incluidos.</div>
       </div>
     `;
   }
@@ -1777,6 +2002,7 @@
   }
 
   function renderAll() {
+    renderDailyPlan();
     renderTransport();
     renderLodging();
     renderActivities();
