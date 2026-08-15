@@ -108,7 +108,7 @@
     }
 
     main {
-      width: min(1280px, calc(100% - 28px));
+      width: min(1780px, calc(100% - 28px));
       margin: 24px auto 54px;
     }
 
@@ -448,6 +448,190 @@
       margin-bottom: 4px;
     }
 
+    .neighborhood-guide {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1px;
+      margin: 12px 0 18px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--line);
+    }
+
+    .neighborhood-item {
+      background: var(--route-bg);
+      padding: 12px 14px;
+      min-width: 0;
+    }
+
+    .neighborhood-item strong {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 13px;
+    }
+
+    .tier-block {
+      margin-top: 18px;
+      padding-top: 15px;
+      border-top: 1px solid var(--line);
+    }
+
+    .tier-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .tier-heading h4 {
+      margin: 0;
+      font-size: 15px;
+    }
+
+    .lodging-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .lodging-card {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      min-height: 310px;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--route-bg);
+      transition: border-color .16s ease, background .16s ease, box-shadow .16s ease;
+    }
+
+    .lodging-card.selected {
+      border-color: var(--accent);
+      background: var(--selected);
+      box-shadow: inset 4px 0 0 var(--accent);
+    }
+
+    .lodging-card.selected .select-choice {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: var(--primary-ink);
+    }
+
+    .lodging-card-top,
+    .lodging-price-row,
+    .lodging-actions {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .lodging-card h5 {
+      margin: 8px 0 4px;
+      font-size: 17px;
+      line-height: 1.25;
+    }
+
+    .lodging-card h5 a {
+      color: var(--ink);
+      text-decoration: underline;
+      text-decoration-color: color-mix(in srgb, var(--link) 55%, transparent);
+      text-underline-offset: 3px;
+    }
+
+    .lodging-area {
+      color: var(--muted);
+      font-size: 13px;
+      min-height: 38px;
+    }
+
+    .lodging-score {
+      flex: 0 0 auto;
+      text-align: right;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .requirement-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 10px 0 7px;
+    }
+
+    .requirement {
+      display: inline-flex;
+      align-items: center;
+      min-height: 25px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: var(--good-bg);
+      color: var(--good);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .requirement.warn {
+      background: var(--warn-bg);
+      color: var(--warn);
+    }
+
+    .requirement.neutral {
+      background: var(--pill-gray-bg);
+      color: var(--pill-gray-ink);
+    }
+
+    .lodging-note {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 4px 0 12px;
+    }
+
+    .lodging-price-row {
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+    }
+
+    .lodging-price {
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 1.05;
+    }
+
+    .lodging-actions {
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    .lodging-actions .select-choice {
+      flex: 1 1 auto;
+    }
+
+    .lodging-actions .lodging-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 36px;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--button-bg);
+      white-space: nowrap;
+    }
+
+    .tier-empty {
+      border-left: 4px solid var(--warn);
+      background: var(--warn-bg);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: var(--lead);
+      font-size: 13px;
+    }
+
     .route {
       display: grid;
       grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -636,12 +820,13 @@
       .grid.two, .grid.three, .grid.four, .split { grid-template-columns: 1fr; }
       .guide-grid { grid-template-columns: 1fr; }
       .day-grid { grid-template-columns: 1fr; }
+      .lodging-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .route { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sticky { position: static; }
     }
 
     @media (max-width: 640px) {
-      main { width: min(100% - 18px, 1280px); margin-top: 12px; }
+      main { width: min(100% - 18px, 1780px); margin-top: 12px; }
       header, section { padding: 16px; border-radius: 10px; }
       h1 { font-size: 29px; }
       h2 { font-size: 20px; }
@@ -661,6 +846,10 @@
       .checklist { grid-template-columns: 1fr; }
       .city-head { display: block; }
       .city-total { text-align: left; margin-top: 10px; }
+      .lodging-grid { grid-template-columns: 1fr; }
+      .lodging-card { min-height: 0; }
+      .lodging-actions { align-items: stretch; flex-direction: column; }
+      .lodging-actions .lodging-link { width: 100%; }
     }
 
     @media print {
@@ -681,7 +870,7 @@
       Los importes son para 2 personas y sirven para decidir. El plan ya distingue reservas compradas, horarios objetivo y gastos todavia estimados.
     </p>
     <p class="meta">
-      Base actualizada el 12/08/2026 con vuelos comprados, Auschwitz confirmado, referencias de Booking y trenes oficiales. Moneda: USD.
+      Base actualizada el 15/08/2026 con vuelos comprados, Auschwitz confirmado, referencias de Booking y trenes oficiales. Moneda: USD.
       Las tarifas reales pueden cambiar al entrar a cada web, especialmente equipaje, taxes y conversiones.
     </p>
 
@@ -689,7 +878,7 @@
       <span class="pill good">19 dias calendario</span>
       <span class="pill">17 noches en destino</span>
       <span class="pill">Carry-on confirmado</span>
-      <span class="pill warn">Requisito: AC + baño privado</span>
+      <span class="pill warn">Requisito: baño privado + calefaccion</span>
     </div>
 
     <div class="toolbar">
@@ -816,6 +1005,24 @@
     </div>
   </section>
 
+  <section id="hoteles" data-section="lodging">
+    <h2>Alojamientos por ciudad</h2>
+    <p class="hint">
+      Comparador por barrio y rango de precio para las fechas exactas. Los importes son por habitacion completa para dos personas;
+      cada tarjeta muestra tambien el promedio por noche y abre directamente la ficha de Booking o la busqueda de Airbnb.
+    </p>
+    <div class="notice">
+      <strong>Requisitos del alojamiento:</strong> el filtro minimo es puntaje 8+ y 25 reseñas. Antes de pagar, la tarifa exacta debe mostrar
+      <strong>baño privado</strong> y <strong>calefaccion</strong>. El aire acondicionado suma comodidad, pero en octubre es una ventaja y no un descarte automatico;
+      en Budapest tambien debe quedar por escrito la llegada posterior a medianoche.
+    </div>
+    <div class="warning">
+      <strong>Precios revisados el 15/08/2026:</strong> Booking puede cambiar disponibilidad, impuestos o descuentos al iniciar sesion.
+      Airbnb no permite enlazar de forma estable un anuncio que no hayan elegido, por eso esas tarjetas abren una busqueda con fechas, barrio y dos huespedes.
+    </div>
+    <div id="lodging-root"></div>
+  </section>
+
   <div class="split">
     <div>
       <section id="vuelos" data-section="transport">
@@ -828,23 +1035,6 @@
         <div class="warning">
           <strong>Conexion comprada:</strong> Iberia llega a T4S a las 14:35 y Wizz sale de T1 a las 20:10. Son billetes separados, pero el margen de 5h35 y viajar solo con cabina dejan una conexion razonable.
         </div>
-      </section>
-
-      <section id="hoteles" data-section="lodging">
-        <h2>Alojamientos por ciudad</h2>
-        <p class="hint">
-          Criterio usado: zona turistica o muy bien conectada, movimiento de noche, puntaje 8+ y mas de 100 reviews.
-          Los links de Booking abren la ficha de la propiedad con las fechas de octubre cargadas.
-        </p>
-        <div class="notice">
-          <strong>Requisitos del alojamiento:</strong> elegir habitacion con <strong>baño privado</strong> y <strong>aire acondicionado</strong> incluidos y visibles en la tarifa exacta antes de pagar.
-          Si una opcion no cumple ambos requisitos, queda descartada salvo que Mauricio y Magela acepten expresamente la excepcion.
-        </div>
-        <div class="warning">
-          <strong>Links de alojamiento:</strong> Booking puede limpiar las fechas al cargar la ficha, asi que revisen manualmente el rango indicado en cada ciudad antes de pagar.
-          En Booking, el nombre y la etiqueta abren la ficha directa. En Airbnb, abren una busqueda con barrio, fechas y dos huespedes; el precio cargado es orientativo y debe reemplazarse mentalmente por la tarifa final del anuncio elegido.
-        </div>
-        <div id="lodging-root"></div>
       </section>
 
       <section id="paseos" data-section="activities">
@@ -937,7 +1127,8 @@
       <div class="panel">
         <h3>Reserva final</h3>
         <p>
-          Antes de pagar: abrir cada link, validar tarifa final con impuestos, equipaje, politica de cancelacion, <strong>aire acondicionado incluido</strong>, <strong>baño privado</strong>, horario real y posibilidad de dejar equipaje.
+          Antes de pagar: abrir cada link, validar tarifa final con impuestos, politica de cancelacion, <strong>baño privado</strong>, <strong>calefaccion</strong>, horario real y posibilidad de dejar equipaje.
+          El aire acondicionado es deseable, pero no obligatorio para octubre.
         </p>
       </div>
     </div>
@@ -1126,50 +1317,26 @@
       name: "Budapest",
       nights: 4,
       dates: "08/10 al 12/10",
-      zone: "Prioridad: Pest central y conexion simple con Keleti. La llegada sera despues de medianoche, por lo que el late check-in es decisivo.",
+      zone: "Pest central y conexion simple con Keleti. Como llegan al hotel pasada la medianoche, el acceso tardio pesa mas que ahorrar USD 10 por noche.",
+      neighborhoods: [
+        { name: "Distritos VI-VII", detail: "La mejor mezcla de centro, restaurantes, barrio judio y transporte." },
+        { name: "Distrito V", detail: "Mas monumental y caminable; suele costar un poco mas." },
+        { name: "Blaha / Distrito VIII", detail: "Mas economico, activo y bien conectado con Keleti." }
+      ],
+      tiers: [
+        { id: "budget", label: "Ahorro local", range: "aprox. USD 60-85/noche", detail: "Buenas conexiones; revisar muy bien el late check-in." },
+        { id: "value", label: "Mejor equilibrio", range: "aprox. USD 85-110/noche", detail: "Mas centralidad o apartamento completo sin ir a hotel caro." },
+        { id: "comfort", label: "Mas comodidad", range: "aprox. USD 130-140/noche", detail: "Recepcion y experiencia de hotel mas predecible." },
+        { id: "airbnb", label: "Airbnb", range: "referencia variable", detail: "Solo anuncios con self check-in confirmado." }
+      ],
       options: [
-        {
-          id: "budapest-centerpoint",
-          source: "Booking",
-          tier: "Valor recomendado",
-          name: "Centerpoint Panzio - Digital Pansion Heritage Collection",
-          price: 297,
-          score: "8.5",
-          reviews: "1.321",
-          area: "Blaha Lujza ter / Distrito VIII",
-          checkIn: "digital 24/7",
-          checkOut: "hasta 10:00 aprox.",
-          note: "La opcion mas practica para llegar de madrugada: self check-in automatizado, zona activa, metro y acceso facil a Keleti. Confirmar AC y baño privado en la tarifa elegida.",
-          link: bookingHotelLink("budapest", "/hotel/hu/centerpoint-panzio.html")
-        },
-        {
-          id: "budapest-nexto",
-          source: "Booking",
-          tier: "Comodo",
-          name: "NEXTO DORMERO Hotel Budapest",
-          price: 536,
-          score: "8.7",
-          reviews: "3.174",
-          area: "Distrito VI / centro",
-          checkIn: "desde 15:00; avisar llegada tardia",
-          checkOut: "hasta 12:00 aprox.",
-          note: "Hotel mas completo y central. La recepcion figura 24 horas, pero conviene escribir y dejar asentada la llegada posterior a medianoche.",
-          link: bookingHotelLink("budapest", "/hotel/hu/nexto-dormero-hotel-budapest.html")
-        },
-        {
-          id: "budapest-airbnb-central",
-          source: "Airbnb",
-          tier: "Busqueda comparable",
-          name: "Airbnb en Distrito V/VII",
-          price: 420,
-          score: "Filtrar 4.8+",
-          reviews: "50+",
-          area: "Belvaros / barrio judio",
-          checkIn: "segun anfitrion; exigir self check-in",
-          checkOut: "confirmar en el anuncio",
-          note: "Estimacion para comparar. Por la llegada posterior a medianoche, usar solo un anuncio con self check-in confirmado, AC, baño privado y muchas reseñas recientes.",
-          link: airbnbLink("budapest", "Distrito V VII apartment air conditioning private bathroom self check-in")
-        }
+        { id: "budapest-deniz", source: "Booking", tierKey: "budget", name: "Deniz Guesthouse", price: 241, score: "8.1", reviews: "564", area: "Distrito VII / barrio judio", checkIn: "confirmar llegada 00:15-00:45", checkOut: "confirmar", note: "La mas barata del grupo. La habitacion revisada muestra baño privado y aire; solo sirve si aceptan por escrito la llegada tardia.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("budapest", "/hotel/hu/deniz-pension-budapest123456.html") },
+        { id: "budapest-authentic", source: "Booking", tierKey: "budget", name: "Authentic Akacfa Apartment", price: 306, score: "9.2", reviews: "343", area: "Akacfa / Distrito VII", checkIn: "coordinar acceso autonomo", checkOut: "confirmar", note: "Apartamento completo en una zona muy buena para cenar. Tiene baño y aire; pedir instrucciones de acceso antes de reservar.", requirements: ["Apartamento entero", "Aire acondicionado"], link: bookingHotelLink("budapest", "/hotel/hu/authentic-akacfa-apartment.html") },
+        { id: "budapest-centerpoint", source: "Booking", tierKey: "budget", name: "Centerpoint Panzio - Digital Pansion Heritage Collection", price: 333, score: "8.5", reviews: "1.315", area: "Blaha Lujza ter / Distrito VIII", checkIn: "digital 24/7", checkOut: "hasta 10:00 aprox.", note: "Sigue siendo el default por la llegada de madrugada: acceso automatizado, metro y conexion facil con Keleti.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("budapest", "/hotel/hu/centerpoint-panzio.html") },
+        { id: "budapest-adagio", source: "Booking", tierKey: "value", name: "Adagio Downtown Rooms", price: 349, score: "8.8", reviews: "1.913", area: "Distrito VI / centro", checkIn: "confirmar late check-in", checkOut: "confirmar", note: "Muy centrico y con gran puntaje. Conviene si resuelven por escrito el acceso posterior a medianoche.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("budapest", "/hotel/hu/adagio-downtown-minihotel-budapest.html") },
+        { id: "budapest-amber", source: "Booking", tierKey: "value", name: "Amber Gardenview Studios Downtown", price: 408, score: "9.1", reviews: "2.306", area: "Belvaros / Distrito V", checkIn: "confirmar acceso tardio", checkOut: "confirmar", note: "Estudio completo y ubicacion mas caminable. Buen salto de calidad sin llegar al precio del NEXTO.", requirements: ["Estudio con baño", "Aire acondicionado"], link: bookingHotelLink("budapest", "/hotel/hu/anoli-apartments.html") },
+        { id: "budapest-nexto", source: "Booking", tierKey: "comfort", name: "NEXTO DORMERO Hotel Budapest", price: 537, score: "8.8", reviews: "3.226", area: "Distrito VI / centro", checkIn: "recepcion; avisar llegada tardia", checkOut: "hasta 12:00 aprox.", note: "La opcion de hotel mas completa. Es mas cara, pero reduce incertidumbre la primera noche.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("budapest", "/hotel/hu/nexto-dormero-hotel-budapest.html") },
+        { id: "budapest-airbnb-central", source: "Airbnb", tierKey: "airbnb", name: "Airbnb en Distrito V/VII", price: 420, score: "Filtrar 4.8+", reviews: "50+", area: "Belvaros / barrio judio", checkIn: "exigir self check-in", checkOut: "confirmar", note: "Estimacion para comparar; descartar cualquier anuncio que no garantice por mensaje la llegada posterior a medianoche.", requirements: ["Baño privado", "Aire acondicionado"], link: airbnbLink("budapest", "Distrito V VII apartment air conditioning private bathroom self check-in") }
       ]
     },
     {
@@ -1177,50 +1344,29 @@
       name: "Viena",
       nights: 4,
       dates: "12/10 al 16/10",
-      zone: "Prioridad: Wien Hbf para simplificar ambos trenes, o Innere Stadt si quieren pagar mas por caminar al centro.",
+      zone: "La estacion central simplifica los dos trenes; Neubau y Josefstadt ganan ambiente y cercania al centro sin pagar Innere Stadt.",
+      neighborhoods: [
+        { name: "Hauptbahnhof / Favoriten", detail: "La base mas practica para llegar y salir en tren; centro a pocos minutos." },
+        { name: "Neubau / Westbahnhof", detail: "Cafes, compras, ambiente y U3 directa al centro." },
+        { name: "Josefstadt / Rathaus", detail: "Mas caminable al Ring y mas caro; buena experiencia de ciudad." },
+        { name: "Margareten", detail: "Residencial y generalmente mas barato, con metro y tranvia." }
+      ],
+      tiers: [
+        { id: "budget", label: "Ahorro local", range: "aprox. USD 87-92/noche", detail: "Hoteles solidos fuera de Innere Stadt." },
+        { id: "value", label: "Mejor equilibrio", range: "aprox. USD 95-105/noche", detail: "Mas comodidad o mejor barrio por poca diferencia." },
+        { id: "comfort", label: "Mas ubicacion", range: "aprox. USD 145-155/noche", detail: "Pagar por caminar al Ring y Rathaus." },
+        { id: "airbnb", label: "Airbnb", range: "referencia variable", detail: "Comparar tarifa final y politica de equipaje." }
+      ],
       options: [
-        {
-          id: "vienna-prize",
-          source: "Booking",
-          tier: "Valor recomendado",
-          name: "Prize by Radisson Vienna City",
-          price: 378,
-          score: "8.3",
-          reviews: "21.548",
-          area: "Wien Hbf / Favoriten",
-          checkIn: "desde 15:00 aprox.",
-          checkOut: "hasta 12:00 aprox.",
-          note: "Gran relacion costo-logistica: cerca de la estacion central, muchisimas reviews y conexion rapida al centro. Ideal para llegar de Budapest y salir a Praga.",
-          link: bookingHotelLink("vienna", "/hotel/at/prizeotel-vienna-city.html")
-        },
-        {
-          id: "vienna-urban",
-          source: "Booking",
-          tier: "Comodo",
-          name: "Urban Rooms Rathaus",
-          price: 599,
-          score: "8.8",
-          reviews: "2.360",
-          area: "Rathaus / Innere Stadt",
-          checkIn: "self check-in; confirmar instrucciones",
-          checkOut: "hasta 11:00 aprox.",
-          note: "Mejor ubicacion para caminar al Ring, Rathaus y cafes. Cuesta USD 221 mas que Prize en toda la estadia; ese es el precio real de priorizar centro.",
-          link: bookingHotelLink("vienna", "/hotel/at/urban-rooms-rathaus.html")
-        },
-        {
-          id: "vienna-airbnb-wieden",
-          source: "Airbnb",
-          tier: "Busqueda comparable",
-          name: "Airbnb en Wieden / Hauptbahnhof",
-          price: 560,
-          score: "Filtrar 4.8+",
-          reviews: "50+",
-          area: "Wieden / Belvedere / Wien Hbf",
-          checkIn: "segun anfitrion",
-          checkOut: "confirmar antes del tren",
-          note: "Estimacion para comparar. Zona practica para los trenes y con acceso rapido al centro; exigir AC, baño privado y guardado de equipaje o salida compatible.",
-          link: airbnbLink("vienna", "Wieden Hauptbahnhof apartment air conditioning private bathroom")
-        }
+        { id: "vienna-bb-stadthalle", source: "Booking", tierKey: "budget", name: "B&B Hotel Wien-Stadthalle", price: 347, score: "8.5", reviews: "5.903", area: "Rudolfsheim / U3", checkIn: "desde 15:00 aprox.", checkOut: "hasta 12:00 aprox.", note: "La referencia mas barata con muchas reseñas; U3 compensa no estar en el casco historico.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("vienna", "/hotel/at/b-amp-b-wien-stadthalle.html") },
+        { id: "vienna-arcotel", source: "Booking", tierKey: "budget", name: "ARCOTEL Wimberger Wien", price: 355, score: "8.3", reviews: "10.858", area: "Neubau / Westbahnhof", checkIn: "desde 15:00 aprox.", checkOut: "hasta 12:00 aprox.", note: "Muy buen barrio operativo, muchisimas reseñas y precio cercano al minimo de Viena.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("vienna", "/hotel/at/arcotelwimberger.html") },
+        { id: "vienna-dauntown", source: "Booking", tierKey: "budget", name: "DaunTown Rooms - Self Check-In", price: 361, score: "8.8", reviews: "2.864", area: "Josefstadt", checkIn: "self check-in", checkOut: "confirmar", note: "Mejor barrio que las opciones de estacion por casi el mismo dinero; menos servicios de hotel.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("vienna", "/hotel/at/city-rooms.html") },
+        { id: "vienna-ibis", source: "Booking", tierKey: "budget", name: "ibis Wien City", price: 366, score: "8.3", reviews: "6.034", area: "Margareten", checkIn: "desde 15:00 aprox.", checkOut: "hasta 12:00 aprox.", note: "Opcion predecible y bien conectada; buena si prefieren hotel tradicional a apartamento.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("vienna", "/hotel/at/ibis-wien-schonbrunnerstrasse.html") },
+        { id: "vienna-prize", source: "Booking", tierKey: "value", name: "Prize by Radisson Vienna City", price: 381, score: "8.3", reviews: "21.399", area: "Wien Hbf / Favoriten", checkIn: "desde 15:00 aprox.", checkOut: "hasta 12:00 aprox.", note: "El default logistico: cerca de Wien Hbf, moderno y con una cantidad excepcional de reseñas.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("vienna", "/hotel/at/prizeotel-vienna-city.html") },
+        { id: "vienna-flemings", source: "Booking", tierKey: "value", name: "Flemings Hotel Wien-Stadthalle", price: 398, score: "8.5", reviews: "5.346", area: "Neubau / Westbahnhof", checkIn: "desde 15:00 aprox.", checkOut: "hasta 12:00 aprox.", note: "Mejor entorno para salir a caminar y cenar; sigue cerca de conexiones importantes.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("vienna", "/hotel/at/flemings-conference-wien.html") },
+        { id: "vienna-rioca", source: "Booking", tierKey: "value", name: "Rioca Vienna Posto 1", price: 416, score: "9.0", reviews: "8.235", area: "Brigittenau", checkIn: "desde 15:00 aprox.", checkOut: "confirmar", note: "La mejor puntuacion del rango medio; algo menos conveniente para los trenes y el centro.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("vienna", "/hotel/at/rioca-vienna-posto-1.html") },
+        { id: "vienna-urban", source: "Booking", tierKey: "comfort", name: "Urban Rooms Rathaus", price: 599, score: "8.8", reviews: "2.360", area: "Rathaus / Josefstadt", checkIn: "self check-in", checkOut: "hasta 11:00 aprox.", note: "El sobreprecio compra ubicacion: Ring, Rathaus y cafes quedan caminando.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("vienna", "/hotel/at/urban-rooms-rathaus.html") },
+        { id: "vienna-airbnb-wieden", source: "Airbnb", tierKey: "airbnb", name: "Airbnb en Wieden / Hauptbahnhof", price: 500, score: "Filtrar 4.8+", reviews: "50+", area: "Wieden / Belvedere", checkIn: "segun anfitrion", checkOut: "confirmar antes del tren", note: "Estimacion para comparar apartamentos con cocina y buena conexion a Wien Hbf.", requirements: ["Baño privado", "Aire acondicionado"], link: airbnbLink("vienna", "Wieden Hauptbahnhof apartment air conditioning private bathroom") }
       ]
     },
     {
@@ -1228,50 +1374,27 @@
       name: "Praga",
       nights: 4,
       dates: "16/10 al 20/10",
-      zone: "Prioridad: Prague 1, Mala Strana u Old Town. Aca la ubicacion ayuda mucho para fotografia al amanecer.",
+      zone: "Prague 1 es ideal para fotografia temprana; Prague 2 ofrece mejores habitaciones y ambiente local a corta distancia.",
+      neighborhoods: [
+        { name: "Mala Strana / Prague 1", detail: "La mejor base para Charles Bridge, Kampa y Castillo al amanecer." },
+        { name: "Old Town / Mustek", detail: "Maxima centralidad y transporte; suele ser el rango mas caro." },
+        { name: "Vinohrady / Prague 2", detail: "Cafes y mejores precios, a pocas paradas del centro." },
+        { name: "Andel / Prague 5", detail: "Mas economico y practico, pero menos atmosferico para salir caminando." }
+      ],
+      tiers: [
+        { id: "budget", label: "Ahorro local", range: "aprox. USD 89-95/noche", detail: "Prague 2 o 5 con transporte sencillo." },
+        { id: "value", label: "Mejor equilibrio", range: "aprox. USD 108-120/noche", detail: "Ubicacion fuerte o habitacion mejor puntuada." },
+        { id: "comfort", label: "Mas central", range: "aprox. USD 140-150/noche", detail: "Old Town y hotel mas completo." },
+        { id: "airbnb", label: "Airbnb", range: "referencia variable", detail: "Revisar escaleras, ruido y salida muy temprana." }
+      ],
       options: [
-        {
-          id: "prague-ukrize",
-          source: "Booking",
-          tier: "Valor recomendado",
-          name: "Hotel U Krize",
-          price: 420,
-          score: "8.4",
-          reviews: "1.876",
-          area: "Mala Strana / Prague 1",
-          checkIn: "desde 14:00 aprox.",
-          checkOut: "hasta 11:00 aprox.",
-          note: "Ubicacion excelente entre Kampa, Petrin y Charles Bridge; desayuno incluido en la referencia revisada. Muy buena base para salir con la camara temprano.",
-          link: bookingHotelLink("prague", "/hotel/cz/u-krize-praha.html")
-        },
-        {
-          id: "prague-perla",
-          source: "Booking",
-          tier: "Comodo",
-          name: "Perla Hotel",
-          price: 582,
-          score: "8.8",
-          reviews: "5.766",
-          area: "Old Town / Mustek",
-          checkIn: "desde 14:00 aprox.",
-          checkOut: "hasta 11:00 aprox.",
-          note: "Mas hotel y mas centralidad del lado de Old Town. Buen score, muchas reviews y metro cerca; upgrade razonable si aparece una tarifa flexible.",
-          link: bookingHotelLink("prague", "/hotel/cz/perla.html")
-        },
-        {
-          id: "prague-airbnb-prague1",
-          source: "Airbnb",
-          tier: "Busqueda comparable",
-          name: "Airbnb en Mala Strana / Prague 1",
-          price: 480,
-          score: "Filtrar 4.8+",
-          reviews: "50+",
-          area: "Mala Strana / Old Town",
-          checkIn: "segun anfitrion",
-          checkOut: "confirmar salida temprana",
-          note: "Estimacion para comparar. Priorizar acceso sin muchas escaleras, poco ruido, AC, baño privado y posibilidad de salir temprano hacia Praha hl.n.",
-          link: airbnbLink("prague", "Mala Strana Prague 1 apartment air conditioning private bathroom")
-        }
+        { id: "prague-brezina", source: "Booking", tierKey: "budget", name: "Brezina Pension", price: 356, score: "8.5", reviews: "1.327", area: "Prague 2 / I. P. Pavlova", checkIn: "desde 14:00 aprox.", checkOut: "confirmar salida temprana", note: "Muy buen precio y transporte; no es la zona mas fotografica, pero queda cerca del centro.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("prague", "/hotel/cz/brezina-pension.html") },
+        { id: "prague-bohem", source: "Booking", tierKey: "budget", name: "Bohem Prague Hotel", price: 360, score: "8.7", reviews: "2.202", area: "Andel / Prague 5", checkIn: "desde 14:00 aprox.", checkOut: "confirmar salida temprana", note: "Barato y bien puntuado; requiere tranvia o metro para los amaneceres en el casco historico.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("prague", "/hotel/cz/bohem-prague.html") },
+        { id: "prague-lafenice", source: "Booking", tierKey: "value", name: "La Fenice", price: 435, score: "8.9", reviews: "4.188", area: "Vinohrady / Prague 2", checkIn: "desde 14:00 aprox.", checkOut: "confirmar", note: "Excelente puntuacion, barrio agradable y precio medio; muy buena alternativa al centro turistico.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("prague", "/hotel/cz/residence-la-fenice.html") },
+        { id: "prague-ukrize", source: "Booking", tierKey: "value", name: "Hotel U Krize", price: 447, score: "8.4", reviews: "1.871", area: "Mala Strana / Prague 1", checkIn: "desde 14:00 aprox.", checkOut: "hasta 11:00 aprox.", note: "El default fotografico: Kampa, Petrin y Charles Bridge quedan a mano; la referencia incluia desayuno.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("prague", "/hotel/cz/u-krize-praha.html") },
+        { id: "prague-vinohradsky", source: "Booking", tierKey: "value", name: "Vinohradsky Dum Residence", price: 459, score: "9.4", reviews: "1.793", area: "Vinohrady / Prague 2", checkIn: "desde 14:00 aprox.", checkOut: "confirmar", note: "La mejor puntuacion del rango medio y apartamento mas comodo; sacrifica algo de cercania al puente.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("prague", "/hotel/cz/vinohradsky-dum.html") },
+        { id: "prague-perla", source: "Booking", tierKey: "comfort", name: "Perla Hotel", price: 582, score: "8.8", reviews: "5.766", area: "Old Town / Mustek", checkIn: "desde 14:00 aprox.", checkOut: "hasta 11:00 aprox.", note: "Mas hotel y maxima centralidad. Solo tiene sentido si valoran mucho volver caminando a cualquier hora.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("prague", "/hotel/cz/perla.html") },
+        { id: "prague-airbnb-prague1", source: "Airbnb", tierKey: "airbnb", name: "Airbnb en Mala Strana / Prague 1", price: 480, score: "Filtrar 4.8+", reviews: "50+", area: "Mala Strana / Old Town", checkIn: "segun anfitrion", checkOut: "confirmar salida 05:15", note: "Estimacion. Priorizar ascensor o pocas escaleras, poco ruido y salida autonoma para el tren a Cracovia.", requirements: ["Baño privado", "Aire acondicionado"], link: airbnbLink("prague", "Mala Strana Prague 1 apartment air conditioning private bathroom") }
       ]
     },
     {
@@ -1279,50 +1402,28 @@
       name: "Cracovia",
       nights: 2,
       dates: "20/10 al 22/10",
-      zone: "Prioridad: Krakow Glowny/MDA o Stare Miasto. La cercania a la estacion ayuda con el tren, el bus a Auschwitz y el vuelo del dia siguiente.",
+      zone: "Krakow Glowny/MDA gana por el tren, el bus a Auschwitz y el equipaje; Stare Miasto sigue siendo caminable y muy barato en estas fechas.",
+      neighborhoods: [
+        { name: "Glowny / Kleparz", detail: "La mejor logistica para el tren y el bus del dia de Auschwitz." },
+        { name: "Stare Miasto", detail: "Todo caminando y muchisima oferta; gran relacion precio-calidad." },
+        { name: "Kazimierz", detail: "La mejor zona para cenar y salir, algo menos practica para MDA." },
+        { name: "Grzegorzki", detail: "Cerca de la estacion por el este y generalmente mas tranquilo." }
+      ],
+      tiers: [
+        { id: "budget", label: "Ahorro local", range: "aprox. USD 53-65/noche", detail: "En Cracovia este rango ya ofrece apartamentos excelentes." },
+        { id: "value", label: "Mejor equilibrio", range: "aprox. USD 70-95/noche", detail: "Sube puntuacion, ubicacion o experiencia de hotel." },
+        { id: "comfort", label: "Mas comodidad", range: "aprox. USD 95-120/noche", detail: "No hace falta llegar a USD 150 para dormir muy bien." },
+        { id: "airbnb", label: "Airbnb", range: "referencia variable", detail: "Booking ya compite muy fuerte en esta ciudad." }
+      ],
       options: [
-        {
-          id: "krakow-silvio",
-          source: "Booking",
-          tier: "Valor recomendado",
-          name: "Home in Krakow Silvio's Apartments",
-          price: 161,
-          score: "9.0",
-          reviews: "1.054",
-          area: "Radziwillowska / Stare Miasto",
-          checkIn: "15:00 a 23:30; coordinar llaves",
-          checkOut: "hasta 11:00 aprox.",
-          note: "A unos 400 m de Krakow Glowny/MDA. Es la base mas eficiente para estas dos noches; no tiene recepcion tradicional, asi que hay que coordinar llegada y guardado de equipaje.",
-          link: bookingHotelLink("krakow", "/hotel/pl/appartamentisilvio.html")
-        },
-        {
-          id: "krakow-perfect",
-          source: "Booking",
-          tier: "Comodo",
-          name: "Hotel Perfect",
-          price: 188,
-          score: "9.1",
-          reviews: "2.252",
-          area: "Kazimierz",
-          checkIn: "desde 15:00 aprox.",
-          checkOut: "hasta 12:00 aprox.",
-          note: "Mejor experiencia de hotel y zona muy agradable para cenar. Solo USD 27 mas por la estadia, aunque menos practico para salir desde MDA a Auschwitz.",
-          link: bookingHotelLink("krakow", "/hotel/pl/perfect.html")
-        },
-        {
-          id: "krakow-airbnb-stare",
-          source: "Airbnb",
-          tier: "Busqueda comparable",
-          name: "Airbnb en Stare Miasto / Krakow Glowny",
-          price: 170,
-          score: "Filtrar 4.8+",
-          reviews: "50+",
-          area: "Stare Miasto / estacion central",
-          checkIn: "segun anfitrion",
-          checkOut: "confirmar guardado de equipaje",
-          note: "Estimacion para comparar. La cercania a Krakow Glowny/MDA es mas importante que ganar unos dolares, por el bus a Auschwitz y el vuelo del dia siguiente.",
-          link: airbnbLink("krakow", "Stare Miasto Krakow Glowny apartment air conditioning private bathroom")
-        }
+        { id: "krakow-old-time", source: "Booking", tierKey: "budget", name: "Old Time Apartments", price: 106, score: "9.1", reviews: "983", area: "Stare Miasto / 600 m del centro", checkIn: "coordinar acceso", checkOut: "hasta 11:00 aprox.", note: "La relacion precio-calidad mas fuerte de la busqueda; apartamento completo, baño y aire visibles en la tarifa.", requirements: ["Apartamento con baño", "Aire acondicionado"], link: bookingHotelLink("krakow", "/hotel/pl/old-time-apartments.html") },
+        { id: "krakow-bed-beige", source: "Booking", tierKey: "budget", name: "Bed & Beige Apartment", price: 119, score: "9.5", reviews: "142", area: "Stare Miasto / Kochanowskiego", checkIn: "coordinar acceso", checkOut: "confirmar", note: "Pocas reseñas frente a otros candidatos, pero supera 100 y tiene una puntuacion excepcional.", requirements: ["Apartamento con baño", "Aire acondicionado"], link: bookingHotelLink("krakow", "/hotel/pl/bed-amp-beige-apartment-kochanowskiego-st-krakow.html") },
+        { id: "krakow-just4you", source: "Booking", tierKey: "budget", name: "Just4You Apartments", price: 123, score: "9.1", reviews: "989", area: "Stare Miasto / 600 m del centro", checkIn: "coordinar acceso", checkOut: "confirmar guardado", note: "Apartamento pequeño pero completo, centrico y con casi mil reseñas.", requirements: ["Apartamento con baño", "Aire acondicionado"], link: bookingHotelLink("krakow", "/hotel/pl/just-for-you-apartments.html") },
+        { id: "krakow-topola", source: "Booking", tierKey: "budget", name: "Topola", price: 124, score: "9.0", reviews: "741", area: "Grzegorzki / cerca de Glowny", checkIn: "coordinar acceso", checkOut: "confirmar guardado", note: "La mejor alternativa si priorizan estacion y MDA por encima de estar pegados a Rynek.", requirements: ["Estudio con baño", "Aire acondicionado"], link: bookingHotelLink("krakow", "/hotel/pl/topola.html") },
+        { id: "krakow-habitat", source: "Booking", tierKey: "value", name: "Habitat Apartments", price: 144, score: "9.2", reviews: "752", area: "Stare Miasto / 700 m del centro", checkIn: "coordinar acceso", checkOut: "confirmar", note: "Estudio mas amplio, cocina y ubicacion excelente por una diferencia total pequeña.", requirements: ["Estudio con baño", "Aire acondicionado"], link: bookingHotelLink("krakow", "/hotel/pl/habitat-krakow.html") },
+        { id: "krakow-brokilon", source: "Booking", tierKey: "value", name: "Brokilon House", price: 157, score: "9.5", reviews: "570", area: "Rynek / 150 m del centro", checkIn: "coordinar acceso", checkOut: "confirmar", note: "La ubicacion y puntuacion mas fuertes del grupo; buena compra si mantienen este precio.", requirements: ["Apartamento con baño", "Aire acondicionado"], link: bookingHotelLink("krakow", "/hotel/pl/brokilon-house.html") },
+        { id: "krakow-perfect", source: "Booking", tierKey: "comfort", name: "Hotel Perfect", price: 188, score: "9.1", reviews: "2.252", area: "Kazimierz", checkIn: "desde 15:00 aprox.", checkOut: "hasta 12:00 aprox.", note: "La opcion de hotel y mejor base para cenar; menos practica para salir desde MDA a Auschwitz.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("krakow", "/hotel/pl/perfect.html") },
+        { id: "krakow-airbnb-stare", source: "Airbnb", tierKey: "airbnb", name: "Airbnb en Stare Miasto / Glowny", price: 150, score: "Filtrar 4.8+", reviews: "50+", area: "Stare Miasto / estacion", checkIn: "segun anfitrion", checkOut: "confirmar guardado", note: "Estimacion. En estas fechas Booking ofrece apartamentos muy competitivos y con cancelacion mas clara.", requirements: ["Baño privado", "Aire acondicionado"], link: airbnbLink("krakow", "Stare Miasto Krakow Glowny apartment air conditioning private bathroom") }
       ]
     },
     {
@@ -1330,50 +1431,27 @@
       name: "Madrid",
       nights: 3,
       dates: "22/10 al 25/10",
-      zone: "Prioridad: Preciados, Gran Via o Sol para compras y regreso sencillo. Se compara una opcion barata conectada con otra realmente central.",
+      zone: "El centro simplifica compras y el cierre del viaje, pero la diferencia con Carabanchel es grande. Aqui el tier barato empieza mas arriba que en las otras ciudades.",
+      neighborhoods: [
+        { name: "Sol / Callao / Preciados", detail: "La mejor ubicacion para compras y caminar; es el mercado mas caro." },
+        { name: "Gran Via", detail: "Muy central, activo de noche y bien conectado con el aeropuerto." },
+        { name: "Carabanchel", detail: "Ahorro real con metro; pierden comodidad para volver con compras." },
+        { name: "Chamberi", detail: "Buen barrio local, pero las opciones baratas revisadas no cumplian aire." }
+      ],
+      tiers: [
+        { id: "budget", label: "Ahorro local", range: "aprox. USD 115-130/noche", detail: "No aparecio nada bajo USD 100 que cumpliera todos los filtros." },
+        { id: "value", label: "Mejor equilibrio", range: "aprox. USD 165-180/noche", detail: "Hostales simples pero realmente centrales." },
+        { id: "comfort", label: "Maxima centralidad", range: "aprox. USD 190-195/noche", detail: "Limite alto: no recomiendo superar USD 200/noche." },
+        { id: "airbnb", label: "Airbnb", range: "referencia variable", detail: "Comparar solo tarifa final, no el precio inicial." }
+      ],
+      tierNotes: { budget: "No encontramos una opcion inferior a USD 100 por noche que simultaneamente estuviera disponible, tuviera 8+, al menos 25 reseñas, baño privado y calefaccion. Al aceptar una habitacion sin aire acondicionado aparece Hostal Los Andes, mucho mejor ubicado que Maria Ronda." },
       options: [
-        {
-          id: "madrid-ronda",
-          source: "Booking",
-          tier: "Economico",
-          name: "Hostal Maria Ronda",
-          price: 438,
-          score: "8.9",
-          reviews: "1.330",
-          area: "Carabanchel / metro",
-          checkIn: "desde 14:00-15:00 aprox.",
-          checkOut: "hasta 11:00 aprox.",
-          note: "Buen puntaje y precio, pero no esta en el centro turistico. Solo lo elegiria si quieren ahorrar esos USD 92 totales y aceptan usar metro para cada compra/paseo.",
-          link: bookingHotelLink("madrid", "/hotel/es/hostal-maria-ronda.html")
-        },
-        {
-          id: "madrid-conchita",
-          source: "Booking",
-          tier: "Central recomendado",
-          name: "Hostal Conchita",
-          price: 530,
-          score: "8.4",
-          reviews: "172",
-          area: "Calle Preciados / Callao",
-          checkIn: "desde 14:00-15:00 aprox.",
-          checkOut: "hasta 11:00 aprox.",
-          note: "A 300 m de Gran Via y 500 m de Sol. Por USD 31 extra por noche frente a Maria Ronda, la ubicacion se justifica para dos dias de compras y salida al aeropuerto.",
-          link: bookingHotelLink("madrid", "/hotel/es/hostal-conchita-madrid2.html")
-        },
-        {
-          id: "madrid-airbnb-centro",
-          source: "Airbnb",
-          tier: "Busqueda comparable",
-          name: "Airbnb en Callao / Sol / Gran Via",
-          price: 450,
-          score: "Filtrar 4.8+",
-          reviews: "50+",
-          area: "Centro / zona de compras",
-          checkIn: "segun anfitrion; llegada 21:00 aprox.",
-          checkOut: "confirmar salida 08:00",
-          note: "Estimacion para comparar. Elegir solo con llegada autonoma o anfitrion confirmado, AC, baño privado y salida sencilla hacia Barajas el domingo.",
-          link: airbnbLink("madrid", "Callao Sol Gran Via apartment air conditioning private bathroom")
-        }
+        { id: "madrid-ronda", source: "Booking", tierKey: "budget", name: "Hostal Maria Ronda", price: 346, score: "8.9", reviews: "1.333", area: "Carabanchel / 6 min del metro", checkIn: "14:00 a 00:00", checkOut: "hasta 11:00", note: "La opcion de ahorro real. Ficha revisada: baño privado y aire; el costo es usar metro para compras y paseos.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("madrid", "/hotel/es/hostal-maria-ronda.html") },
+        { id: "madrid-los-andes", source: "Booking", tierKey: "budget", name: "Hostal Los Andes", price: 371, score: "8.4", reviews: "234", area: "Chamberi / Argüelles", checkIn: "confirmar llegada 21:00", checkOut: "hasta 11:00 aprox.", note: "La nueva oportunidad al flexibilizar el aire: barrio excelente, metro y baño privado. La ficha muestra calefaccion, pero no aire acondicionado.", requirements: ["Baño privado", "Calefaccion", "Sin aire acondicionado"], link: bookingHotelLink("madrid", "/hotel/es/hostal-los-andes.html") },
+        { id: "madrid-hispalense", source: "Booking", tierKey: "value", name: "Hostal Hispalense", price: 511, score: "8.6", reviews: "960", area: "Opera / 450 m del centro", checkIn: "confirmar llegada 21:00", checkOut: "hasta 11:00 aprox.", note: "La opcion central con mas reseñas dentro del rango medio; todo el cierre de Madrid queda caminando.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("madrid", "/hotel/es/hispalense.html") },
+        { id: "madrid-conchita", source: "Booking", tierKey: "value", name: "Hostal Conchita", price: 532, score: "8.4", reviews: "172", area: "Preciados / Callao", checkIn: "confirmar llegada 21:00", checkOut: "hasta 11:00 aprox.", note: "A pasos de Gran Via y Sol. Menos reseñas, pero la mejor ubicacion especifica para compras.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("madrid", "/hotel/es/hostal-conchita-madrid2.html") },
+        { id: "madrid-victoria", source: "Booking", tierKey: "comfort", name: "Hostal Victoria II", price: 583, score: "8.1", reviews: "5.493", area: "Puerta del Sol / 30 m del centro", checkIn: "confirmar llegada 21:00", checkOut: "hasta 11:00 aprox.", note: "Ubicacion absoluta y muchisimas reseñas, pero ya roza el techo que quieren pagar. Sirve como comparacion, no como default.", requirements: ["Baño privado", "Aire acondicionado"], link: bookingHotelLink("madrid", "/hotel/es/hostal-victoria-ii.html") },
+        { id: "madrid-airbnb-centro", source: "Airbnb", tierKey: "airbnb", name: "Airbnb en Callao / Sol / Gran Via", price: 510, score: "Filtrar 4.8+", reviews: "50+", area: "Centro / zona de compras", checkIn: "exigir llegada autonoma", checkOut: "confirmar salida 08:00", note: "Estimacion para comparar. Elegir solo con tarifa final visible, llegada 21:00, ascensor y salida sencilla hacia Barajas.", requirements: ["Baño privado", "Aire acondicionado"], link: airbnbLink("madrid", "Callao Sol Gran Via apartment air conditioning private bathroom") }
       ]
     }
   ];
@@ -1616,7 +1694,7 @@
       budapest: "budapest-centerpoint",
       vienna: "vienna-prize",
       prague: "prague-ukrize",
-      krakow: "krakow-silvio",
+      krakow: "krakow-habitat",
       madrid: "madrid-conchita"
     },
     activity: "normal"
@@ -1627,9 +1705,9 @@
       transport: { longhaul: "iberia-direct", arrival: "mad-bud-wizz", returnMadrid: "krk-mad-lot" },
       lodging: {
         budapest: "budapest-centerpoint",
-        vienna: "vienna-prize",
-        prague: "prague-ukrize",
-        krakow: "krakow-silvio",
+        vienna: "vienna-bb-stadthalle",
+        prague: "prague-brezina",
+        krakow: "krakow-old-time",
         madrid: "madrid-ronda"
       },
       activity: "light"
@@ -1642,7 +1720,7 @@
         vienna: "vienna-urban",
         prague: "prague-perla",
         krakow: "krakow-perfect",
-        madrid: "madrid-conchita"
+        madrid: "madrid-hispalense"
       },
       activity: "normal"
     }
@@ -1939,33 +2017,75 @@
     const root = document.getElementById("lodging-root");
     root.innerHTML = cities.map(city => {
       const selectedOption = optionById(city.options, state.lodging[city.id]);
-      const rows = city.options.map(option => {
-        const selected = state.lodging[city.id] === option.id;
-        const sourceClass = option.source === "Booking" ? "booking" : "airbnb";
-        const linkLabel = option.source === "Booking" ? "Abrir ficha" : "Ver opciones";
-        const perNight = Math.round(option.price / city.nights);
+      const neighborhoods = city.neighborhoods.map(neighborhood => `
+        <div class="neighborhood-item">
+          <strong>${neighborhood.name}</strong>
+          <div class="small">${neighborhood.detail}</div>
+        </div>
+      `).join("");
+
+      const tierBlocks = city.tiers.map(tier => {
+        const options = city.options.filter(option => option.tierKey === tier.id);
+        const cards = options.map(option => {
+          const selected = state.lodging[city.id] === option.id;
+          const sourceClass = option.source === "Booking" ? "booking" : "airbnb";
+          const linkLabel = option.source === "Booking" ? "Abrir en Booking" : "Buscar en Airbnb";
+          const perNight = Math.round(option.price / city.nights);
+          const requirements = [...(option.requirements || [])];
+          if (!requirements.some(requirement => requirement.toLowerCase().includes("calefaccion"))) {
+            requirements.push("Calefaccion: confirmar");
+          }
+          const requirementPills = requirements.map(requirement => {
+            const normalized = requirement.toLowerCase();
+            const statusClass = normalized.includes("sin aire") ? "warn" : normalized.includes("confirm") ? "neutral" : "";
+            return `<span class="requirement ${statusClass}">${requirement}</span>`;
+          }).join("");
+
+          return `
+            <article class="lodging-card ${selected ? "selected" : ""}">
+              <div class="lodging-card-top">
+                <div>
+                  <a class="pill ${sourceClass}" href="${option.link}" target="_blank" rel="noopener">${option.source}</a>
+                  ${selected ? '<span class="pill good">Seleccionado</span>' : ''}
+                </div>
+                <div class="lodging-score">${option.score}<div class="small">${option.reviews} reseñas</div></div>
+              </div>
+              <h5><a href="${option.link}" target="_blank" rel="noopener">${option.name}</a></h5>
+              <div class="lodging-area">${option.area}</div>
+              <div class="requirement-row">${requirementPills}</div>
+              <p class="lodging-note">${option.note}</p>
+              <div class="small"><strong>Entrada:</strong> ${option.checkIn || "confirmar"}<br><strong>Salida:</strong> ${option.checkOut || "confirmar"}</div>
+              <div class="lodging-price-row">
+                <div>
+                  <div class="lodging-price">${fmt(option.price)}</div>
+                  <div class="small">habitacion completa</div>
+                </div>
+                <div class="money"><strong>${fmt(perNight)}</strong><div class="small">por noche</div></div>
+              </div>
+              <div class="lodging-actions">
+                <label class="select-choice">
+                  <input type="radio" name="lodging-${city.id}" value="${option.id}" ${selected ? "checked" : ""} aria-label="Elegir ${option.name}">
+                  <span>${selected ? "Elegido" : "Elegir"}</span>
+                </label>
+                <a class="lodging-link" href="${option.link}" target="_blank" rel="noopener">${linkLabel}</a>
+              </div>
+            </article>
+          `;
+        }).join("");
+
+        const tierNote = city.tierNotes && city.tierNotes[tier.id]
+          ? `<div class="tier-empty" style="margin-bottom:10px">${city.tierNotes[tier.id]}</div>`
+          : "";
+
         return `
-          <tr class="${selected ? "selected" : ""}">
-            <td class="center">
-              <label class="select-choice">
-                <input type="radio" name="lodging-${city.id}" value="${option.id}" ${selected ? "checked" : ""} aria-label="${option.name}">
-                <span>${selected ? "Elegido" : "Elegir"}</span>
-              </label>
-            </td>
-            <td>
-              <a class="pill ${sourceClass}" href="${option.link}" target="_blank" rel="noopener" aria-label="Abrir ${option.source}: ${option.name}">${option.source}</a>
-              <span class="pill gray">${option.tier}</span>
-            </td>
-            <td>
-              <a class="lodging-link" href="${option.link}" target="_blank" rel="noopener">${option.name}</a>
-              <div class="small">${option.note}</div>
-            </td>
-            <td>${option.area}</td>
-            <td class="nowrap">${option.score} / ${option.reviews}</td>
-            <td><strong>${option.checkIn || "Confirmar"}</strong><div class="small">Salida: ${option.checkOut || "confirmar"}</div></td>
-            <td class="money"><strong>${fmt(option.price)}</strong><div class="small">${fmt(perNight)}/habitacion/noche</div></td>
-            <td><a class="lodging-link" href="${option.link}" target="_blank" rel="noopener">${linkLabel}</a></td>
-          </tr>
+          <div class="tier-block">
+            <div class="tier-heading">
+              <h4>${tier.label}</h4>
+              <div class="small"><strong>${tier.range}</strong> · ${tier.detail}</div>
+            </div>
+            ${tierNote}
+            ${cards ? `<div class="lodging-grid">${cards}</div>` : '<div class="tier-empty">No hay una opcion que cumpla todos los criterios en este rango.</div>'}
+          </div>
         `;
       }).join("");
 
@@ -1980,23 +2100,8 @@
             <span class="small">habitacion completa: ${selectedOption.name}</span>
           </div>
         </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Elegir</th>
-                <th>Fuente / tier</th>
-                <th>Alojamiento</th>
-                <th>Zona</th>
-                <th>Score / reviews</th>
-                <th>Check-in</th>
-                <th class="money">Total habitacion</th>
-                <th>Link</th>
-              </tr>
-            </thead>
-            <tbody>${rows}</tbody>
-          </table>
-        </div>
+        <div class="neighborhood-guide">${neighborhoods}</div>
+        ${tierBlocks}
       `;
     }).join("");
   }
