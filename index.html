@@ -870,7 +870,7 @@
       Los importes son para 2 personas y sirven para decidir. El plan ya distingue reservas compradas, horarios objetivo y gastos todavia estimados.
     </p>
     <p class="meta">
-      Base actualizada el 15/08/2026 con vuelos comprados, Auschwitz confirmado, referencias de Booking y trenes oficiales. Moneda: USD.
+      Base actualizada el 23/08/2026 con vuelos comprados, Auschwitz confirmado, 50 alojamientos verificados en Booking y trenes oficiales. Moneda: USD.
       Las tarifas reales pueden cambiar al entrar a cada web, especialmente equipaje, taxes y conversiones.
     </p>
 
@@ -1009,7 +1009,7 @@
     <h2>Alojamientos por ciudad</h2>
     <p class="hint">
       Comparador por barrio y rango de precio para las fechas exactas. Los importes son por habitacion completa para dos personas;
-      cada tarjeta muestra tambien el promedio por noche y abre directamente la ficha de Booking o la busqueda de Airbnb.
+      cada tarjeta muestra tambien el promedio por noche y abre directamente la ficha de Booking para esas fechas.
     </p>
     <div class="notice">
       <strong>Requisitos del alojamiento:</strong> el filtro minimo es puntaje 8+ y 25 reseñas. Antes de pagar, la tarifa exacta debe mostrar
@@ -1017,8 +1017,8 @@
       en Budapest tambien debe quedar por escrito la llegada posterior a medianoche.
     </div>
     <div class="warning">
-      <strong>Precios revisados el 15/08/2026:</strong> Booking puede cambiar disponibilidad, impuestos o descuentos al iniciar sesion.
-      Airbnb no permite enlazar de forma estable un anuncio que no hayan elegido, por eso esas tarjetas abren una busqueda con fechas, barrio y dos huespedes.
+      <strong>Precios y disponibilidad revisados el 23/08/2026:</strong> hay 10 opciones por ciudad, todas disponibles al momento de la consulta,
+      con puntaje 8+ y al menos 20 reseñas. Booking puede cambiar el total, los impuestos o los descuentos al iniciar sesion; reconfirmar la habitacion exacta antes de pagar.
     </div>
     <div id="lodging-root"></div>
   </section>
@@ -1455,6 +1455,154 @@
     }
   ];
 
+  function verifiedBookingStay(cityId, id, tierKey, name, price, score, reviews, area, path, note, checkIn = "confirmar con el alojamiento") {
+    return {
+      id,
+      source: "Booking",
+      tierKey,
+      name,
+      price,
+      score,
+      reviews,
+      area,
+      checkIn,
+      checkOut: "confirmar; prever guardaequipaje si no coincide con el traslado",
+      note,
+      requirements: ["Baño privado", "Aire acondicionado"],
+      link: bookingHotelLink(cityId, path)
+    };
+  }
+
+  const verifiedLodgingCatalog = {
+    budapest: {
+      zone: "Prioridad: Distrito V (Belvaros-Lipotvaros) y el borde inmediato de Deak/Astoria. Es la base mas caminable para Basilica, Parlamento, Danubio, restaurantes y transporte. Como llegan pasada la medianoche, no reservar sin confirmacion escrita de acceso tardio.",
+      neighborhoods: [
+        { name: "Basilica / Deak", detail: "La base mas completa para restaurantes, metro, bus del aeropuerto, paseos nocturnos y free tours." },
+        { name: "Belvaros / Ferenciek / Vaci", detail: "Centro peatonal y Danubio a mano; muy practico para una visita de cuatro noches." },
+        { name: "Lipotvaros / Parlamento", detail: "Elegante, seguro y fotogenico; algo mas tranquilo, pero plenamente central." }
+      ],
+      tiers: [
+        { id: "budget", label: "Ahorro central", range: "USD 315-331 total · USD 79-83/noche", detail: "Las oportunidades reales mas bajas dentro de Distrito V/Astoria." },
+        { id: "value", label: "Mejor equilibrio", range: "USD 354-370 total · USD 89-93/noche", detail: "Mejor puntaje o ubicacion junto a Basilica y Parlamento." },
+        { id: "comfort", label: "Mas espacio o ubicacion", range: "USD 394-399 total · USD 99-100/noche", detail: "Apartamentos centrales con mas comodidad relativa." }
+      ],
+      options: [
+        verifiedBookingStay("budapest", "bud-city-quiet", "budget", "City Center Quiet Flat", 315, "8.0", "80", "Astoria / borde de Distrito V", "/hotel/hu/city-center-quiet-flat.html", "La opcion mas barata verificada; buena para priorizar presupuesto sin salir del centro.", "exigir confirmacion escrita para llegar 00:15-00:45"),
+        verifiedBookingStay("budapest", "bud-residence-parliament", "budget", "Residence Parliament", 326, "8.7", "537", "Lipotvaros / Parlamento, Distrito V", "/hotel/hu/residence-parliament.html", "Muy buena relacion entre puntaje, precio y cercania al Parlamento.", "exigir confirmacion escrita para llegar 00:15-00:45"),
+        verifiedBookingStay("budapest", "bud-astoria-central", "budget", "Astoria Central Apartments", 331, "8.2", "209", "Astoria / Belvaros", "/hotel/hu/astoria-central-apartment.html", "Conexion sencilla con metro y buses; revisar instrucciones de acceso autonomo.", "exigir confirmacion escrita para llegar 00:15-00:45"),
+        verifiedBookingStay("budapest", "bud-central-paris", "value", "Central Paris Garden", 354, "8.7", "77", "Ferenciek / Belvaros, Distrito V", "/hotel/hu/central-paris-garden.html", "Recomendado por equilibrio: pleno centro, buen puntaje y precio moderado.", "exigir confirmacion escrita para llegar 00:15-00:45"),
+        verifiedBookingStay("budapest", "bud-hercegprimas", "value", "Hercegprimas at Basilica by Corall", 357, "8.2", "157", "Basilica / Distrito V", "/hotel/hu/corall-hercegprimas-at-basilica.html", "Ubicacion especialmente buena para caminar de noche y comenzar tours.", "exigir confirmacion escrita para llegar 00:15-00:45"),
+        verifiedBookingStay("budapest", "bud-parliament-cozy", "value", "Nice and cozy apartment next to the Parliament", 362, "9.1", "104", "Lipotvaros / Parlamento, Distrito V", "/hotel/hu/brand-new-apartment-next-to-the-parliament.html", "El mejor puntaje del rango medio y una zona muy fotogenica.", "exigir confirmacion escrita para llegar 00:15-00:45"),
+        verifiedBookingStay("budapest", "bud-moonlit", "value", "Moonlit Muse Studio Home", 370, "9.1", "58", "Basilica / Lipotvaros, Distrito V", "/hotel/hu/1054-vadasz-u-28-b-1-em-7.html", "Estudio bien valorado; confirmar acceso y condiciones de calefaccion.", "exigir confirmacion escrita para llegar 00:15-00:45"),
+        verifiedBookingStay("budapest", "bud-basilica-home", "comfort", "Beautiful Home at Basilica 3-4", 394, "8.2", "98", "Basilica / Deak, Distrito V", "/hotel/hu/beautiful-home-at-basilca-3-4.html", "Paga principalmente ubicacion: excelente para volver caminando.", "exigir confirmacion escrita para llegar 00:15-00:45"),
+        verifiedBookingStay("budapest", "bud-central-market", "comfort", "Central Market Apartment", 394, "8.7", "88", "Belvaros / Mercado Central, Distrito V", "/hotel/hu/central-individual-cozy-apartment.html", "Buena base para Vaci, Danubio y el sur del centro historico.", "exigir confirmacion escrita para llegar 00:15-00:45"),
+        verifiedBookingStay("budapest", "bud-astoria-apartment", "comfort", "Astoria Apartment", 399, "8.1", "77", "Astoria / Belvaros", "/hotel/hu/astoria-apartment-budapest3.html", "Alternativa amplia y central; revisar ruido y modalidad de entrega de llaves.", "exigir confirmacion escrita para llegar 00:15-00:45")
+      ]
+    },
+    vienna: {
+      zone: "Prioridad: Wieden/Belvedere/Karlsplatz y, si el presupuesto lo permite, Innere Stadt. Wieden equilibra caminabilidad y acceso a Wien Hbf; el centro historico reduce traslados, pero sube mucho el precio.",
+      neighborhoods: [
+        { name: "Wieden / Belvedere", detail: "La mejor combinacion para este itinerario: cerca de Wien Hbf y caminable a Karlsplatz/Opera." },
+        { name: "Karlsplatz / Naschmarkt", detail: "Excelente para pasear y cenar, con metro y el Ring a pocos minutos." },
+        { name: "Innere Stadt", detail: "Maxima centralidad, pero en estas fechas cuesta bastante mas que Wieden." }
+      ],
+      tiers: [
+        { id: "budget", label: "Ahorro bien ubicado", range: "USD 540-560 total · USD 135-140/noche", detail: "Wieden y Hauptbahnhof sin resignar conexion ni seguridad." },
+        { id: "value", label: "Mejor equilibrio", range: "USD 605-615 total · USD 151-154/noche", detail: "Mejor experiencia de hotel y ubicacion cerca de Belvedere/Opera." },
+        { id: "comfort", label: "Centro historico", range: "USD 674-701 total · USD 169-175/noche", detail: "Se paga por caminar al Ring, Stephansplatz y Opera." }
+      ],
+      options: [
+        verifiedBookingStay("vienna", "vie-prinz-eugen", "budget", "Hotel Prinz Eugen Vienna", 540, "8.0", "1.692", "Wieden / Wien Hbf", "/hotel/at/garnerhotelvienna-prinzeugen.html", "La referencia economica: frente a la zona de la estacion y comoda para los dos trenes."),
+        verifiedBookingStay("vienna", "vie-boutique-karlsplatz", "budget", "Boutique Design Studios near Karlsplatz", 546, "9.0", "117", "Wieden / Karlsplatz", "/hotel/at/the-old-shops-near-karlsplatz-entire-collection-5-studios-for-10-guests.html", "Recomendado por ubicacion y puntaje; confirmar la unidad exacta y modalidad de check-in."),
+        verifiedBookingStay("vienna", "vie-four-points", "budget", "Four Points Flex by Sheraton Vienna Hauptbahnhof", 558, "8.6", "7.188", "Wieden / Wien Hbf", "/hotel/at/four-points-flex-by-sheraton-vienna-hauptbahnhof.html", "Hotel tradicional, muchas reseñas y logistica excelente para equipaje y trenes."),
+        verifiedBookingStay("vienna", "vie-jos15", "budget", "Trendy & Luxury Apartment in Vienna JOS15", 560, "8.1", "22", "Wieden / Belvedere", "/hotel/at/trendy-amp-luxury-apartment-in-vienna.html", "Opcion nueva que supera el minimo de reseñas; revisar cancelacion y acceso antes de pagar."),
+        verifiedBookingStay("vienna", "vie-mooons", "value", "MOOONS Vienna", 605, "8.8", "5.951", "Wieden / Belvedere / Wien Hbf", "/hotel/at/mooons-vienna.html", "Recomendado general: moderno, gran puntaje y una ubicacion ideal para este circuito."),
+        verifiedBookingStay("vienna", "vie-suite-900", "value", "Suite Hotel 900m zur Oper", 615, "8.4", "5.616", "Wieden / Karlsplatz", "/hotel/at/suitehoteloper.html", "Mas cerca de Opera y Naschmarkt, manteniendo conexion razonable con la estacion."),
+        verifiedBookingStay("vienna", "vie-urban-rathaus", "comfort", "Urban Rooms Rathaus - Self Check-In", 674, "8.7", "2.407", "Rathaus / borde de Innere Stadt", "/hotel/at/urban-rooms-rathaus.html", "Buena opcion si priorizan Ring y cafes; acceso autonomo y muchas reseñas."),
+        verifiedBookingStay("vienna", "vie-city-stay-lugeck", "comfort", "City Stay Vienna - Lugeck", 677, "8.4", "4.835", "Stephansplatz / Innere Stadt", "/hotel/at/studio-54-sonnenfelsgasse.html", "Maxima centralidad para caminar; confirmar guardaequipaje por ser formato apartamento."),
+        verifiedBookingStay("vienna", "vie-opera-living", "comfort", "Opera Living Residences - City Center Apartments", 694, "8.9", "166", "Opera / Innere Stadt", "/hotel/at/opera-living-vienna-residences.html", "El mejor puntaje del tier central y ubicacion excelente para el Ring."),
+        verifiedBookingStay("vienna", "vie-cloud-one", "comfort", "The Cloud One Wien-Staatsoper", 701, "8.5", "7.599", "Opera / Innere Stadt", "/hotel/at/motel-one-wien-staatsoper.html", "Hotel con enorme volumen de reseñas; la opcion mas predecible del tier alto.")
+      ]
+    },
+    prague: {
+      zone: "Prioridad: Prague 1 entre Namesti Republiky, Mustek y Wenceslas Square. Permite caminar al casco historico y deja Praha hl.n. razonablemente cerca para el tren de las 06:08 a Cracovia.",
+      neighborhoods: [
+        { name: "Namesti Republiky", detail: "Muy buena para Old Town y la estacion; restaurantes y transporte hasta tarde." },
+        { name: "Mustek / Wenceslas", detail: "Central, activa y practica para caminar tanto a Old Town como a Praha hl.n." },
+        { name: "Stare Mesto", detail: "La mas atmosferica para fotografia, normalmente mas cara y con mas ruido." }
+      ],
+      tiers: [
+        { id: "budget", label: "Oportunidades en Prague 1", range: "USD 288-478 total · USD 72-120/noche", detail: "Precios bajos reales dentro del distrito central." },
+        { id: "value", label: "Mejor equilibrio", range: "USD 531-560 total · USD 133-140/noche", detail: "Hoteles conocidos y ubicaciones muy practicas." },
+        { id: "comfort", label: "Mejor puntaje o habitacion", range: "USD 565-581 total · USD 141-145/noche", detail: "Sube comodidad sin acercarse a los hoteles de lujo." }
+      ],
+      options: [
+        verifiedBookingStay("prague", "prg-koreatown", "budget", "Koreatown", 288, "8.2", "869", "Prague 1 / New Town", "/hotel/cz/korea-town.html", "La oportunidad mas barata; verificar que la tarifa elegida sea habitacion privada completa."),
+        verifiedBookingStay("prague", "prg-colours", "budget", "Apartment COLOURS", 372, "8.3", "940", "Prague 1 / New Town", "/hotel/cz/apartment-colours-your-7-colour-experience-in-centre-of-prague.html", "Apartamento central con muchas reseñas y buen acceso a la estacion."),
+        verifiedBookingStay("prague", "prg-u-krize", "budget", "Hotel U Krize", 464, "8.4", "1.868", "Mala Strana / Prague 1", "/hotel/cz/u-krize-praha.html", "La mejor opcion fotografica para Kampa y Charles Bridge; mas lejos de Praha hl.n."),
+        verifiedBookingStay("prague", "prg-soukenicka", "budget", "Apartmany Soukenicka", 478, "8.7", "220", "Namesti Republiky / Prague 1", "/hotel/cz/apartmany-soukenicka.html", "Recomendado por zona: Old Town y la estacion quedan bien equilibrados."),
+        verifiedBookingStay("prague", "prg-rokoko", "value", "EA Hotel Rokoko", 531, "8.3", "1.527", "Wenceslas Square / Prague 1", "/hotel/cz/hotelrokoko.html", "Hotel tradicional sobre una zona activa y muy conveniente para el tren temprano."),
+        verifiedBookingStay("prague", "prg-ibis-old-town", "value", "Ibis Praha Old Town", 545, "8.1", "4.753", "Namesti Republiky / Prague 1", "/hotel/cz/ibis-praha-old-town.html", "Opcion predecible, recepcion de hotel y ubicacion excelente para su recorrido."),
+        verifiedBookingStay("prague", "prg-residence-bene", "value", "Residence BENE", 551, "8.5", "6.170", "Old Town / Namesti Republiky", "/hotel/cz/residence-bene.html", "Recomendado general: muy central, miles de reseñas y cerca de Praha hl.n."),
+        verifiedBookingStay("prague", "prg-carpe-diem", "value", "Carpe Diem Prague", 560, "8.8", "155", "Old Town / Prague 1", "/hotel/cz/carpe-diem-prague.html", "Mejor puntaje del rango medio; confirmar horario de recepcion para la salida 05:15."),
+        verifiedBookingStay("prague", "prg-krakovka", "comfort", "Krakovka Residence", 565, "8.7", "1.367", "Wenceslas / New Town", "/hotel/cz/hostel.html", "Buena habitacion y acceso simple a la estacion; verificar que la unidad tenga baño privado."),
+        verifiedBookingStay("prague", "prg-archibald", "comfort", "Archibald City", 581, "8.7", "4.016", "New Town / Prague 1", "/hotel/cz/archibald-city.html", "La opcion de hotel mas completa del listado y comoda para la salida temprana.")
+      ]
+    },
+    krakow: {
+      zone: "Prioridad: Kleparz y el norte de Stare Miasto, entre Rynek, Florian Gate y Krakow Glowny/MDA. Facilita el tren de llegada, el bus a Auschwitz y el vuelo del dia siguiente sin perder ambiente turistico.",
+      neighborhoods: [
+        { name: "Kleparz / Dluga", detail: "La mejor logistica para MDA y Krakow Glowny, con Old Town a pie." },
+        { name: "Florian Gate / Basztowa", detail: "Entrada al casco historico y acceso muy sencillo a la estacion." },
+        { name: "Angel City / Glowny", detail: "Apartamentos modernos junto a la estacion; menos atmosfera, mas comodidad." }
+      ],
+      tiers: [
+        { id: "budget", label: "Ahorro excelente", range: "USD 76-88 total · USD 38-44/noche", detail: "Cracovia ofrece apartamentos centrales muy baratos." },
+        { id: "value", label: "Mejor equilibrio", range: "USD 109-138 total · USD 55-69/noche", detail: "Mejor puntaje o cercania directa a la estacion." },
+        { id: "comfort", label: "Mas comodidad", range: "USD 160-167 total · USD 80-84/noche", detail: "Apartamentos superiores sin necesidad de gastar USD 150 por noche." }
+      ],
+      options: [
+        verifiedBookingStay("krakow", "krk-old-town-standard", "budget", "Old Town Standard Studio", 76, "8.7", "43", "Kleparz / norte de Old Town", "/hotel/pl/old-town-standard-studio.html", "La opcion mas barata que supera todos los filtros; revisar instrucciones de acceso."),
+        verifiedBookingStay("krakow", "krk-dluga-65", "budget", "Apartamenty Dluga 65", 86, "9.0", "106", "Kleparz / Dluga", "/hotel/pl/2-bedroom-apartment-65-dluga-street.html", "Excelente precio y puntaje, a distancia caminable de Old Town y MDA."),
+        verifiedBookingStay("krakow", "krk-krowoderska-55", "budget", "Krowoderska 55 - by Upstairs", 88, "8.3", "789", "Kleparz / Krowoderska", "/hotel/pl/krowoderska-55.html", "Muchisimas reseñas para el precio; confirmar guardaequipaje y acceso."),
+        verifiedBookingStay("krakow", "krk-beautiful-center", "value", "Beautiful apartment in the city center", 109, "9.4", "31", "Kleparz / centro", "/hotel/pl/beautiful-apartment-in-the-city-center-air-conditioning-elevator.html", "Opcion nueva de gran puntaje, con ascensor y aire acondicionado."),
+        verifiedBookingStay("krakow", "krk-parrot", "value", "Parrot Apartment Main Station Cracow", 118, "8.2", "131", "Krakow Glowny / MDA", "/hotel/pl/parrot-apartment-main-station-cracow.html", "Recomendado logistico: ideal para dejar equipaje y tomar el bus a Auschwitz."),
+        verifiedBookingStay("krakow", "krk-dluga-82", "value", "Apartament Dluga 82", 138, "9.0", "154", "Kleparz / Dluga", "/hotel/pl/apartament-dluga-82.html", "Mas espacio y muy buen puntaje manteniendo el eje Old Town-estacion."),
+        verifiedBookingStay("krakow", "krk-dluga-24", "comfort", "Apartament Dluga 24", 160, "8.9", "65", "Kleparz / Florian Gate", "/hotel/pl/apartament-dluga-24.html", "Ubicacion especialmente buena para cenar en Old Town y volver caminando."),
+        verifiedBookingStay("krakow", "krk-angel-city", "comfort", "Angel City Apartments", 166, "9.4", "199", "Angel City / Krakow Glowny", "/hotel/pl/angel-city-apartments-krakow.html", "La opcion mas comoda para equipaje, MDA y el tren al aeropuerto."),
+        verifiedBookingStay("krakow", "krk-turnau", "comfort", "Turnau City Aparthotel", 166, "8.3", "8.229", "Angel City / Krakow Glowny", "/hotel/pl/discover-cracow-angel-city.html", "Gran volumen de reseñas y ubicacion muy operativa para las dos noches."),
+        verifiedBookingStay("krakow", "krk-sky-studio", "comfort", "Sky Studio Old Town", 167, "9.5", "22", "Kleparz / Old Town", "/hotel/pl/sky-studio-old-town.html", "Puntaje excepcional y supera el minimo de reseñas; revisar cancelacion por ser reciente.")
+      ]
+    },
+    madrid: {
+      zone: "Prioridad: Centro entre Sol, Gran Via, Callao y Santo Domingo. Ya conocen Madrid y estas tres noches son para compras y cierre del viaje; vale mas poder volver caminando que ahorrar quedandose fuera del centro.",
+      neighborhoods: [
+        { name: "Sol / Preciados", detail: "La mejor base para compras, restaurantes y conexiones; muy activa hasta tarde." },
+        { name: "Gran Via / Chueca", detail: "Tiendas, teatros y movimiento nocturno sin necesidad de taxi." },
+        { name: "Callao / Santo Domingo", detail: "Cerca de Gran Via, algo mas tranquilo en calles laterales y practico para el metro." }
+      ],
+      tiers: [
+        { id: "budget", label: "Ahorro dentro de Centro", range: "USD 515-566 total · USD 172-189/noche", detail: "En estas fechas no aparecieron habitaciones privadas de 8+ por debajo de USD 170/noche." },
+        { id: "value", label: "Mejor equilibrio", range: "USD 578-588 total · USD 193-196/noche", detail: "Hostales consolidados y ubicaciones centrales con muchas reseñas." },
+        { id: "comfort", label: "Mejor ubicacion o puntaje", range: "USD 600-627 total · USD 200-209/noche", detail: "Sube el puntaje o acerca mas a Sol/Gran Via." }
+      ],
+      options: [
+        verifiedBookingStay("madrid", "mad-guestready", "budget", "GuestReady - Cozy studio in Madrid's Heart", 515, "8.0", "26", "Centro / Sol", "/hotel/es/guestready-central-comfort-in-madrids-heart.html", "La oportunidad mas barata que supera el minimo; revisar limpieza, deposito y self check-in."),
+        verifiedBookingStay("madrid", "mad-victoria-iii", "budget", "Hostal Victoria III", 557, "8.1", "1.519", "Sol / Carrera de San Jeronimo", "/hotel/es/hostal-victoria-iii.html", "Hostal sencillo y muy central, adecuado para compras y dos dias completos."),
+        verifiedBookingStay("madrid", "mad-rofer", "budget", "Hostal Rofer", 566, "8.4", "1.079", "La Latina / borde de Centro", "/hotel/es/rofer.html", "El mas alejado de Gran Via del listado, pero sigue siendo caminable y bien valorado."),
+        verifiedBookingStay("madrid", "mad-conchita", "value", "Hostal Conchita", 578, "8.4", "172", "Centro / Sol-Gran Via", "/hotel/es/hostal-conchita-madrid2.html", "Recomendado por equilibrio de precio y centralidad; confirmar horario de recepcion."),
+        verifiedBookingStay("madrid", "mad-los-alpes", "value", "Hostal Los Alpes", 584, "8.7", "1.064", "Gran Via / Chueca", "/hotel/es/hostal-los-alpes.html", "Muy buena ubicacion para compras y el mejor puntaje del rango medio."),
+        verifiedBookingStay("madrid", "mad-tokio", "value", "Hostal Tokio", 585, "8.1", "1.406", "Gran Via / Malasaña", "/hotel/es/hostal-tokio.html", "Zona activa y practica; revisar ruido y tipo exacto de habitacion."),
+        verifiedBookingStay("madrid", "mad-victoria-ii", "value", "Hostal Victoria II", 588, "8.1", "5.502", "Puerta del Sol", "/hotel/es/hostal-victoria-ii.html", "Maxima centralidad y enorme volumen de reseñas; ideal para este cierre de viaje."),
+        verifiedBookingStay("madrid", "mad-rober", "comfort", "Hostal Rober", 600, "8.5", "1.390", "Opera / Plaza Mayor", "/hotel/es/hostal-rober.html", "Buen puntaje y ubicacion tranquila dentro del centro historico."),
+        verifiedBookingStay("madrid", "mad-perla", "comfort", "Hostal La Perla Asturiana", 601, "8.5", "3.313", "Plaza Mayor / Sol", "/hotel/es/la-perla-asturiana.html", "Muy central para compras y cenas, con miles de reseñas."),
+        verifiedBookingStay("madrid", "mad-sonsoles", "comfort", "Hostal Sonsoles Madrid-Centro", 627, "8.6", "1.936", "Gran Via / Chueca", "/hotel/es/hostal-sonsoles.html", "La opcion mas completa del listado por puntaje y ubicacion junto a Gran Via.")
+      ]
+    }
+  };
+
+  cities.forEach(city => Object.assign(city, verifiedLodgingCatalog[city.id]));
+
   const dailyPlan = [
     {
       day: 1,
@@ -1690,11 +1838,11 @@
       returnMadrid: "krk-mad-lot"
     },
     lodging: {
-      budapest: "budapest-amber",
-      vienna: "vienna-prize",
-      prague: "prague-ukrize",
-      krakow: "krakow-habitat",
-      madrid: "madrid-conchita"
+      budapest: "bud-central-paris",
+      vienna: "vie-mooons",
+      prague: "prg-residence-bene",
+      krakow: "krk-parrot",
+      madrid: "mad-conchita"
     },
     activity: "normal"
   };
@@ -1703,11 +1851,11 @@
     cheap: {
       transport: { longhaul: "iberia-direct", arrival: "mad-bud-wizz", returnMadrid: "krk-mad-lot" },
       lodging: {
-        budapest: "budapest-amber",
-        vienna: "vienna-bb-stadthalle",
-        prague: "prague-brezina",
-        krakow: "krakow-old-time",
-        madrid: "madrid-ronda"
+        budapest: "bud-city-quiet",
+        vienna: "vie-prinz-eugen",
+        prague: "prg-koreatown",
+        krakow: "krk-old-town-standard",
+        madrid: "mad-guestready"
       },
       activity: "light"
     },
@@ -1715,11 +1863,11 @@
     comfy: {
       transport: { longhaul: "iberia-direct", arrival: "mad-bud-wizz", returnMadrid: "krk-mad-lot" },
       lodging: {
-        budapest: "budapest-marmara",
-        vienna: "vienna-urban",
-        prague: "prague-perla",
-        krakow: "krakow-perfect",
-        madrid: "madrid-hispalense"
+        budapest: "bud-moonlit",
+        vienna: "vie-cloud-one",
+        prague: "prg-archibald",
+        krakow: "krk-angel-city",
+        madrid: "mad-sonsoles"
       },
       activity: "normal"
     }
