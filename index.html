@@ -1028,7 +1028,8 @@
       <section id="vuelos" data-section="transport">
         <h2>Vuelos y trenes seleccionables</h2>
         <p class="hint">
-          Los vuelos elegidos ya estan comprados. En vuelos se muestra precio por persona para comparar, y total pareja para el calculo; los trenes siguen como presupuesto objetivo.
+          Los vuelos y los tres trenes principales ya estan comprados. En vuelos se muestra precio por persona para comparar y total pareja para el calculo;
+          en trenes se conservan importes de presupuesto hasta cargar los cargos finales de cada compra.
         </p>
         <div id="transport-root"></div>
 
@@ -1115,6 +1116,14 @@
         <p>
           Wizz MAD-BUD esta comprado con Priority, carry-on 55x40x23 y mochila por persona. LOT KRK-MAD tambien esta comprado en Economy Saver,
           con carry-on de 8 kg y articulo personal. Las compras grandes quedan para Madrid al final.
+        </p>
+      </div>
+      <div class="panel">
+        <h3>Trenes principales cerrados</h3>
+        <p>
+          Estan comprados los tres directos recomendados: Budapest-Keleti 09:40 a Wien Hbf 12:20 el 12/10;
+          Wien Hbf 09:10 a Praha hl.n. 13:23 el 16/10; y EC 113 Praha hl.n. 06:08 a Krakow Glowny 12:20 el 20/10.
+          Bratislava sigue siendo una salida opcional y no forma parte de estos tres pasajes.
         </p>
       </div>
       <div class="panel">
@@ -1305,9 +1314,9 @@
   ];
 
   const fixedTransport = [
-    { label: "Tren Budapest -> Viena", detail: "12/10. Objetivo: RJX directo Budapest-Keleti 09:40 -> Wien Hbf 12:20 (aprox. 2h40).", price: 60, ticketPerPerson: true, link: "https://jegy.mav.hu/?lang=en" },
-    { label: "Tren Viena -> Praga", detail: "16/10. Objetivo: Railjet/ComfortJet directo Wien Hbf 09:10 -> Praha hl.n. 13:23 (aprox. 4h13).", price: 70, ticketPerPerson: true, link: "https://www.oebb.at/en/" },
-    { label: "Tren Praga -> Cracovia", detail: "20/10. Preferido: EC 113 directo Praha hl.n. 06:08 -> Krakow Glowny 12:20 (aprox. 6h12). Reservar asiento.", price: 100, ticketPerPerson: true, link: "https://www.cd.cz/en/" },
+    { label: "Tren Budapest -> Viena · comprado", detail: "12/10. Directo Budapest-Keleti 09:40 -> Wien Hbf 12:20 (aprox. 2h40). Pasaje y reserva cerrados.", price: 60, ticketPerPerson: true, link: "https://jegy.mav.hu/?lang=en" },
+    { label: "Tren Viena -> Praga · comprado", detail: "16/10. Railjet directo Wien Hbf 09:10 -> Praha hl.n. 13:23 (aprox. 4h13). Pasaje y reserva cerrados.", price: 70, ticketPerPerson: true, link: "https://www.oebb.at/en/" },
+    { label: "Tren Praga -> Cracovia · comprado", detail: "20/10. EC 113 directo Praha hl.n. 06:08 -> Krakow Glowny 12:20 (aprox. 6h12). Pasaje y reserva cerrados.", price: 100, ticketPerPerson: true, link: "https://www.cd.cz/en/" },
     { label: "Traslados locales", detail: "Aeropuertos, metro/tranvia, bus a Auschwitz y algun taxi puntual. Bratislava queda dentro del preset de gastos diarios.", price: 300, ticketPerPerson: false, link: "" }
   ];
 
@@ -1663,7 +1672,7 @@
       title: "Budapest -> Viena",
       overnight: "Viena",
       checkInCity: "vienna",
-      transfer: "Horario objetivo: RJX directo Budapest-Keleti 09:40 -> Wien Hbf 12:20 (aprox. 2h40). Revalidar y comprar en MAV/OBB.",
+      transfer: "Tren comprado: directo Budapest-Keleti 09:40 -> Wien Hbf 12:20 (aprox. 2h40).",
       morning: "Check-out 08:15, metro/taxi a Keleti y estar en anden 20-25 minutos antes. Comprar asiento reservado.",
       afternoon: "Llegada a Wien Hbf, dejar equipaje o check-in desde 15:00. Stephansplatz, Graben y primera vuelta por el Ring.",
       evening: "Cena cerca del hotel o Naschmarkt/Mariahilf si duermen por esa zona.",
@@ -1706,7 +1715,7 @@
       title: "Viena -> Praga",
       overnight: "Praga",
       checkInCity: "prague",
-      transfer: "Horario objetivo: Railjet/ComfortJet directo Wien Hbf 09:10 -> Praha hl.n. 13:23 (aprox. 4h13). Comprar en OBB o CD.",
+      transfer: "Tren comprado: Railjet directo Wien Hbf 09:10 -> Praha hl.n. 13:23 (aprox. 4h13).",
       morning: "Check-out 07:45-08:00, llegar a Wien Hbf con margen y subir con asiento reservado.",
       afternoon: "Llegada 13:23, guardar equipaje/check-in desde 14:00. Old Town Square, Reloj Astronomico y Stare Mesto.",
       evening: "Charles Bridge al atardecer/noche.",
@@ -1748,11 +1757,11 @@
       title: "Praga -> Cracovia",
       overnight: "Cracovia",
       checkInCity: "krakow",
-      transfer: "Preferido: EC 113 directo Praha hl.n. 06:08 -> Krakow Glowny 12:20 (aprox. 6h12). Alternativa tardia 14:08 -> 20:14, pero sacrifica Cracovia.",
+      transfer: "Tren comprado: EC 113 directo Praha hl.n. 06:08 -> Krakow Glowny 12:20 (aprox. 6h12).",
       morning: "Check-out cerca de 05:15 y taxi/tranvia a Praha hl.n.; desayuno y comida preparados. El tren largo es mas comodo que sumar aeropuerto y equipaje.",
       afternoon: "Llegada 12:20. Dejar equipaje hasta el check-in de 15:00; Rynek Glowny, St. Mary's Basilica y Wawel por fuera.",
       evening: "Kazimierz para cenar y caminar con movimiento; volver temprano.",
-      note: "Reservar asiento. Elegir hotel cerca de Krakow Glowny/MDA facilita tambien el bus del dia siguiente."
+      note: "Pasaje y asiento cerrados. Elegir hotel cerca de Krakow Glowny/MDA facilita tambien el bus del dia siguiente."
     },
     {
       day: 15,
